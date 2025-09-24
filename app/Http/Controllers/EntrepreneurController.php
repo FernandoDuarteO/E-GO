@@ -31,9 +31,19 @@ class EntrepreneurController extends Controller
      */
     public function store(EntrepreneurRequest $request)
     {
-        Entrepreneur::create($request->validated());
-        return redirect()->route('entrepreneurs.index')->with('success', 'Emprendedor creado con éxito');
+    $data = $request->validated();
+
+    if ($request->hasFile('media_file')) {
+        $file = $request->file('media_file');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('uploads', $filename, 'public');
+        $data['media_file'] = $path;
     }
+
+    Entrepreneur::create($data);
+
+    return redirect()->route('entrepreneurs.index')->with('success', 'Emprendedor creado con éxito');
+}
 
     /**
      * Display the specified resource.
@@ -56,13 +66,21 @@ class EntrepreneurController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(EntrepreneurRequest $request, int $id)
-    {
-        $entrepreneurs = Entrepreneur::find($id);
-        $entrepreneurs->update($request->validated());
+    public function update(EntrepreneurRequest $request, Entrepreneur $entrepreneur)
+{
+    $data = $request->validated();
 
-        return redirect()->route('entrepreneurs.index')->with('updated', 'Emprendedor actualizado con éxito');
+    if ($request->hasFile('media_file')) {
+        $file = $request->file('media_file');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('uploads', $filename, 'public');
+        $data['media_file'] = $path;
     }
+
+    $entrepreneur->update($data);
+
+    return redirect()->route('entrepreneurs.index')->with('success', 'Emprendedor actualizado con éxito');
+}
 
     /**
      * Remove the specified resource from storage.

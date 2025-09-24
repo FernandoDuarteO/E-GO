@@ -36,7 +36,16 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        Product::create($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('media_file')) {
+            $file = $request->file('media_file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('uploads', $filename, 'public');
+            $data['media_file'] = $path;
+        }
+
+        Product::create($data);
         return redirect()->route('products.index')->with('success', 'Producto creado con éxito.');
     }
 
@@ -68,9 +77,17 @@ class ProductController extends Controller
     public function update(ProductRequest $request, int $id)
     {
         $products = Product::find($id);
-        $products->update($request->validated());
-        return redirect()->route('products.index')->with('updated', 'Producto actualizado con éxito.');
+        $data = $request->validated();
 
+        if ($request->hasFile('media_file')) {
+            $file = $request->file('media_file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('uploads', $filename, 'public');
+            $data['media_file'] = $path;
+        }
+
+        $products->update($data);
+        return redirect()->route('products.index')->with('updated', 'Producto actualizado con éxito.');
     }
 
     /**

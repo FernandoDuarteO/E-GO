@@ -36,10 +36,20 @@ class EntrepreneurshipController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(EntrepreneurshipRequest $request)
-    {
-        Entrepreneurship::create($request->validated());
-        return redirect()->route('entrepreneurships.index')->with('success', 'Emprendimiento creado con éxito.');
+{
+    $data = $request->validated();
+
+    if ($request->hasFile('media_file')) {
+        $file = $request->file('media_file');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('uploads', $filename, 'public');
+        $data['media_file'] = $path;
     }
+
+    Entrepreneurship::create($data);
+
+    return redirect()->route('entrepreneurships.index')->with('success', 'Emprendimiento creado con éxito');
+}
 
     /**
      * Display the specified resource.
@@ -66,13 +76,21 @@ class EntrepreneurshipController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(EntrepreneurshipRequest $request, int $id)
+    public function update(EntrepreneurshipRequest $request, Entrepreneurship $entrepreneurship)
     {
-        $entrepreneurships = Entrepreneurship::find($id);
-        $entrepreneurships->update($request->validated());
-        return redirect()->route('entrepreneurships.index')->with('updated', 'Emprendimiento actualizado con éxito.');
+    $data = $request->validated();
 
+    if ($request->hasFile('media_file')) {
+        $file = $request->file('media_file');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('uploads', $filename, 'public');
+        $data['media_file'] = $path;
     }
+
+    $entrepreneurship->update($data);
+
+    return redirect()->route('entrepreneurships.index')->with('success', 'Emprendimiento actualizado con éxito');
+}
 
     /**
      * Remove the specified resource from storage.

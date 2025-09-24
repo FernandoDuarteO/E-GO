@@ -30,10 +30,20 @@ class ClientController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(ClientRequest $request)
-    {
-        Client::create($request->validated());
-        return redirect()->route('clients.index')->with('success', 'Cliente creado con éxito');
+{
+    $data = $request->validated();
+
+    if ($request->hasFile('media_file')) {
+        $file = $request->file('media_file');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('uploads', $filename, 'public');
+        $data['media_file'] = $path;
     }
+
+    Client::create($data);
+
+    return redirect()->route('clients.index')->with('success', 'Cliente creado con éxito');
+}
 
     /**
      * Display the specified resource.
@@ -56,13 +66,21 @@ class ClientController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ClientRequest $request, int $id)
-    {
-        $clients = Client::find($id);
-        $clients->update($request->validated());
+    public function update(ClientRequest $request, Client $client)
+{
+    $data = $request->validated();
 
-        return redirect()->route('clients.index')->with('updated', 'Cliente actualizado con éxito');
+    if ($request->hasFile('media_file')) {
+        $file = $request->file('media_file');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('uploads', $filename, 'public');
+        $data['media_file'] = $path;
     }
+
+    $client->update($data);
+
+    return redirect()->route('clients.index')->with('success', 'Cliente actualizado con éxito');
+}
 
     /**
      * Remove the specified resource from storage.
