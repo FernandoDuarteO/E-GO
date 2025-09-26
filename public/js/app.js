@@ -1,68 +1,60 @@
-// Sidebar functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Active link highlighting
-    const currentPath = window.location.pathname;
-    const navLinks = document.querySelectorAll('.sidebar-nav a');
+    // Sidebar toggle functionality
+    const sidebarToggle = document.querySelector('[data-bs-target="#sidebarMenu"]');
+    const sidebar = document.querySelector('.sidebar');
 
-    navLinks.forEach(link => {
-        if (link.getAttribute('href') === currentPath) {
-            link.parentElement.classList.add('active');
-        }
-    });
-
-    // Chat functionality
-    const chatInput = document.querySelector('.chat-input input');
-    const sendButton = document.querySelector('.btn-send');
-    const chatMessages = document.querySelector('.chat-messages');
-
-    if (sendButton && chatInput) {
-        sendButton.addEventListener('click', sendMessage);
-        chatInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('collapsed');
         });
     }
 
-    function sendMessage() {
-        const message = chatInput.value.trim();
-        if (message) {
-            const messageElement = createMessageElement(message, true);
-            chatMessages.appendChild(messageElement);
-            chatInput.value = '';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+    // Active menu highlighting
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link');
 
-            // Simulate reply
-            setTimeout(() => {
-                const replyElement = createMessageElement('Gracias por tu mensaje. Te responderé pronto.', false);
-                chatMessages.appendChild(replyElement);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 1000);
+    navLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
         }
+    });
+
+    // Table row interactions
+    const tableRows = document.querySelectorAll('tbody tr');
+    tableRows.forEach(row => {
+        row.addEventListener('click', function(e) {
+            if (!e.target.closest('button')) {
+                this.classList.toggle('table-active');
+            }
+        });
+    });
+
+    // Search functionality
+    const searchInput = document.querySelector('.search-container input');
+    if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const tableRows = document.querySelectorAll('tbody tr');
+
+            tableRows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        });
     }
 
-    function createMessageElement(text, isSent) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${isSent ? 'sent' : 'received'}`;
+    // Button actions
+    document.querySelectorAll('.btn-warning').forEach(btn => {
+        btn.addEventListener('click', function() {
+            alert('Funcionalidad de editar producto');
+        });
+    });
 
-        const now = new Date();
-        const timeString = now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
-
-        messageDiv.innerHTML = `
-            <div class="message-content">${text}</div>
-            <div class="message-time">${timeString}</div>
-        `;
-
-        return messageDiv;
-    }
-
-    // Filter buttons functionality
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            // Add filter logic here
+    document.querySelectorAll('.btn-danger').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (confirm('¿Estás seguro de eliminar este elemento?')) {
+                alert('Elemento eliminado');
+            }
         });
     });
 });
