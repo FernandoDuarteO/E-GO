@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\Chat;
 use App\Http\Requests\ChatRequest;
 
@@ -82,5 +83,4 @@ class ChatController extends Controller
         $chats = Chat::find($id);
         $chats->delete();
         return redirect()->route('chats.index')->with('deleted', 'Chat eliminado con éxito.');
-    }
 }
