@@ -155,3 +155,41 @@ body {
         margin-left: 0 !important;
     }
 }
+
+
+/* Efecto suave de zoom al hacer hover sobre las cards */
+.card.product-card {
+    transition: 
+        transform 0.4s cubic-bezier(.22,.61,.36,1),
+        box-shadow 0.4s cubic-bezier(.22,.61,.36,1),
+        background 0.4s cubic-bezier(.22,.61,.36,1);
+    box-shadow: 0 2px 8px rgba(80,80,150,0.04);
+    cursor: pointer;
+    will-change: transform, box-shadow;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f3f3ff;
+}
+
+.card.product-card:hover {
+    transform: scale(1.055);
+    box-shadow: 0 12px 32px rgba(80,80,150,0.16), 0 6px 24px rgba(80,80,150,0.09);
+    background: #e9e9ff;
+    z-index: 2;
+}
+
+/* Botones personalizados con color #7766C6 */
+.custom-purple-btn {
+    background-color: #7766C6 !important;
+    color: #fff !important;
+    border: 1.5px solid #7766C6 !important;
+    transition: background 0.23s, color 0.23s, box-shadow 0.23s;
+    box-shadow: 0 1px 4px rgba(119, 102, 198, 0.08);
+}
+
+.custom-purple-btn:hover, .custom-purple-btn:focus {
+    background-color: #5a49a8 !important;
+    color: #fff !important;
+    border-color: #5a49a8 !important;
+    box-shadow: 0 3px 12px rgba(119, 102, 198, 0.16);
+}

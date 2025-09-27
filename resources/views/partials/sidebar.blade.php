@@ -30,14 +30,14 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('productos') ? 'active' : '' }}" href="{{ route('productos.index') }}">
+                <a class="nav-link {{ Request::is('productos') ? 'active' : '' }}" href="{{ route('products.index') }}">
                     <i class="fa-solid fa-plus"></i>
                     Publicaciones
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('chat') ? 'active' : '' }}" href="{{ route('chat.index') }}">
+                <a class="nav-link {{ Request::is('chat') ? 'active' : '' }}" href="{{ route('chats.index') }}">
                     <i class="fa-solid fa-message"></i>
                     Chat
                 </a>

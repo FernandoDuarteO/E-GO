@@ -168,7 +168,7 @@
             <div class="card-body">
                 <div class="row text-center">
                     <div class="col-md-3 mb-3">
-                        <a href="{{ route('productos.index') }}" class="btn btn-outline-primary btn-lg w-100 py-3">
+                        <a href="{{ route('products.index') }}" class="btn btn-outline-primary btn-lg w-100 py-3">
                             <i class="fas fa-box fa-2x mb-2"></i><br>
                             Productos
                         </a>
@@ -186,7 +186,7 @@
                         </a>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <a href="{{ route('chat.index') }}" class="btn btn-outline-warning btn-lg w-100 py-3">
+                        <a href="{{ route('chats.index') }}" class="btn btn-outline-warning btn-lg w-100 py-3">
                             <i class="fas fa-comments fa-2x mb-2"></i><br>
                             Chat
                         </a>

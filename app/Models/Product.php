@@ -16,8 +16,6 @@ class Product extends Model
         'description',
         'price',
         'media_file',
-        'entrepreneurship_id',
-        'category_id'
     ];
 
     //productos, emprendimientos y categorias
