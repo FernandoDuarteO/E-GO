@@ -83,4 +83,5 @@ class ChatController extends Controller
         $chats = Chat::find($id);
         $chats->delete();
         return redirect()->route('chats.index')->with('deleted', 'Chat eliminado con éxito.');
+    }
 }

@@ -24,7 +24,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:5|max:255',
-            'quantity' => 'required|string|min:5|max:255',
+            'quantity' => 'required|string|min:1|max:255',
             'description' => 'required',
             'price' => 'required',
             'media_file' => 'nullable|file|mimes:jpg,jpeg,png,gif|max:2048',
@@ -43,7 +43,7 @@ class ProductRequest extends FormRequest
 
             'quantity.required' => 'La cantidad del producto es obligatoria.',
             'quantity.string' => 'La cantidad del producto debe ser una cadena de texto.',
-            'quantity.min' => 'La cantidad del producto debe tener al menos 5 caracteres.',
+            'quantity.min' => 'La cantidad del producto debe tener al menos 1 carácter.',
             'quantity.max' => 'La cantidad del producto no debe exceder de 255 caracteres.',
 
             'description.required' => 'La descripción del producto es obligatoria.',
