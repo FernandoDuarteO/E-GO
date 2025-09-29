@@ -58,3 +58,43 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Net Income Chart ---
+    const ctx1 = document.getElementById('netIncomeChart');
+    if (ctx1) {
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    data: [5000, 4000, 6000, 5500, 4200, 7000],
+                    backgroundColor: '#5e59a1',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+    }
+
+    // --- Location Chart ---
+    const ctx2 = document.getElementById('locationChart');
+    if (ctx2) {
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['India', 'UK', 'USA'],
+                datasets: [{
+                    data: [40, 30, 30],
+                    backgroundColor: ['#5e59a1', '#1cc88a', '#36b9cc']
+                }]
+            },
+            options: {
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+    }
+});
