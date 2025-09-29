@@ -13,7 +13,7 @@ Y los clientes podrán explorar la tienda, comprar productos de forma sencilla, 
 ## Características principales
 
 - Creación y configuración sencilla de tiendas digitales.
-- CRUD productos permite crear, visualizar, editar y eliminar productos, además de gestionar imágenes y descripciones de manera intuitiva.
+- Permite crear, visualizar, editar y eliminar productos, además de gestionar imágenes y descripciones de manera intuitiva.
 - Plantillas de edición para mejorar la presentación de imágenes y archivos multimedia de los productos.
 - Alianzas con servicios de delivery para la gestión eficiente de envíos.
 - Sistema de valoraciones y reseñas para productos.
