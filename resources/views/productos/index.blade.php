@@ -1,63 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Productos</h1>
-    <button class="d-none d-sm-inline-block btn btn-primary shadow-sm">
-        <i class="fas fa-plus fa-sm"></i> Nuevo Producto
-    </button>
+<div class="d-flex justify-content-between mb-4">
+    <h1 class="h3">Productos</h1>
+    <a href="{{ route('productos.create') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Nuevo Producto
+    </a>
 </div>
 
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Lista de Productos</h6>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead class="table-light">
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Precio</th>
-                        <th>Stock</th>
-                        <th>Categoría</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Producto Ejemplo</td>
-                        <td>$100</td>
-                        <td><span class="badge bg-success">50</span></td>
-                        <td>Electrónicos</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i> Editar
-                            </button>
-                            <button class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash"></i> Eliminar
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Otro Producto</td>
-                        <td>$75</td>
-                        <td><span class="badge bg-warning">25</span></td>
-                        <td>Hogar</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i> Editar
-                            </button>
-                            <button class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash"></i> Eliminar
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card shadow-sm h-100">
+            <img src="{{ asset('assets/images/producto 2.webp') }}" class="card-img-top" alt="Producto">
+            <div class="card-body">
+                <h5 class="card-title mb-1">Aretes</h5>
+                <p class="mb-1 fw-bold">C$50.00</p>
+                <span class="badge bg-danger">Agotado</span>
+            </div>
+            <div class="card-footer text-end">
+                <a href="{{ route('productos.edit', 1) }}" class="btn btn-sm btn-outline-warning">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{{ route('productos.show', 1) }}" class="btn btn-sm btn-outline-info">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <button class="btn btn-sm btn-outline-danger">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
         </div>
     </div>
 </div>
