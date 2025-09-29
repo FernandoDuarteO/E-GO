@@ -7,6 +7,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\VentasController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AuthController;
 
 // Ruta de bienvenida
 Route::get('/', function () {
@@ -39,3 +40,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // Rutas de autenticación Breeze
 require __DIR__.'/auth.php';
+
+Route::get('/auth/redirect', [AuthController::class, 'redirect'])
+    ->name('auth.redirect');
+
+Route::get('/auth/callback', [AuthController::class, 'callback'])
+    ->name('auth.callback');

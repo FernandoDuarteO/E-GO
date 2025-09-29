@@ -15,18 +15,23 @@
             <li class="nav-item mb-2">
                 <span class="nav-section-title px-3 text-uppercase small text-muted">Inicio</span>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('') ? 'active' : '' }}" href="{{ route('dashboard') }}">
                     <i class="fa-solid fa-house"></i>
                     Dashboard
                 </a>
             </li>
+
+            
         </ul>
+
+
 
         <!-- Navigation -->
         <ul class="nav flex-column">
             <li class="nav-item mb-2">
-                <span class="nav-section-title px-3 text-uppercase small text-muted">Dashboard</span>
+                <span class="nav-section-title px-3 text-uppercase small text-muted">Gestión de tienda</span>
             </li>
 
             <li class="nav-item">
@@ -51,11 +56,47 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link {{ Request::is('ventas') ? 'active' : '' }}" href="{{ route('ventas.index') }}">
+                    <i class="fa-solid fa-shop"></i>
+                    Inventarios
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link {{ Request::is('pedidos') ? 'active' : '' }}" href="{{ route('pedidos.index') }}">
                     <i class="fa-solid fa-clipboard"></i>
                     Pedidos
                 </a>
             </li>
         </ul>
+        
+        <ul class="nav flex-column">
+            <li class="nav-item mb-2">
+                <span class="nav-section-title px-3 text-uppercase small text-muted">Planificación de Costos</span>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('productos') ? 'active' : '' }}" href="{{ route('products.index') }}">
+                    <i class="fa-solid fa-calculator"></i>
+                    Calculadora de Costos Fijos
+                </a>
+            </li>
+
+            
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('chat') ? 'active' : '' }}" href="{{ route('chats.index') }}">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    Costos Variables
+                </a>
+            </li>
+
+           <li class="nav-item">
+            <a class="nav-link {{ Request::is('pedidos') ? 'active' : '' }}" href="{{ route('pedidos.index') }}">
+                <i class="fa-solid fa-chart-line"></i>
+                Pronósticos de Ventas
+            </a>
+        </li>
+    </ul>
+    
     </div>
 </nav>
