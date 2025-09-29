@@ -104,11 +104,7 @@
             <div class="card-body">
                 <h6 class="fw-bold text-muted mb-3">Quick Actions</h6>
                 <div class="row text-center">
-                    <div class="col-md-3 mb-3">
-                        <a href="{{ route('productos.index') }}" class="btn btn-outline-primary btn-lg w-100 py-3">
-                            <i class="fas fa-box fa-2x mb-2"></i><br>Productos
-                        </a>
-                    </div>
+
                     <div class="col-md-3 mb-3">
                         <a href="{{ route('ventas.index') }}" class="btn btn-outline-success btn-lg w-100 py-3">
                             <i class="fas fa-chart-line fa-2x mb-2"></i><br>Ventas
