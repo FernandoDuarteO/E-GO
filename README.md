@@ -2,7 +2,11 @@
 
 ## Descripción del proyecto
 
-E-GO es una aplicación web diseñada para facilitar la creación y gestión de tiendas digitales en Nicaragua. Permite a los usuarios administrar su catálogo de productos y mejorar la calidad de sus archivos multimedia mediante plantillas de edición. Además, integra funciones para gestionar envíos con agencias de delivery y ofrece una experiencia de compra interactiva a los clientes, quienes pueden explorar, calificar, reseñar y comunicarse mediante chat directo.
+E-GO es una aplicación web desarrollada y pensada para emprendedores nicaragüenses. Que les permite tener una tienda digital en la que pueden subir, editar y eliminar sus productos, así como mejorar la calidad de sus archivos multimedia mediante plantillas de edición predefinidas.
+
+Además, ofrece la posibilidad de establecer alianzas con agencias de delivery y así gestionar los envíos de tus productos de manera eficiente.
+
+Y los clientes podrán explorar la tienda, comprar productos de forma sencilla, calificarlos, dejar reseñas y comunicarse directamente con el emprendedor a través de un chat.
 
 ---
 
