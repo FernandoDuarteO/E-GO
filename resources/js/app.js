@@ -1,7 +1,7 @@
-// Importar Bootstrap
-import 'bootstrap';
+import './bootstrap';
 
-// Tu código JavaScript personalizado
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Bootstrap cargado correctamente');
-});
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+Alpine.start();
