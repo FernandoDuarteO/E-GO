@@ -21,7 +21,7 @@
                     @endif
                     <div class="card-body">
                         <h6 class="card-title mb-1">{{ $product->name }}</h6>
-                        <p class="mb-1 fw-bold">${{ number_format($product->price, 2) }}</p>
+                        <p class="mb-1 fw-bold">C${{ number_format($product->price, 2) }}</p>
                         <p class="mb-0" style="font-size: 0.9em; color: #666;">{{ Str::limit($product->description, 38) }}</p>
                     </div>
                     <div class="card-footer bg-transparent border-0 d-flex justify-content-center">

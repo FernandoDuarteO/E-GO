@@ -22,12 +22,11 @@
                 <ul class="list-unstyled fs-5">
                     <li><strong>Nombre:</strong> {{ $products->name }}</li>
                     <li><strong>Cantidad:</strong> {{ $products->quantity }}</li>
-                    <li><strong>Precio:</strong> ${{ number_format($products->price, 2) }}</li>
+                    <li><strong>Precio:</strong> C${{ number_format($products->price, 2) }}</li>
                     <li class="mb-3"><strong>Descripción:</strong> {{ $products->description }}</li>
                 </ul>
                 <div class="mt-4">
                     <a href="{{ route('products.index') }}" class="btn btn-secondary me-2">Volver</a>
-                    <a href="{{ route('products.edit', $products->id) }}" class="btn btn-warning">Editar</a>
                 </div>
             </div>
         </div>
