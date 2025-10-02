@@ -12,12 +12,27 @@
     </form>
 
     <!-- User Info -->
-    <ul class="navbar-nav ms-auto">
-        <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown">
-                <span class="me-2 d-none d-lg-inline text-gray-600 small">Hello, Jason Doe</span>
-                <img class="img-profile rounded-circle" src="https://i.pravatar.cc/40" alt="User">
-            </a>
-        </li>
-    </ul>
+<ul class="navbar-nav ms-auto">
+    <li class="nav-item dropdown no-arrow">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="me-2 d-none d-lg-inline text-gray-600 small">
+                {{ Auth::user()->name ?? 'Usuario' }}
+            </span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li>
+                <a class="dropdown-item" href="{{ route('entrepreneurs.index') }}">Perfil</a>
+            </li>
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="dropdown-item" type="submit">Cerrar sesión</button>
+                </form>
+            </li>
+        </ul>
+    </li>
+</ul>
+</nav>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </nav>
