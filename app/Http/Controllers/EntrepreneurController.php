@@ -2,94 +2,95 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Entrepreneur;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\EntrepreneurRequest;
 
 class EntrepreneurController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Mostrar el perfil del usuario autenticado
     public function index()
     {
-        $entrepreneurs = Entrepreneur::latest()->paginate(5);
-        return view('entrepreneurs.index', compact('entrepreneurs'));
+        $entrepreneur = Entrepreneur::where('user_id', Auth::id())->first();
+        return view('entrepreneurs.index', compact('entrepreneur'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Formulario para crear el perfil (solo si no existe)
     public function create()
     {
-        $entrepreneurs = new Entrepreneur();
-        return view('entrepreneurs.create', compact('entrepreneurs'));
+        $entrepreneur = Entrepreneur::where('user_id', Auth::id())->first();
+        if ($entrepreneur) {
+            return redirect()->route('entrepreneurs.index')->with('error', 'Ya tienes un perfil creado.');
+        }
+        return view('entrepreneurs.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Guardar nuevo perfil (solo si no existe)
     public function store(EntrepreneurRequest $request)
     {
-    $data = $request->validated();
+        $entrepreneur = Entrepreneur::where('user_id', Auth::id())->first();
+        if ($entrepreneur) {
+            return redirect()->route('entrepreneurs.index')->with('error', 'Ya tienes un perfil creado.');
+        }
 
-    if ($request->hasFile('media_file')) {
-        $file = $request->file('media_file');
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $path = $file->storeAs('uploads', $filename, 'public');
-        $data['media_file'] = $path;
+        $data = $request->validated();
+        $data['user_id'] = Auth::id();
+
+        // Manejo de imagen
+        if ($request->hasFile('media_file')) {
+            $file = $request->file('media_file');
+            $path = $file->store('entrepreneurs', 'public');
+            $data['media_file'] = $path;
+        }
+
+        Entrepreneur::create($data);
+
+        return redirect()->route('entrepreneurs.index')->with('success', 'Perfil creado correctamente.');
     }
 
-    Entrepreneur::create($data);
-
-    return redirect()->route('entrepreneurs.index')->with('success', 'Emprendedor creado con éxito');
-}
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(int $id)
+    // Mostrar el perfil específico (solo el del usuario autenticado)
+    public function show()
     {
-        $entrepreneurs = Entrepreneur::find($id);
-        return view('entrepreneurs.show', compact('entrepreneurs'));
+        $entrepreneur = Entrepreneur::where('user_id', Auth::id())->firstOrFail();
+        return view('entrepreneurs.show', compact('entrepreneur'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(int $id)
+    // Formulario para editar el perfil (solo el del usuario autenticado)
+    public function edit()
     {
-        $entrepreneurs = Entrepreneur::find($id);
-        return view('entrepreneurs.edit', compact('entrepreneurs'));
+        $entrepreneur = Entrepreneur::where('user_id', Auth::id())->firstOrFail();
+        return view('entrepreneurs.edit', compact('entrepreneur'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(EntrepreneurRequest $request, Entrepreneur $entrepreneur)
-{
-    $data = $request->validated();
-
-    if ($request->hasFile('media_file')) {
-        $file = $request->file('media_file');
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $path = $file->storeAs('uploads', $filename, 'public');
-        $data['media_file'] = $path;
-    }
-
-    $entrepreneur->update($data);
-
-    return redirect()->route('entrepreneurs.index')->with('success', 'Emprendedor actualizado con éxito');
-}
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(int $id)
+    // Actualizar el perfil (solo el del usuario autenticado)
+    public function update(EntrepreneurRequest $request)
     {
-        $entrepreneurs = Entrepreneur::find($id);
-        $entrepreneurs->delete();
+        $entrepreneur = Entrepreneur::where('user_id', Auth::id())->firstOrFail();
+        $data = $request->validated();
 
-        return redirect()->route('entrepreneurs.index')->with('deleted', 'Emprendedor eliminado correctamente');
+        // Manejo de imagen
+        if ($request->hasFile('media_file')) {
+            $file = $request->file('media_file');
+            $path = $file->store('entrepreneurs', 'public');
+            $data['media_file'] = $path;
+        }
+
+        $entrepreneur->update($data);
+
+        return redirect()->route('entrepreneurs.index')->with('success', 'Perfil actualizado correctamente.');
+    }
+
+    // Eliminar el perfil (solo el del usuario autenticado)
+    public function destroy()
+    {
+        $entrepreneur = Entrepreneur::where('user_id', Auth::id())->firstOrFail();
+
+        if ($entrepreneur->media_file) {
+            \Storage::disk('public')->delete($entrepreneur->media_file);
+        }
+
+        $entrepreneur->delete();
+
+        return redirect()->route('entrepreneurs.index')->with('success', 'Perfil eliminado correctamente. Ahora puedes crear uno nuevo.');
     }
 }
