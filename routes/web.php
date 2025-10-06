@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\EntrepreneurController;
+
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\VentasController;
 use App\Http\Controllers\PedidosController;
@@ -21,9 +24,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     // ...otras rutas...
 });
-    
+
     // Productos (CRUD)
     Route::resource('products', ProductController::class);
+    // Emprendedores (CRUD)
+    Route::resource('entrepreneurs', EntrepreneurController::class);
 
     // Chat
     Route::get('/chat', [ChatController::class, 'index'])->name('chats.index');

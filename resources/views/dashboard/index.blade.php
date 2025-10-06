@@ -3,7 +3,7 @@
 @section('content')
 <!-- Header -->
 <div class="mb-4">
-    <h2 class="fw-bold">Good Morning Jason!</h2>
+    <h2 class="fw-bold">Hola!, {{ Auth::user()->name ?? 'Usuario' }}</h2>
     <p class="text-muted">Dashboard</p>
 </div>
 

@@ -285,7 +285,7 @@ body {
 
 /* Efecto suave de zoom al hacer hover sobre las cards */
 .card.product-card {
-    transition: 
+    transition:
         transform 0.4s cubic-bezier(.22,.61,.36,1),
         box-shadow 0.4s cubic-bezier(.22,.61,.36,1),
         background 0.4s cubic-bezier(.22,.61,.36,1);
@@ -319,3 +319,312 @@ body {
     border-color: #5a49a8 !important;
     box-shadow: 0 3px 12px rgba(119, 102, 198, 0.16);
 }
+
+/* show entrepreneurs */
+    body {
+        background: #e8eafd !important;
+    }
+    .profile-wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .profile-card {
+        width: 100%;
+        max-width: 1000px;
+        border-radius: 25px;
+        box-shadow: 0 14px 48px rgba(99,102,241,0.13), 0 2px 7px #6366f1;
+        background: #fff;
+        padding: 60px 80px 40px 80px;
+        margin: 20px 10px;
+    }
+    .profile-avatar {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid #eaeaea;
+        box-shadow: 0 4px 12px rgba(44, 44, 84, 0.15);
+        margin-bottom: 18px;
+    }
+    .profile-name {
+        font-size: 2.6rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+    .profile-nationality {
+        font-size: 1.18rem;
+        color: #6366f1;
+        margin-bottom: 18px;
+    }
+    .profile-badges .badge {
+        font-size: 1.09rem;
+        padding: 8px 18px;
+        border-radius: 12px;
+        margin-right: 8px;
+        margin-bottom: 10px;
+    }
+    .profile-info-list {
+        font-size: 1.17rem;
+        margin-bottom: 0;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .profile-info-list li {
+        margin-bottom: 10px;
+        border: none;
+        background: none;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .profile-info-list strong {
+        font-weight: 700;
+        color: #222;
+    }
+    .profile-back-btn {
+        border-radius: 25px;
+        font-size: 1.08rem;
+        padding: 12px 38px;
+        margin-top: 30px;
+        border: 2px solid #6366f1;
+        color: #6366f1;
+        background: #fff;
+        transition: all .18s;
+        box-shadow: none;
+        font-weight: 500;
+    }
+    .profile-back-btn:hover, .profile-back-btn:focus {
+        background: #6366f1;
+        color: #fff;
+        border-color: #6366f1;
+        box-shadow: 0 2px 6px rgba(99, 102, 241, 0.15);
+        text-decoration: none;
+    }
+    @media (max-width: 1200px) {
+        .profile-card {
+            max-width: 98vw;
+            padding: 30px 2vw;
+        }
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+        }
+    }
+
+    /*index entrepreneurs*/
+        body {
+        background: #e8eafd !important;
+    }
+    .minimal-profile-wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .minimal-profile-card {
+        width: 100%;
+        max-width: 800px;
+        min-height: 100px;
+        border-radius: 30px;
+        box-shadow: 0 14px 48px rgba(99,102,241,0.13), 0 2px 7px #6366f1;
+        background: #fff;
+        padding: 60px 60px 40px 60px;
+        margin: 0 10px;
+        position: relative;
+        text-align: center;
+    }
+    .minimal-profile-avatar {
+        width: 160px;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 6px solid #e8eafd;
+        box-shadow: 0 2px 14px rgba(44,44,84,0.10);
+        margin-bottom: 24px;
+        background: #fff;
+        transition: box-shadow .2s;
+        display: inline-block;
+    }
+    .minimal-profile-avatar:hover {
+        box-shadow: 0 8px 28px #aac6f7a7;
+        cursor: pointer;
+    }
+    .minimal-profile-name {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #1c2852;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+    }
+    .minimal-profile-email {
+        font-size: 1.16rem;
+        color: #6366f1;
+        font-weight: 500;
+        margin-bottom: 38px;
+    }
+    .minimal-profile-actions .btn {
+        font-size: 1.13rem;
+        margin: 0 14px;
+        margin-bottom: 10px;
+        border-radius: 16px;
+        padding: 12px 32px;
+        font-weight: 600;
+        border: 2px solid #6366f1;
+        background: #fff;
+        color: #6366f1;
+        box-shadow: none;
+        transition: background .2s, color .2s, box-shadow .2s, border .2s;
+    }
+    .minimal-profile-actions .btn:hover,
+    .minimal-profile-actions .btn:focus {
+        background: #6366f1;
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.13);
+        border-color: #6366f1;
+        text-decoration: none;
+    }
+    .minimal-profile-actions form {
+        display: inline-block;
+    }
+
+    /* edit entrepreneurs */
+    body {
+        background: #e8eafd !important;
+    }
+    .edit-wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .edit-card {
+        width: 100%;
+        max-width: 900px;
+        border-radius: 38px;
+        box-shadow: 0 14px 48px rgba(99,102,241,0.13), 0 2px 7px #6366f1;
+        background: #fff;
+        padding: 64px 60px 50px 60px;
+        margin: 20px 10px;
+        position: relative;
+        text-align: center;
+    }
+    .edit-title {
+        font-size: 2.45rem;
+        font-weight: 900;
+        color: #4536a3;
+        margin-bottom: 30px;
+        letter-spacing: 1.5px;
+        font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+        text-align: center;
+    }
+    .edit-avatar {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 6px solid #e8eafd;
+        box-shadow: 0 2px 12px rgba(99,102,241,0.10);
+        margin-bottom: 30px;
+        background: #fff;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    /* Form styles */
+    .form-label-custom {
+        font-weight: 600;
+        font-size: 1.07rem;
+        color: #4536a3;
+        margin-bottom: 6px;
+        margin-left: 4px;
+        letter-spacing: 0.5px;
+        display: block;
+        text-align: left;
+    }
+    .form-group {
+        margin-bottom: 1.7rem;
+        text-align: left;
+    }
+    .form-control {
+        border-radius: 13px;
+        font-size: 1.09rem;
+        padding: 10px 16px;
+        border: 1.5px solid #e8eafd;
+        box-shadow: 0 1.5px 6px #e8eafd40;
+    }
+    .form-control:focus {
+        border-color: #6366f1;
+        box-shadow: 0 2px 12px #6366f1a1;
+    }
+.edit-btn {
+    width: 220px;
+    border-radius: 22px;
+    font-size: 1.08rem;
+    padding: 10px 0;
+    font-weight: 700;
+    background: linear-gradient(90deg,#6366f1 0%,#8f9cf7 100%);
+    border: none;
+    color: #fff;
+    box-shadow: 0 2px 12px #6366f1a1;
+    transition: background .2s, transform .2s;
+    margin: 22px auto 0 auto;
+    display: block;
+}
+    .edit-btn:hover,
+    .edit-btn:focus {
+        background: #4348b6;
+        color: #fff;
+        transform: scale(1.03);
+    }
+/*create entrepreneurs*/
+    body {
+        background: #e8eafd !important;
+    }
+    .create-wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .create-card {
+        width: 100%;
+        max-width: 800px;
+        border-radius: 38px;
+        box-shadow: 0 14px 48px rgba(99,102,241,0.13), 0 2px 7px #6366f1;
+        background: #fff;
+        padding: 56px 48px 40px 48px;
+        margin: 0 10px;
+        position: relative;
+        text-align: center;
+    }
+    .create-title {
+        font-size: 2.3rem;
+        font-weight: 900;
+        color: #4536a3;
+        margin-bottom: 32px;
+        letter-spacing: 1.5px;
+        font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+        text-align: center;
+    }
+    .create-btn {
+        width: 210px;
+        border-radius: 22px;
+        font-size: 1.08rem;
+        padding: 10px 0;
+        font-weight: 700;
+        background: linear-gradient(90deg,#6366f1 0%,#8f9cf7 100%);
+        border: none;
+        color: #fff;
+        box-shadow: 0 2px 12px #6366f1a1;
+        transition: background .2s, transform .2s;
+        margin: 28px auto 0 auto;
+        display: block;
+    }
+    .create-btn:hover,
+    .create-btn:focus {
+        background: #4348b6;
+        color: #fff;
+        transform: scale(1.03);
+    }
