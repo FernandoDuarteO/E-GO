@@ -10,7 +10,11 @@
         </div>
         <div class="form-group">
             <label for="sex">Sexo</label>
-            <input type="text" name="sex" class="form-control" maxlength="10" value="{{ old('sex', optional($entrepreneur)->sex) }}" required>
+            <select name="sex" id="sex" class="form-control" required>
+                <option value="">Selecciona una opción</option>
+                <option value="Femenino" {{ old('sex', optional($entrepreneur)->sex) == 'Femenino' ? 'selected' : '' }}>Femenino</option>
+                <option value="Masculino" {{ old('sex', optional($entrepreneur)->sex) == 'Masculino' ? 'selected' : '' }}>Masculino</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="identification_card">Cédula</label>
@@ -26,19 +30,47 @@
         </div>
         <div class="form-group">
             <label for="country">País</label>
-            <input type="text" name="country" class="form-control" value="{{ old('country', optional($entrepreneur)->country) }}" required>
+            <select name="country" id="country" class="form-control" required>
+                <option value="">Selecciona un país</option>
+                <option value="Nicaragua" {{ old('country', optional($entrepreneur)->country) == 'Nicaragua' ? 'selected' : '' }}>Nicaragua</option>
+                <option value="Costa Rica" {{ old('country', optional($entrepreneur)->country) == 'Costa Rica' ? 'selected' : '' }}>Costa Rica</option>
+                <option value="Honduras" {{ old('country', optional($entrepreneur)->country) == 'Honduras' ? 'selected' : '' }}>Honduras</option>
+                <option value="El Salvador" {{ old('country', optional($entrepreneur)->country) == 'El Salvador' ? 'selected' : '' }}>El Salvador</option>
+                <option value="Guatemala" {{ old('country', optional($entrepreneur)->country) == 'Guatemala' ? 'selected' : '' }}>Guatemala</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="nationality">Nacionalidad</label>
-            <input type="text" name="nationality" class="form-control" value="{{ old('nationality', optional($entrepreneur)->nationality) }}" required>
+            <select name="nationality" id="nationality" class="form-control" required>
+                <option value="">Selecciona una nacionalidad</option>
+                <option value="Nicaragüense" {{ old('nationality', optional($entrepreneur)->nationality) == 'Nicaragüense' ? 'selected' : '' }}>Nicaragüense</option>
+                <option value="Costarricense" {{ old('nationality', optional($entrepreneur)->nationality) == 'Costarricense' ? 'selected' : '' }}>Costarricense</option>
+                <option value="Hondureño/a" {{ old('nationality', optional($entrepreneur)->nationality) == 'Hondureño/a' ? 'selected' : '' }}>Hondureño/a</option>
+                <option value="Salvadoreño/a" {{ old('nationality', optional($entrepreneur)->nationality) == 'Salvadoreño/a' ? 'selected' : '' }}>Salvadoreño/a</option>
+                <option value="Guatemalteco/a" {{ old('nationality', optional($entrepreneur)->nationality) == 'Guatemalteco/a' ? 'selected' : '' }}>Guatemalteco/a</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="municipality">Municipio</label>
-            <input type="text" name="municipality" class="form-control" value="{{ old('municipality', optional($entrepreneur)->municipality) }}" required>
+            <select name="municipality" id="municipality" class="form-control" required>
+                <option value="">Selecciona un municipio</option>
+                <option value="Condega" {{ old('municipality', optional($entrepreneur)->municipality) == 'Condega' ? 'selected' : '' }}>Condega</option>
+                <option value="Estelí" {{ old('municipality', optional($entrepreneur)->municipality) == 'Estelí' ? 'selected' : '' }}>Estelí</option>
+                <option value="San Juan de Limay" {{ old('municipality', optional($entrepreneur)->municipality) == 'San Juan de Limay' ? 'selected' : '' }}>San Juan de Limay</option>
+                <option value="Managua" {{ old('municipality', optional($entrepreneur)->municipality) == 'Managua' ? 'selected' : '' }}>Managua</option>
+                <option value="Mateare" {{ old('municipality', optional($entrepreneur)->municipality) == 'Mateare' ? 'selected' : '' }}>Mateare</option>
+                <option value="Achuapa" {{ old('municipality', optional($entrepreneur)->municipality) == 'Achuapa' ? 'selected' : '' }}>Achuapa</option>
+                <option value="El Sauce" {{ old('municipality', optional($entrepreneur)->municipality) == 'El Sauce' ? 'selected' : '' }}>El Sauce</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="department">Departamento</label>
-            <input type="text" name="department" class="form-control" value="{{ old('department', optional($entrepreneur)->department) }}" required>
+            <select name="department" id="department" class="form-control" required>
+                <option value="">Selecciona un departamento</option>
+                <option value="Estelí" {{ old('department', optional($entrepreneur)->department) == 'Estelí' ? 'selected' : '' }}>Estelí</option>
+                <option value="Managua" {{ old('department', optional($entrepreneur)->department) == 'Managua' ? 'selected' : '' }}>Managua</option>
+                <option value="León" {{ old('department', optional($entrepreneur)->department) == 'León' ? 'selected' : '' }}>León</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="media_file">Foto de perfil</label>

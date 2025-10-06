@@ -17,7 +17,11 @@
             @csrf
             @method('PUT')
             @include('entrepreneurs.form', ['entrepreneur' => $entrepreneur])
-            <button type="submit" class="edit-btn">Guardar cambios</button>
+
+            <div style="display: flex; gap: 16px; justify-content: center; margin-top: 24px;">
+                <a href="{{ route('entrepreneurs.index') }}" class="edit-btn">Volver</a>
+                <button type="submit" class="edit-btn">Guardar cambios</button>
+            </div>
         </form>
     </div>
 </div>
