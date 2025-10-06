@@ -332,12 +332,12 @@ body {
     }
     .profile-card {
         width: 100%;
-        max-width: 1000px; /* ¡Aprovecha casi todo el ancho! */
+        max-width: 1000px;
         border-radius: 25px;
         box-shadow: 0 14px 48px rgba(99,102,241,0.13), 0 2px 7px #6366f1;
         background: #fff;
         padding: 60px 80px 40px 80px;
-        margin: 0 10px;
+        margin: 20px 10px;
     }
     .profile-avatar {
         width: 180px;
@@ -368,7 +368,7 @@ body {
     .profile-info-list {
         font-size: 1.17rem;
         margin-bottom: 0;
-        max-width: 900px; /* para que los datos no se vayan demasiado a la derecha */
+        max-width: 900px;
         margin-left: auto;
         margin-right: auto;
     }
@@ -425,7 +425,7 @@ body {
     }
     .minimal-profile-card {
         width: 100%;
-        max-width: 1500px;
+        max-width: 1000px;
         min-height: 700px;
         border-radius: 30px;
         box-shadow: 0 14px 48px rgba(99,102,241,0.13), 0 2px 7px #6366f1;
@@ -501,12 +501,12 @@ body {
     }
     .edit-card {
         width: 100%;
-        max-width: 1000px;
+        max-width: 900px;
         border-radius: 38px;
         box-shadow: 0 14px 48px rgba(99,102,241,0.13), 0 2px 7px #6366f1;
         background: #fff;
         padding: 64px 60px 50px 60px;
-        margin: 0 10px;
+        margin: 20px 10px;
         position: relative;
         text-align: center;
     }
@@ -559,18 +559,18 @@ body {
         box-shadow: 0 2px 12px #6366f1a1;
     }
 .edit-btn {
-    width: 220px;          /* ancho fijo más pequeño */
+    width: 220px;
     border-radius: 22px;
-    font-size: 1.08rem;    /* fuente más pequeña */
-    padding: 10px 0;       /* menos alto */
+    font-size: 1.08rem;
+    padding: 10px 0;
     font-weight: 700;
     background: linear-gradient(90deg,#6366f1 0%,#8f9cf7 100%);
     border: none;
     color: #fff;
     box-shadow: 0 2px 12px #6366f1a1;
     transition: background .2s, transform .2s;
-    margin: 22px auto 0 auto;  /* centrado horizontal */
-    display: block;            /* aseguramos centrado */
+    margin: 22px auto 0 auto;
+    display: block;
 }
     .edit-btn:hover,
     .edit-btn:focus {
