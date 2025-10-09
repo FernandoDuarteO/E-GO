@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('municipality');
             $table->string('department');
             $table->string('media_file')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }

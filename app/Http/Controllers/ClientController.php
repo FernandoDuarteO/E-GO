@@ -2,94 +2,95 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Client;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ClientRequest;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Mostrar el perfil del usuario autenticado
     public function index()
     {
-        $clients = Client::latest()->paginate(5);
-        return view('clients.index', compact('clients'));
+        $client = Client::where('user_id', Auth::id())->first();
+        return view('clients.index', compact('client'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Formulario para crear el perfil (solo si no existe)
     public function create()
     {
-        $clients = new Client();
-        return view('clients.create', compact('clients'));
+        $client = Client::where('user_id', Auth::id())->first();
+        if ($client) {
+            return redirect()->route('clients.index')->with('error', 'Ya tienes un perfil creado.');
+        }
+        return view('clients.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Guardar nuevo perfil (solo si no existe)
     public function store(ClientRequest $request)
-{
-    $data = $request->validated();
-
-    if ($request->hasFile('media_file')) {
-        $file = $request->file('media_file');
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $path = $file->storeAs('uploads', $filename, 'public');
-        $data['media_file'] = $path;
-    }
-
-    Client::create($data);
-
-    return redirect()->route('clients.index')->with('success', 'Cliente creado con éxito');
-}
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(int $id)
     {
-        $clients = Client::find($id);
-        return view('clients.show', compact('clients'));
+        $client = Client::where('user_id', Auth::id())->first();
+        if ($client) {
+            return redirect()->route('clients.index')->with('error', 'Ya tienes un perfil creado.');
+        }
+
+        $data = $request->validated();
+        $data['user_id'] = Auth::id();
+
+        // Manejo de imagen
+        if ($request->hasFile('media_file')) {
+            $file = $request->file('media_file');
+            $path = $file->store('clients', 'public');
+            $data['media_file'] = $path;
+        }
+
+        Client::create($data);
+
+        return redirect()->route('clients.index')->with('success', 'Perfil de cliente creado correctamente.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(int $id)
+    // Mostrar el perfil específico (solo el del usuario autenticado)
+    public function show()
     {
-        $clients = Client::find($id);
-        return view('clients.edit', compact('clients'));
+        $client = Client::where('user_id', Auth::id())->firstOrFail();
+        return view('clients.show', compact('client'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(ClientRequest $request, Client $client)
-{
-    $data = $request->validated();
-
-    if ($request->hasFile('media_file')) {
-        $file = $request->file('media_file');
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $path = $file->storeAs('uploads', $filename, 'public');
-        $data['media_file'] = $path;
-    }
-
-    $client->update($data);
-
-    return redirect()->route('clients.index')->with('success', 'Cliente actualizado con éxito');
-}
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(int $id)
+    // Formulario para editar el perfil (solo el del usuario autenticado)
+    public function edit()
     {
-        $clients = Client::find($id);
-        $clients->delete();
+        $client = Client::where('user_id', Auth::id())->firstOrFail();
+        return view('clients.edit', compact('client'));
+    }
 
-        return redirect()->route('clients.index')->with('deleted', 'Cliente eliminado correctamente');
+    // Actualizar el perfil (solo el del usuario autenticado)
+    public function update(ClientRequest $request)
+    {
+        $client = Client::where('user_id', Auth::id())->firstOrFail();
+        $data = $request->validated();
+
+        // Manejo de imagen
+        if ($request->hasFile('media_file')) {
+            $file = $request->file('media_file');
+            $path = $file->store('clients', 'public');
+            $data['media_file'] = $path;
+        }
+
+        $client->update($data);
+
+        return redirect()->route('clients.index')->with('success', 'Perfil de cliente actualizado correctamente.');
+    }
+
+    // Eliminar el perfil (solo el del usuario autenticado)
+    public function destroy()
+    {
+        $client = Client::where('user_id', Auth::id())->firstOrFail();
+
+        if ($client->media_file) {
+            \Storage::disk('public')->delete($client->media_file);
+        }
+
+        $client->delete();
+
+        return redirect()->route('clients.index')->with('success', 'Perfil de cliente eliminado correctamente. Ahora puedes crear uno nuevo.');
     }
 }

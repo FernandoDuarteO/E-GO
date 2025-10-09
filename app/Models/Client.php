@@ -21,7 +21,8 @@ class Client extends Model
         'nationality',
         'municipality',
         'department',
-        'media_file'
+        'media_file',
+        'user_id'
     ];
 
     //registro y admin, emprendedores y clientes
