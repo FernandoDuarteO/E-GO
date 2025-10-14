@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\EntrepreneurController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\Client\HomeClientController;
+use App\Http\Controllers\CategoryController;
 
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\VentasController;
@@ -29,13 +30,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Productos (CRUD)
     Route::resource('products', ProductController::class);
-    // Emprendedores (CRUD)
+    // Perfil (CRUD)
     Route::resource('entrepreneurs', EntrepreneurController::class);
-    // PON ESTA RUTA FIJA ANTES DEL RESOURCE
+    // Home Cliente
     Route::get('/clients/products', [HomeClientController::class, 'products'])->name('client.products');
 
-    // Después el resource
+    // Perfil Cliente
     Route::resource('clients', ClientController::class);
+    // Categorías (CRUD)
+    Route::resource('categories', CategoryController::class);
 
     // Chat
     Route::get('/chat', [ChatController::class, 'index'])->name('chats.index');

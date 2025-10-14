@@ -16,16 +16,19 @@ class Product extends Model
         'description',
         'price',
         'media_file',
+        'category_id',
     ];
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 
     //productos, emprendimientos y categorias
     public function entrepreneurship(){
         return $this->belongsTo(Entrepreneurship::class);
     }
 
-    public function category(){
-        return $this->belongsTo(Category::class);
-    }
+
 
     //envios, productos y delivery
     public function send(){

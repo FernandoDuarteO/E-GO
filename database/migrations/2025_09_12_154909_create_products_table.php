@@ -18,6 +18,10 @@ return new class extends Migration
             $table->text('description');
             $table->float('price', 10, 2);
             $table->string('media_file')->nullable();
+
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories')
+            ->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

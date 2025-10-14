@@ -21,7 +21,7 @@
             <!-- Main Content -->
             <div class="col-lg-10 col-md-9 ms-sm-auto px-0">
                 <!-- Header -->
-                @include('partials.header')
+                @include('partials.headerClients')
 
                 <!-- Page Content -->
                 <main class="container-fluid mt-4">
