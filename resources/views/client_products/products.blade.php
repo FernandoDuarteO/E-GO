@@ -74,6 +74,45 @@
                     <p class="card-text mb-1" style="font-size: .9rem;">Cantidad: {{ $product->quantity }}</p>
                     <p class="card-text mb-1" style="font-size: .9rem;">C$ {{ number_format($product->price, 2) }}</p>
                     <p class="card-text" style="font-size: .9rem;">{{ $product->description }}</p>
+
+                    {{-- Formulario de reseña para clientes --}}
+                    @if (Auth::check())
+                        <form action="{{ route('reviews.store') }}" method="POST" class="mb-2 mt-2">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <div class="mb-2">
+                                <label for="rating">Calificación (1-5):</label>
+                                <select name="rating" id="rating" required>
+                                    <option value="">Selecciona...</option>
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                            <div class="mb-2">
+                                <label for="comment">Comentario:</label>
+                                <textarea name="comment" id="comment" class="form-control" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm">Enviar reseña</button>
+                        </form>
+                    @endif
+
+                    {{-- Mostrar reseñas --}}
+                    <h6 class="mt-3 mb-2">Reseñas de clientes:</h6>
+                    @forelse($product->reviews as $review)
+                        <div class="mb-2 p-2 border rounded">
+                            <strong>{{ $review->user->name }}</strong>
+                            <span>
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <i class="fa {{ $i <= $review->rating ? 'fa-star text-warning' : 'fa-star text-secondary' }}"></i>
+                                @endfor
+                            </span>
+                            <p class="mb-1">{{ $review->comment }}</p>
+                            <small>{{ $review->created_at->format('d/m/Y H:i') }}</small>
+                        </div>
+                    @empty
+                        <p class="text-muted">No hay reseñas aún.</p>
+                    @endforelse
                 </div>
             </div>
         </div>

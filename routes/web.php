@@ -8,6 +8,7 @@ use App\Http\Controllers\EntrepreneurController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\Client\HomeClientController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ReviewController;
 
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\VentasController;
@@ -39,6 +40,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('clients', ClientController::class);
     // Categorías (CRUD)
     Route::resource('categories', CategoryController::class);
+
+    // Reseñas
+    Route::post('/reviews', [\App\Http\Controllers\ReviewController::class, 'store'])->name('reviews.store');
 
     // Chat
     Route::get('/chat', [ChatController::class, 'index'])->name('chats.index');

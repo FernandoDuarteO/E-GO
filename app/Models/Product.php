@@ -34,4 +34,9 @@ class Product extends Model
     public function send(){
         return $this->hasMany(Send::class);
     }
+
+    public function reviews()
+{
+    return $this->hasMany(Review::class);
+}
 }
