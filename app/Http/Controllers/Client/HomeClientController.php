@@ -4,15 +4,25 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 class HomeClientController extends Controller
 {
-    public function products()
+    public function products(Request $request)
     {
-        // Solo traes los productos, ordenados del más nuevo al más antiguo
-        $products = Product::latest()->get();
+        // Obtén todas las categorías
+        $categories = Category::all();
 
-        // Envía los productos a la vista 'client_products/products.blade.php'
-        return view('client_products.products', compact('products'));
+        // Verifica si hay categoría seleccionada
+        $selectedCategory = $request->get('category_id');
+
+        // Filtra productos por categoría si corresponde, sino muestra todos
+        $products = Product::when($selectedCategory, function ($query) use ($selectedCategory) {
+            return $query->where('category_id', $selectedCategory);
+        })->latest()->get();
+
+        // Envía productos, categorías y categoría seleccionada a la vista
+        return view('client_products.products', compact('products', 'categories', 'selectedCategory'));
     }
 }

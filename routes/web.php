@@ -33,7 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Perfil (CRUD)
     Route::resource('entrepreneurs', EntrepreneurController::class);
     // Home Cliente
-    Route::get('/clients/products', [HomeClientController::class, 'products'])->name('client.products');
+    Route::get('/clients/products', [HomeClientController::class, 'products'])->name('clients.products');
 
     // Perfil Cliente
     Route::resource('clients', ClientController::class);

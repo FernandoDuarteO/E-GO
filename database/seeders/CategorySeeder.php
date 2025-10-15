@@ -13,11 +13,40 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::create(['type' => 'Ropa', 'description' => 'Ropa y accesorios']);
-        Category::create(['type' => 'Juguetes', 'description' => 'Juguetes para niños']);
-        Category::create(['type' => 'Tecnología', 'description' => 'Celulares y electrónicos']);
-        Category::create(['type' => 'Electrodomésticos', 'description' => 'Aparatos para el hogar']);
-        Category::create(['type' => 'Libros', 'description' => 'Libros y revistas']);
-        Category::create(['type' => 'Rosas', 'description' => 'Flores y plantas']);
+        Category::create([
+            'type' => 'Ropa',
+            'description' => 'Ropa y accesorios',
+            'icon' => 'fa-shirt'
+        ]);
+        Category::create([
+            'type' => 'Juguetes',
+            'description' => 'Juguetes para niños',
+            'icon' => 'fa-gamepad'
+        ]);
+        Category::create([
+            'type' => 'Tecnología',
+            'description' => 'Celulares y electrónicos',
+            'icon' => 'fa-microchip'
+        ]);
+        Category::create([
+            'type' => 'Electrodomésticos',
+            'description' => 'Aparatos para el hogar',
+            'icon' => 'fa-blender'
+        ]);
+        Category::create([
+            'type' => 'Libros',
+            'description' => 'Libros y revistas',
+            'icon' => 'fa-book'
+        ]);
+        Category::create([
+            'type' => 'Rosas',
+            'description' => 'Flores y plantas',
+            'icon' => 'fa-spa'
+        ]);
+        Category::create([
+            'type' => 'Piñatas',
+            'description' => 'Piñatas temáticas y tradicionales',
+            'icon' => 'fa-face-grin-stars'
+        ]);
     }
 }

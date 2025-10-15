@@ -23,7 +23,7 @@
                 </a>
             </li>
 
-            
+
         </ul>
 
 
@@ -69,12 +69,12 @@
                 </a>
             </li>
         </ul>
-        
+
         <ul class="nav flex-column">
             <li class="nav-item mb-2">
                 <span class="nav-section-title px-3 text-uppercase small text-muted">Planificación de Costos</span>
             </li>
-            
+
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('productos') ? 'active' : '' }}" href="{{ route('products.index') }}">
                     <i class="fa-solid fa-calculator"></i>
@@ -82,7 +82,7 @@
                 </a>
             </li>
 
-            
+
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('chat') ? 'active' : '' }}" href="{{ route('chats.index') }}">
                     <i class="fa-solid fa-money-bill-wave"></i>
@@ -97,6 +97,6 @@
             </a>
         </li>
     </ul>
-    
+
     </div>
 </nav>

@@ -13,22 +13,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            @include('partials.sidebar')
+    <!-- Header/Navbar SIEMPRE arriba y ancho completo -->
+    @include('partials.headerClients')
 
-            <!-- Main Content -->
-            <div class="col-lg-10 col-md-9 ms-sm-auto px-0">
-                <!-- Header -->
-                @include('partials.headerClients')
-
-                <!-- Page Content -->
-                <main class="container-fluid mt-4">
-                    @yield('content')
-                </main>
-            </div>
-        </div>
+    <div class="container-fluid px-0">
+        <!-- Main Content: ocupa todo el ancho sin sidebar -->
+        <main class="mt-4">
+            @yield('content')
+        </main>
     </div>
 
     <!-- Bootstrap JS -->
