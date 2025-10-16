@@ -72,7 +72,21 @@
                 </a>
             </li>
 
-        </ul>
+            
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('chat') ? 'active' : '' }}" href="{{ route('chats.index') }}">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    Costos Variables
+                </a>
+            </li>
 
+           <li class="nav-item">
+            <a class="nav-link {{ Request::is('pedidos') ? 'active' : '' }}" href="{{ route('pedidos.index') }}">
+                <i class="fa-solid fa-chart-line"></i>
+                Pronósticos de Ventas
+            </a>
+        </li>
+    </ul>
+    
     </div>
 </nav>

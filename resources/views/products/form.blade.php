@@ -1,5 +1,3 @@
-
-
 <div class="row">
     <!-- Descripción a la izquierda -->
     <div class="col-md-6 mb-3">
@@ -28,6 +26,21 @@
                     <img src="{{ asset('storage/' . $products->media_file) }}" alt="Foto actual" width="80" class="rounded shadow-sm">
                 </div>
             @endif
+        </div>
+        <div class="mb-3">
+            <label for="category_id" class="form-label fw-semibold">Categoría</label>
+            <select name="category_id" id="category_id" class="form-select rounded-4 shadow-sm" required>
+                <option value="">Selecciona una categoría</option>
+                @foreach($categories as $category)
+                <option value="{{ $category->id }}"
+                    {{ old('category_id', optional($products)->category_id) == $category->id ? 'selected' : '' }}>
+                    {{ $category->type }}
+                </option>
+                @endforeach
+            </select>
+            @error('category_id')
+            <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
     </div>
 </div>

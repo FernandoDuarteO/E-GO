@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\EntrepreneurController;
 use App\Http\Controllers\ClientController;
+
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\VentasController;
 use App\Http\Controllers\PedidosController;
@@ -25,12 +26,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Productos (CRUD)
     Route::resource('products', ProductController::class);
-
     // Emprendedores (CRUD)
     Route::resource('entrepreneurs', EntrepreneurController::class);
-
     // Clientes (CRUD)
     Route::resource('clients', ClientController::class);
+    // Categorías (CRUD)
+    Route::resource('categories', CategoryController::class);
+
+    // Reseñas
+    Route::post('/reviews', [\App\Http\Controllers\ReviewController::class, 'store'])->name('reviews.store');
 
     // Chat
     Route::get('/chat', [ChatController::class, 'index'])->name('chats.index');

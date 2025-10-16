@@ -1,9 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.clients')
 
 @section('content')
-<style>
-
-</style>
 <div class="create-wrapper">
     <div class="create-card mx-auto">
         <div class="create-title">Crear Perfil de Cliente</div>
