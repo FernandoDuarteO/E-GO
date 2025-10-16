@@ -23,7 +23,7 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'required|string|min:5|max:255',
+            'type' => 'required|string|min:2|max:255',
             'description' => 'nullable'
         ];
     }
@@ -33,7 +33,7 @@ class CategoryRequest extends FormRequest
         return [
             'type.required' => 'El Tipo de categoría es obligatorio.',
             'type.string' => 'El Tipo de categoría debe ser una cadena de texto.',
-            'type.min' => 'El Tipo de categoría debe tener al menos 5 caracteres.',
+            'type.min' => 'El Tipo de categoría debe tener al menos 2 caracteres.',
             'type.max' => 'El Tipo de categoría no debe exceder de 255 caracteres.',
 
             'description.nullable' => 'La descripción es opcional.',

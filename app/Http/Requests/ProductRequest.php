@@ -28,6 +28,7 @@ class ProductRequest extends FormRequest
             'description' => 'required',
             'price' => 'required',
             'media_file' => 'nullable|file|mimes:jpg,jpeg,png,gif|max:2048',
+            'category_id' => 'required'
         ];
     }
 
@@ -52,9 +53,8 @@ class ProductRequest extends FormRequest
             'media_file.mimes' => 'El archivo debe ser una imagen de tipo: jpg, jpeg, png, gif.',
             'media_file.max' => 'El archivo no debe exceder de :max kilobytes.',
 
-            'entrepreneurship_id.required' => 'El emprendimiento es obligatorio.',
+            'category_id.required' => 'La categoría del producto es obligatoria.',
 
-            'category_id.required' => 'La categoría es obligatoria.',
         ];
     }
 }

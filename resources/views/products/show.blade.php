@@ -31,5 +31,24 @@
             </div>
         </div>
     </div>
+
+    {{-- Sección de reseñas de clientes --}}
+    <div class="card mt-4 p-4 shadow-sm" style="border-radius: 16px;">
+        <h4 class="mb-3">Reseñas de clientes</h4>
+        @forelse($products->reviews as $review)
+            <div class="mb-3 p-3 border rounded" style="background: #f9f9fd;">
+                <strong>{{ $review->user->name }}</strong>
+                <span>
+                    @for ($i = 1; $i <= 5; $i++)
+                        <i class="fa {{ $i <= $review->rating ? 'fa-star text-warning' : 'fa-star text-secondary' }}"></i>
+                    @endfor
+                </span>
+                <p class="mb-1">{{ $review->comment }}</p>
+                <small>{{ $review->created_at->format('d/m/Y H:i') }}</small>
+            </div>
+        @empty
+            <p class="text-muted">No hay reseñas para este producto todavía.</p>
+        @endforelse
+    </div>
 </div>
 @endsection

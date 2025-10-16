@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.clients')
 
 @section('content')
 <div class="edit-wrapper">
