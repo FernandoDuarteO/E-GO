@@ -1,0 +1,41 @@
+/* Aplica semi-negrilla a todos los botones */
+.btn {
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-primary:hover {
+    background: #7c3aed;
+    border-color: #fcc426;
+}
+
+.custom-btn {
+    border-radius: 10px;
+    background: #7c3aed;
+    border-color: #7c3aed;
+}
+
+.custom-btn:hover {
+    background: #6d28d9;
+    border-color: #6d28d9;
+}
+
+.custom-purple-btn {
+    background-color: #7766C6 !important;
+    color: #fff !important;
+    border: 1.5px solid #7766C6 !important;
+    transition: background 0.23s, color 0.23s, box-shadow 0.23s;
+    box-shadow: 0 1px 4px rgba(144, 129, 207, 0.08);
+}
+
+.custom-purple-btn:hover,
+.custom-purple-btn:focus {
+    background-color: #fcc426 !important;
+    border-color: #fcc426 !important;
+    color: #000000 !important;
+    box-shadow: 0 3px 12px rgba(119, 102, 198, 0.16);
+}

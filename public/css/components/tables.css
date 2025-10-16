@@ -1,0 +1,32 @@
+/* En tu tables.css o modules específico */
+#pills-estructura .card h5.fw-semibold {
+    color: #5b21b6 !important;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+#pills-estructura .table thead th {
+    color: #6d28d9 !important;
+    font-weight: 600;
+    background-color: #f8f7ff !important;
+}
+
+#pills-estructura .text-end strong {
+    color: #7c3aed !important;
+    font-size: 1.1rem;
+}
+
+#pills-estructura .form-control {
+    color: #4b5563;
+    border-color: #e5e7eb;
+}
+
+#pills-estructura .form-control:focus {
+    border-color: #7766C6;
+    box-shadow: 0 0 0 3px rgba(119, 102, 198, 0.1);
+}
+
+#pills-estructura .form-control::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+}

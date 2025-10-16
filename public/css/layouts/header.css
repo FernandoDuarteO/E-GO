@@ -1,0 +1,17 @@
+.navbar {
+    padding: 0.5rem 0;
+}
+
+.search-container {
+    background: #f8f9fc;
+    border-radius: 2rem;
+    padding: 0.25rem 0.75rem;
+}
+
+.search-container .form-control {
+    background: transparent;
+}
+
+.search-container .form-control:focus {
+    box-shadow: none;
+}
