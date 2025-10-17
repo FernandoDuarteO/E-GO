@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <div class="container py-4">
     <h2 class="mb-4">Detalle del producto</h2>
     <div class="card p-4 shadow" style="border-radius: 16px;">

@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm">
     <!-- Sidebar Toggle (Topbar) -->
     <button class="btn btn-link d-md-none rounded-circle me-3" data-bs-target="#sidebarMenu">
@@ -23,6 +24,9 @@
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
             <li>
                 <a class="dropdown-item" href="{{ route('entrepreneurs.index') }}">Perfil</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('compras.index') }}">Tienda</a>
             </li>
             <li>
                 <form method="POST" action="{{ route('logout') }}">

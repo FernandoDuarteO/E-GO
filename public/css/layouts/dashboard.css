@@ -1,10 +1,193 @@
-.border-left-primary { border-left: 0.25rem solid var(--primary) !important; }
-.border-left-success { border-left: 0.25rem solid var(--success) !important; }
-.border-left-info { border-left: 0.25rem solid var(--info) !important; }
-.border-left-warning { border-left: 0.25rem solid var(--warning) !important; }
+/* Border left colors */
+.border-left-primary { 
+    border-left: 0.25rem solid var(--primary) !important; 
+}
+.border-left-success { 
+    border-left: 0.25rem solid var(--success) !important; 
+}
+.border-left-info { 
+    border-left: 0.25rem solid var(--info) !important; 
+}
+.border-left-warning { 
+    border-left: 0.25rem solid var(--warning) !important; 
+}
 
-.bar { border-radius: 0.25rem 0.25rem 0 0; }
+.bar { 
+    border-radius: 0.25rem 0.25rem 0 0; 
+}
 
+/* Responsive para móviles */
 @media (max-width: 768px) {
-    .col-lg-10 { margin-left: 0 !important; }
+    .col-lg-10 { 
+        margin-left: 0 !important; 
+        width: 100% !important;
+    }
+    
+    /* Ajustar border-left para móviles */
+    .border-left-primary,
+    .border-left-success,
+    .border-left-info,
+    .border-left-warning {
+        border-left-width: 0.2rem !important;
+        border-left-style: solid !important;
+    }
+    
+    /* Para elementos que necesiten border completo en móviles */
+    .mobile-full-border {
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
+    }
+    
+    .border-left-primary.mobile-full-border {
+        border-left: 0.2rem solid var(--primary) !important;
+    }
+    
+    .border-left-success.mobile-full-border {
+        border-left: 0.2rem solid var(--success) !important;
+    }
+    
+    .border-left-info.mobile-full-border {
+        border-left: 0.2rem solid var(--info) !important;
+    }
+    
+    .border-left-warning.mobile-full-border {
+        border-left: 0.2rem solid var(--warning) !important;
+    }
+    
+    /* Ajustar bar radius para móviles */
+    .bar {
+        border-radius: 0.2rem 0.2rem 0 0;
+    }
+}
+
+/* Responsive para tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .col-lg-10 {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 95% !important;
+    }
+    
+    .border-left-primary,
+    .border-left-success,
+    .border-left-info,
+    .border-left-warning {
+        border-left-width: 0.22rem !important;
+    }
+}
+
+/* Responsive para pantallas muy pequeñas */
+@media (max-width: 576px) {
+    .col-lg-10 {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+    
+    .border-left-primary,
+    .border-left-success,
+    .border-left-info,
+    .border-left-warning {
+        border-left-width: 0.15rem !important;
+        margin-bottom: 0.75rem;
+    }
+    
+    .bar {
+        border-radius: 0.15rem 0.15rem 0 0;
+    }
+    
+    /* Stack elements en móviles muy pequeños */
+    .mobile-stack {
+        flex-direction: column !important;
+    }
+    
+    .mobile-stack > * {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Asegurar que las variables CSS estén definidas */
+:root {
+    --primary: #007bff;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+}
+
+/* Mejorar la visibilidad en modo oscuro */
+@media (prefers-color-scheme: dark) {
+    .border-left-primary { border-left-color: #0d6efd !important; }
+    .border-left-success { border-left-color: #198754 !important; }
+    .border-left-info { border-left-color: #0dcaf0 !important; }
+    .border-left-warning { border-left-color: #ffc107 !important; }
+}
+
+/* Hover effects para desktop */
+@media (min-width: 1025px) {
+    .border-left-primary:hover {
+        border-left-width: 0.3rem !important;
+        transition: border-left-width 0.2s ease;
+    }
+    
+    .border-left-success:hover {
+        border-left-width: 0.3rem !important;
+        transition: border-left-width 0.2s ease;
+    }
+    
+    .border-left-info:hover {
+        border-left-width: 0.3rem !important;
+        transition: border-left-width 0.2s ease;
+    }
+    
+    .border-left-warning:hover {
+        border-left-width: 0.3rem !important;
+        transition: border-left-width 0.2s ease;
+    }
+}
+
+/* Ajustes para impresión */
+@media print {
+    .border-left-primary,
+    .border-left-success,
+    .border-left-info,
+    .border-left-warning {
+        border-left-width: 0.2rem !important;
+        border-left-style: solid !important;
+    }
+    
+    .bar {
+        border-radius: 0.2rem 0.2rem 0 0;
+    }
+}
+
+/* Soporte para orientación landscape en móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+    .col-lg-10 {
+        margin-left: 0.5rem !important;
+        margin-right: 0.5rem !important;
+    }
+    
+    .border-left-primary,
+    .border-left-success,
+    .border-left-info,
+    .border-left-warning {
+        border-left-width: 0.18rem !important;
+    }
+}
+
+/* Mejorar accesibilidad para alto contraste */
+@media (prefers-contrast: high) {
+    .border-left-primary { border-left-color: #0000ff !important; }
+    .border-left-success { border-left-color: #008000 !important; }
+    .border-left-info { border-left-color: #000080 !important; }
+    .border-left-warning { border-left-color: #ffa500 !important; }
+}
+
+/* Reducir movimiento para usuarios que lo prefieran */
+@media (prefers-reduced-motion: reduce) {
+    .border-left-primary,
+    .border-left-success,
+    .border-left-info,
+    .border-left-warning {
+        transition: none !important;
+    }
 }

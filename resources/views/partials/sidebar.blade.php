@@ -4,10 +4,7 @@
     <div class="position-sticky pt-3">
         <!-- Logo -->
         <div style="display: flex; align-items: center; gap: 12px;">
-            <img src="assets/images/E-GO_LOGO.png" alt="E-GO Logo" style="height: 40px; width: auto; object-fit: contain;">
-            <h2
-                style="font-size: 32px; font-weight: bold; color: rgba(98, 88, 162); line-height: 1; margin: 0; padding: ;">
-                E-GO</h2>
+            <img src="assets/images/E-GO_LOGO.png" alt="E-GO Logo" style="height: 50px; width: auto; object-fit: contain;">
         </div>
 
         <!-- Acceso directo al Dashboard -->
@@ -23,7 +20,6 @@
                 </a>
             </li>
 
-
         </ul>
         <!-- Navigation -->
         <ul class="nav flex-column">
@@ -32,7 +28,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('productos') ? 'active' : '' }}" href="{{ route('products.index') }}">
+                <a class="nav-link {{ Request::is('products') ? 'active' : '' }}" href="{{ route('products.index') }}">
                     <i class="fa-solid fa-plus"></i>
                     Publicaciones
                 </a>
@@ -62,7 +58,7 @@
 
         <ul class="nav flex-column">
             <li class="nav-item mb-2">
-                <span class="nav-section-title px-3 text-uppercase small text-muted">Planificación de Costos</span>
+                <span class="nav-section-title px-3 text-uppercase small text-muted">Herramientas</span>
             </li>
 
             <li class="nav-item">
@@ -71,6 +67,21 @@
                     Calculadora de Costos
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('compras') ? 'active' : '' }}" href="{{ route('compras.index') }}">
+                    <i class="fa-solid fa-desktop"></i>
+                    Cursos informativos
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('compras') ? 'active' : '' }}" href="{{ route('compras.index') }}">
+                    <i class="fa-solid fa-truck"></i>
+                    Deliverys
+                </a>
+            </li>
         </ul>
     </div>
+
 </nav>

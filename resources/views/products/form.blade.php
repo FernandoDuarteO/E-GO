@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <div class="row">
     <!-- Descripción a la izquierda -->
     <div class="col-md-6 mb-3">
