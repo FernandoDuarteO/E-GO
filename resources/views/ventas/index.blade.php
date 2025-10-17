@@ -31,9 +31,10 @@
                     <tr>
                         <th>ID Venta</th>
                         <th>Cliente</th>
+                        <th>Producto</th>
                         <th>Total</th>
                         <th>Fecha</th>
-                        <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
