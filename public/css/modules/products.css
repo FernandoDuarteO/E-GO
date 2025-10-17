@@ -1,0 +1,343 @@
+/* products.css - estilo moderno manteniendo estética morada */
+/* Colocar en: public/css/components/products.css
+   Importar desde public/css/app.css:  @import "components/products.css";
+*/
+
+:root{
+  --primary: #6f42c1;
+  --primary-700: #5a34a8;
+  --accent: rgba(111,66,193,0.06);
+  --bg: #f5f7fa;
+  --muted: #8b8f95;
+  --text: #2b2b30;
+  --radius: 10px;
+  --shadow-sm: 0 4px 10px rgba(33,37,41,0.04);
+  --shadow-md: 0 10px 24px rgba(33,37,41,0.06);
+  --transition-card: 340ms cubic-bezier(.22,.9,.3,1);
+  --transition-btn: 240ms cubic-bezier(.2,.9,.3,1);
+}
+
+/* Contenedor y header */
+.products-container{
+  padding: 28px 36px;
+  background: var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+.products-header{
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 22px;
+}
+
+/* Grid adaptativo */
+.products-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 26px;
+  align-items: start;
+  width: 100%;
+}
+
+/* Tarjeta */
+.product-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.98));
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-card), box-shadow var(--transition-card), border-color var(--transition-card);
+  border: 1px solid rgba(111,66,193,0.05);
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+  will-change: transform, box-shadow;
+  transform-origin: center;
+}
+
+/* Hover: más suave */
+.product-card:hover{
+  transform: translateY(-4px) translateZ(0);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(111,66,193,0.10);
+}
+
+/* Imagen */
+.product-card .card-img-top{
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform var(--transition-card), filter var(--transition-card);
+  background: linear-gradient(180deg, rgba(111,66,193,0.03), rgba(255,255,255,0.01));
+  will-change: transform;
+  transform-origin: center;
+  display: block;
+}
+
+/* Zoom de imagen más sutil */
+.product-card:hover .card-img-top{
+  transform: scale(1.025);
+  filter: brightness(1.02);
+}
+
+/* Cuerpo de la card */
+.product-body{
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 auto;
+}
+
+/* Texto */
+.product-title{
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.product-price{
+  font-size: 15px;
+  font-weight: 800;
+  color: #222;
+}
+
+/* Descripción corta */
+.product-desc{
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-bottom: 2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Categoria */
+.product-category{
+  font-size: 13px;
+  color: var(--primary);
+  margin-top: 6px;
+}
+
+/* Footer con acciones */
+.product-actions{
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 12px;
+  background: linear-gradient(0deg, rgba(111,66,193,0.02), transparent);
+  border-top: 1px solid rgba(111,66,193,0.03);
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+/* Botones morados (mejor suavizado) */
+.custom-purple-btn{
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 36px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 12px rgba(111,66,193,0.08);
+  transition: transform var(--transition-btn), background-color var(--transition-btn), box-shadow var(--transition-btn);
+  cursor: pointer;
+  text-decoration: none;
+}
+.custom-purple-btn:hover{
+  transform: translateY(-2px);
+  background: var(--primary-700);
+  box-shadow: 0 8px 18px rgba(111,66,193,0.10);
+}
+
+/* Botón eliminar */
+.custom-purple-btn.danger{
+  background: #e95f5f;
+}
+.custom-purple-btn.danger:hover{
+  background: #c94a4a;
+}
+
+/* CTA agregar producto */
+.add-product-cta{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 36px auto;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  background: rgba(111,66,193,0.02);
+  box-shadow: 0 6px 18px rgba(111,66,193,0.06);
+  cursor: pointer;
+  transition: transform var(--transition-btn), box-shadow var(--transition-btn), background var(--transition-btn);
+  font-size: 1.6rem;
+  text-decoration: none;
+}
+.add-product-cta:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 12px 26px rgba(111,66,193,0.10);
+  background: rgba(111,66,193,0.04);
+}
+
+/* Compatibilidad con grid bootstrap */
+.row.products-grid > .col {
+  display: contents;
+}
+.row.products-grid .col > .product-card{
+  margin: 0;
+}
+
+/* Pequeños ajustes responsive */
+@media (max-width: 576px){
+  .product-card .card-img-top{
+    height: 160px;
+  }
+  .add-product-cta{
+    width: 64px;
+    height: 64px;
+    font-size: 1.4rem;
+  }
+}
+
+/* Evitar que las cards en hover tapen el título "Mis productos" */
+
+/* Aumenta separación y asegura que el header esté por encima */
+.products-header{
+  margin-bottom: 48px;        /* aumenta espacio (ajusta a tu gusto) */
+  position: relative;         /* necesario para que z-index funcione */
+  z-index: 50;                /* más alto que las cards */
+  background: transparent;    /* opcional: evita cambios visuales */
+  display: block;
+}
+
+/* Contenedor de grid con posicionamiento propio */
+.products-grid{
+  position: relative;
+  z-index: 10;
+  margin-top: 8px;            /* un pequeño espacio extra si lo necesitas */
+}
+
+/* Cada card en su propio contexto y por debajo del header */
+.product-card{
+  position: relative;         /* necesario para z-index y transform */
+  z-index: 1;                 /* cards por defecto debajo del header */
+  transition: transform 320ms cubic-bezier(.22,.9,.3,1),
+              box-shadow 320ms cubic-bezier(.22,.9,.3,1);
+  will-change: transform, box-shadow;
+}
+
+/* Hover: se eleva sobre otras cards pero seguirá debajo del header (z-index menor que .products-header) */
+.product-card:hover{
+  transform: translateY(-4px);
+  z-index: 20;                /* mayor que otras cards (1) pero menor que el header (50) */
+  box-shadow: 0 10px 24px rgba(33,37,41,0.06);
+}
+
+/* Si quieres más separación vertical entre el título y el primer row en pantallas pequeñas */
+@media (max-width: 768px){
+  .products-header{ margin-bottom: 36px; }
+  .products-grid{ margin-top: 6px; }
+}
+
+
+
+/* show products.css */
+
+  :root{
+    --primary: #6f42c1;
+    --primary-700: #5a34a8;
+    --muted: #8b8f95;
+    --bg: #f6f7fb;
+    --card-bg: #fff;
+    --radius: 16px;
+    --shadow-soft: 0 6px 24px rgba(80,80,150,0.08);
+    --transition: 220ms cubic-bezier(.2,.9,.3,1);
+  }
+
+  /* Card principal */
+  .product-detail-card{
+    background: linear-gradient(180deg, var(--card-bg), var(--card-bg));
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(111,66,193,0.04);
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+
+  /* Imagen */
+  .product-image{
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: calc(var(--radius) - 4px);
+    box-shadow: 0 6px 20px rgba(80,80,150,0.08);
+    transition: transform var(--transition), box-shadow var(--transition);
+    background: linear-gradient(180deg, rgba(111,66,193,0.02), rgba(255,255,255,0.03));
+  }
+  .product-image:hover{
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 10px 36px rgba(80,80,150,0.10);
+  }
+
+  /* Info */
+  .product-info-list{
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #2b2b30;
+    padding-left: 0;
+  }
+
+  /* Estilo del botón "Volver" - alta especificidad para sobrescribir Bootstrap */
+  .product-detail-card .btn.product-back-btn,
+  .product-detail-card a.product-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background-color: var(--primary) !important;
+    color: #fff !important;
+    border: 0 !important;
+    padding: .5rem .9rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(111,66,193,0.12);
+    text-decoration: none;
+    transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition);
+  }
+  .product-detail-card .btn.product-back-btn i {
+    color: #fff;
+  }
+  .product-detail-card .btn.product-back-btn:hover,
+  .product-detail-card a.product-back-btn:hover {
+    transform: translateY(-4px);
+    background-color: var(--primary-700) !important;
+    box-shadow: 0 12px 30px rgba(111,66,193,0.16);
+    color: #fff !important;
+  }
+
+  /* Reseñas */
+  .reviews-card{
+    margin-top: 18px;
+    background: linear-gradient(180deg, #fff, #fff);
+    border-radius: var(--radius);
+    padding: 18px;
+    border: 1px solid rgba(111,66,193,0.03);
+    box-shadow: 0 4px 18px rgba(33,37,41,0.02);
+  }
+  .review-item{
+    background: #f9f9fd;
+    border: 1px solid rgba(111,66,193,0.03);
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    transition: background var(--transition), transform var(--transition);
+  }
+  .review-item:hover{
+    transform: translateY(-4px);
+    background: #fbfbff;
+  }

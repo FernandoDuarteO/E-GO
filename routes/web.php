@@ -5,6 +5,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\EntrepreneurController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\Client\HomeClientController;
 
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\VentasController;
@@ -28,13 +31,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('products', ProductController::class);
     // Emprendedores (CRUD)
     Route::resource('entrepreneurs', EntrepreneurController::class);
+    // Vista de productos para clientes con filtrado por categoría
+    Route::get('/clients/products', [HomeClientController::class, 'products'])
+    ->name('clients.products');
+
+    // Detalle de producto
+    Route::get('/clients/products/{id}', [HomeClientController::class, 'show'])
+    ->name('clients.products.show');
     // Clientes (CRUD)
     Route::resource('clients', ClientController::class);
     // Categorías (CRUD)
     Route::resource('categories', CategoryController::class);
 
     // Reseñas
-    Route::post('/reviews', [\App\Http\Controllers\ReviewController::class, 'store'])->name('reviews.store');
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
     // Chat
     Route::get('/chat', [ChatController::class, 'index'])->name('chats.index');

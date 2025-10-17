@@ -17,18 +17,25 @@ class Product extends Model
         'price',
         'media_file',
         'category_id',
+        'user_id',        // añade si existe en tu tabla
+        'entrepreneurship_id', // opcional, si usas esa FK
     ];
 
     public function category(){
         return $this->belongsTo(Category::class);
     }
 
-    //productos, emprendimientos y categorias
+    // Si usas una relación Entrepreneurship (ya la tenías)
     public function entrepreneurship(){
         return $this->belongsTo(Entrepreneurship::class);
     }
 
-
+    // NEW: relación con el usuario (vendedor)
+    // Ajusta la FK si en tu tabla se llama diferente (por ejemplo 'vendor_id')
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
+    }
 
     //envios, productos y delivery
     public function send(){
@@ -36,7 +43,7 @@ class Product extends Model
     }
 
     public function reviews()
-{
-    return $this->hasMany(Review::class);
-}
+    {
+        return $this->hasMany(Review::class);
+    }
 }

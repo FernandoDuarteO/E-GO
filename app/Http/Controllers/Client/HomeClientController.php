@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class HomeClientController extends Controller
 {
+    /**
+     * Mostrar listado de productos (home del cliente)
+     */
     public function products(Request $request)
     {
         // Obtén todas las categorías
@@ -24,5 +27,17 @@ class HomeClientController extends Controller
 
         // Envía productos, categorías y categoría seleccionada a la vista
         return view('client_products.products', compact('products', 'categories', 'selectedCategory'));
+    }
+
+    /**
+     * Mostrar detalle de un producto
+     */
+    public function show($id)
+    {
+        // Cargar relaciones necesarias: category, reviews.user, user (vendor)
+        $product = Product::with(['category', 'reviews.user', 'user'])->findOrFail($id);
+
+        // Retornar la vista de detalle con la variable $product
+        return view('client_products.show', compact('product'));
     }
 }
