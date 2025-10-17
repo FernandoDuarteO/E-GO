@@ -68,25 +68,9 @@
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('costos') ? 'active' : '' }}" href="{{ route('costos.index') }}">
                     <i class="fa-solid fa-calculator"></i>
-                    Calculadora de Costos Fijos
+                    Calculadora de Costos
                 </a>
             </li>
-
-            
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('chat') ? 'active' : '' }}" href="{{ route('chats.index') }}">
-                    <i class="fa-solid fa-money-bill-wave"></i>
-                    Costos Variables
-                </a>
-            </li>
-
-           <li class="nav-item">
-            <a class="nav-link {{ Request::is('pedidos') ? 'active' : '' }}" href="{{ route('pedidos.index') }}">
-                <i class="fa-solid fa-chart-line"></i>
-                Pronósticos de Ventas
-            </a>
-        </li>
-    </ul>
-    
+        </ul>
     </div>
 </nav>

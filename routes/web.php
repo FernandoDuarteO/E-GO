@@ -61,6 +61,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/calcular', [CostosController::class, 'calcularCostoUnitario'])->name('costos.calcular');
         Route::get('/pronostico', [CostosController::class, 'getPronostico'])->name('costos.pronostico');
         Route::get('/rentabilidad', [CostosController::class, 'analizarRentabilidad'])->name('costos.rentabilidad');
+        
     });
 });
 
