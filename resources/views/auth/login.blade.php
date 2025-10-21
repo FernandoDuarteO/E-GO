@@ -51,7 +51,7 @@
 
                     <button type="submit" class="btn ego-btn-main w-100">Ingresar</button>
                     <a href="{{ route('auth.redirect') }}" class="btn ego-btn-facebook w-100 mb-2">
-                        <i class="bi bi-facebook me-2"></i> Sign up with Facebook
+                        <i class="bi bi-facebook me-2"></i> Iniciar sesión con Facebook
                     </a>
                 </form>
             </div>

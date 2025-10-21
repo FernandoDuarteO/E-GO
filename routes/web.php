@@ -18,7 +18,7 @@ use App\Http\Controllers\AuthController;
 
 // Ruta de bienvenida
 Route::get('/', function () {
-    return view('auth.register');
+    return view('landing');
 });
 
 // Rutas protegidas por autenticación
@@ -71,7 +71,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/calcular', [CostosController::class, 'calcularCostoUnitario'])->name('costos.calcular');
         Route::get('/pronostico', [CostosController::class, 'getPronostico'])->name('costos.pronostico');
         Route::get('/rentabilidad', [CostosController::class, 'analizarRentabilidad'])->name('costos.rentabilidad');
-        
+
     });
 });
 
