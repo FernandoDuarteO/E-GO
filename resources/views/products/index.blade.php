@@ -1,44 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
+<<<<<<< HEAD
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <div class="container py-4">
     <h2 class="mb-4">Mis productos</h2>
+=======
+<div class="container py-4 products-container">
+    <h2 class="mb-4 products-header">Mis productos</h2>
+>>>>>>> 2a85cbb8af80dadefb014f935c0d6ef87796995c
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 products-grid">
         @foreach ($products as $product)
             <div class="col">
-                <div class="card product-card h-100 shadow-sm border-0" style="background: #f3f3ff;">
+                <div class="card product-card h-100 shadow-sm border-0">
                     @if($product->media_file)
-                        <img src="{{ asset('storage/' . $product->media_file) }}" class="card-img-top" alt="Foto" style="height: 180px; object-fit: cover;">
+                        <img src="{{ asset('storage/' . $product->media_file) }}" class="card-img-top" alt="Foto">
                     @else
-                        <img src="https://via.placeholder.com/300x180?text=Sin+Imagen" class="card-img-top" alt="Sin foto" style="height: 180px; object-fit: cover;">
+                        <img src="https://via.placeholder.com/300x180?text=Sin+Imagen" class="card-img-top" alt="Sin foto">
                     @endif
                     <div class="card-body">
                         <h6 class="card-title mb-1">{{ $product->name }}</h6>
                         <p class="mb-1 fw-bold">C${{ number_format($product->price, 2) }}</p>
-                        <p class="mb-0" style="font-size: 0.9em; color: #ffadadff;">{{ Str::limit($product->description, 38) }}</p>
+                        <p class="mb-0" style="font-size: 0.9em; color: #666;">{{ Str::limit($product->description, 38) }}</p>
                         <p class="mb-0" style="font-size: 0.92em; color: #7766C6;">
                             <span class="fw-semibold">Categoría:</span>
                             {{ $product->category ? $product->category->type : 'Sin categoría' }}
                         </p>
                     </div>
-                    <div class="card-footer bg-transparent border-0 d-flex justify-content-center">
-                        <a href="{{ route('products.show', $product->id) }}" class="btn custom-purple-btn btn-sm mx-1" title="Ver">
+
+                    <div class="card-footer bg-transparent border-0 d-flex justify-content-center product-actions">
+                        <a href="{{ route('products.show', $product->id) }}" class="custom-purple-btn btn-sm mx-1" title="Ver" aria-label="Ver producto">
                             <i class="fas fa-eye"></i>
                         </a>
-                        <a href="{{ route('products.edit', $product->id) }}" class="btn custom-purple-btn btn-sm mx-1" title="Editar">
+                        <a href="{{ route('products.edit', $product->id) }}" class="custom-purple-btn btn-sm mx-1" title="Editar" aria-label="Editar producto">
                             <i class="fas fa-edit"></i>
                         </a>
                         <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button class="btn custom-purple-btn btn-sm mx-1" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este producto?')">
+                            <button class="custom-purple-btn btn-sm mx-1" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este producto?')" aria-label="Eliminar producto">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </form>
@@ -49,7 +55,7 @@
     </div>
 
     <div class="d-flex flex-column align-items-center mt-5">
-        <a href="{{ route('products.create') }}" class="btn btn-outline-primary rounded-circle mb-2" style="width: 56px; height: 56px; font-size: 1.8em; display: flex; align-items: center; justify-content: center;">
+        <a href="{{ route('products.create') }}" class="add-product-cta" title="Agregar producto" aria-label="Agregar producto">
             <i class="fas fa-plus"></i>
         </a>
         <span class="text-muted">Agrega un nuevo producto</span>

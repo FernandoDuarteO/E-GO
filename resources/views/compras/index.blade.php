@@ -298,7 +298,7 @@
                             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                         </div>
                         <p class="entrepreneur mt-auto">2. Emprendedor destacado Alma</p>
-                        <button class="btn btn-primary add-to-cart mt-2" data-product="Contrato veneno" data-price="100.00">
+                        <button class="btn btn-primary add-to-cart mt-2" data-product="Galletas" data-price="100.00">
                             <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
                         </button>
                     </div>
@@ -318,7 +318,7 @@
                             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                         </div>
                         <p class="entrepreneur mt-auto">2. Emprendedor destacado Brenda</p>
-                        <button class="btn btn-primary add-to-cart mt-2" data-product="Poderes" data-price="150.00">
+                        <button class="btn btn-primary add-to-cart mt-2" data-product="Piñatas" data-price="150.00">
                             <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
                         </button>
                     </div>
@@ -338,7 +338,7 @@
                             <span>★</span><span>★</span><span>★</span><span>★</span>
                         </div>
                         <p class="entrepreneur mt-auto">Emprendedor Marcos</p>
-                        <button class="btn btn-primary add-to-cart mt-2" data-product="Vendas relámpago" data-price="500.00">
+                        <button class="btn btn-primary add-to-cart mt-2" data-product="Gorras Urbanas" data-price="500.00">
                             <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
                         </button>
                     </div>
@@ -358,7 +358,7 @@
                             <span>★</span><span>★</span><span>★</span><span>★</span>
                         </div>
                         <p class="entrepreneur mt-auto">Emprendedor Esperanza</p>
-                        <button class="btn btn-primary add-to-cart mt-2" data-product="Vendedores destacados" data-price="5480.00">
+                        <button class="btn btn-primary add-to-cart mt-2" data-product="Sillas Tejidas" data-price="5480.00">
                             <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
                         </button>
                     </div>
@@ -378,7 +378,7 @@
                             <span>★</span><span>★</span><span>★</span><span>★</span>
                         </div>
                         <p class="entrepreneur mt-auto">Emprendedor Fernando</p>
-                        <button class="btn btn-primary add-to-cart mt-2" data-product="Reyes de segunda" data-price="550.00">
+                        <button class="btn btn-primary add-to-cart mt-2" data-product="Camisas Bordadas" data-price="550.00">
                             <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
                         </button>
                     </div>
@@ -438,7 +438,7 @@
                             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                         </div>
                         <p class="entrepreneur mt-auto">2. Emprendedor destacado Marcos</p>
-                        <button class="btn btn-primary add-to-cart mt-2" data-product="Motor" data-price="250.00">
+                        <button class="btn btn-primary add-to-cart mt-2" data-product="Peluches Kawaii" data-price="250.00">
                             <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
                         </button>
                     </div>
