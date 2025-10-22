@@ -18,7 +18,6 @@
                 <div class="hero-left">
                     <div class="logo">
                         <img src="/assets/images/E-GO_LOGO.png" alt="E-GO Logo" class="logo-icon">
-                        <span class="logo-text">E-GO</span>
                     </div>
                     <div class="hero-title">Te ayudamos</div>
                     <div class="hero-subtitle">
