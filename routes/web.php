@@ -33,7 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // En ProductController, valida cada método para que solo el emprendedor pueda crear/editar/eliminar productos
 
     // Módulo de ventas SOLO EMPRENDEDORES
-    Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.index');
+    Route::resource('ventas', VentasController::class);
     // ...otras rutas de ventas aquí, todas protegidas en el controlador
 
     // CRUD de emprendedores (si lo usas solo interno)
