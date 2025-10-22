@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm w-100" style="left:0;">
     <div class="container-fluid">
         <!-- LOGO E-GO (copiado de sidebar) -->

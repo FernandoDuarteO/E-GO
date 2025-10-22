@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\EntrepreneurController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CategoryController;
@@ -73,6 +74,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/rentabilidad', [CostosController::class, 'analizarRentabilidad'])->name('costos.rentabilidad');
 
     });
+
+    Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.index');
+    Route::get('/ventas/create', [VentasController::class, 'create'])->name('ventas.create');
+    Route::post('/ventas', [VentasController::class, 'store'])->name('ventas.store');
+
+    Route::get('/compras', [ComprasController::class, 'index'])->name('compras.index');
 });
 
 // Autenticación (Breeze)

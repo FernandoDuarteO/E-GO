@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<<<<<<< HEAD
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="container py-4">
+=======
 
 <div class="container py-4 product-show-container">
+>>>>>>> 2a85cbb8af80dadefb014f935c0d6ef87796995c
     <h2 class="mb-4">Detalle del producto</h2>
 
     <div class="card product-detail-card">
