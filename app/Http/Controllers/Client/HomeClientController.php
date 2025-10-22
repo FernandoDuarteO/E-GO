@@ -14,6 +14,12 @@ class HomeClientController extends Controller
      */
     public function products(Request $request)
     {
+        // Solo permitir acceso a usuarios con rol "client"
+        if (auth()->user()->role !== 'client') {
+            // Redirige al dashboard si no es cliente
+            return redirect('/dashboard');
+        }
+
         // Obtén todas las categorías
         $categories = Category::all();
 
@@ -34,6 +40,12 @@ class HomeClientController extends Controller
      */
     public function show($id)
     {
+        // Solo permitir acceso a usuarios con rol "client"
+        if (auth()->user()->role !== 'client') {
+            // Redirige al dashboard si no es cliente
+            return redirect('/dashboard');
+        }
+
         // Cargar relaciones necesarias: category, reviews.user, user (vendor)
         $product = Product::with(['category', 'reviews.user', 'user'])->findOrFail($id);
 

@@ -31,18 +31,20 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // Validar los datos del formulario
+        // Validar los datos del formulario, incluyendo el rol
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['required', 'in:client,entrepreneur'],
         ]);
 
-        // Crear el usuario
+        // Crear el usuario con el rol seleccionado
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'role' => $validated['role'],
         ]);
 
         // Lanzar evento de usuario registrado
@@ -51,9 +53,11 @@ class RegisteredUserController extends Controller
         // Loguear al usuario automáticamente
         Auth::login($user);
 
-        // Redirigir al dashboard personalizado (ajusta el nombre si tu ruta es 'dashboard.index')
-        return redirect()->route('dashboard');
-        // Si tu ruta es ->name('dashboard.index'), usa:
-        // return redirect()->route('dashboard.index');
+        // Redirigir según el rol
+        if ($user->role === 'entrepreneur') {
+            return redirect('/dashboard');
+        } else {
+            return redirect('/clients/products');
+        }
     }
 }

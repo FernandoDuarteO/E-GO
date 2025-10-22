@@ -3,18 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\EntrepreneurController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\Client\HomeClientController;
-
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\VentasController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CostosController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\Client\HomeClientController;
+use App\Http\Controllers\ComprasController; // AGREGA ESTE IMPORTANTE IMPORT
 use App\Http\Controllers\AuthController;
 
 // Ruta de bienvenida
@@ -25,66 +24,68 @@ Route::get('/', function () {
 // Rutas protegidas por autenticación
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    // Dashboard
+    // RUTA SOLO PARA EMPRENDEDORES
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // En el DashboardController, valida manualmente que solo el emprendedor acceda
 
-    // Productos (CRUD)
-    Route::resource('products', ProductController::class);
-    // Emprendedores (CRUD)
-    Route::resource('entrepreneurs', EntrepreneurController::class);
-    // Vista de productos para clientes con filtrado por categoría
-    Route::get('/clients/products', [HomeClientController::class, 'products'])
-    ->name('clients.products');
+    // CRUD de productos - SOLO EMPRENDEDORES
+    Route::resource('/products', ProductController::class);
+    // En ProductController, valida cada método para que solo el emprendedor pueda crear/editar/eliminar productos
 
-    // Detalle de producto
-    Route::get('/clients/products/{id}', [HomeClientController::class, 'show'])
-    ->name('clients.products.show');
-    // Clientes (CRUD)
-    Route::resource('clients', ClientController::class);
-    // Categorías (CRUD)
-    Route::resource('categories', CategoryController::class);
+    // Módulo de ventas SOLO EMPRENDEDORES
+    Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.index');
+    // ...otras rutas de ventas aquí, todas protegidas en el controlador
 
-    // Reseñas
+    // CRUD de emprendedores (si lo usas solo interno)
+    Route::resource('/entrepreneurs', EntrepreneurController::class);
+
+    // RUTA SOLO PARA CLIENTES
+    Route::get('/clients/products', [HomeClientController::class, 'products'])->name('clients.products');
+    // En el HomeClientController valida que solo el cliente acceda
+
+    // CRUD de clientes (si lo usas solo interno)
+    Route::resource('/clients', ClientController::class);
+
+    // CRUD de categorías (si aplica para ambos, valida dentro de cada método)
+    Route::resource('/categories', CategoryController::class);
+
+    // CHAT - RUTA COMPARTIDA
+    Route::get('/chat', [ChatController::class, 'index'])->name('chats.index');
+    // Puedes dejar el acceso a ambos y manejar lógica interna para separar mensajes
+
+    // Reseñas (si aplica solo para clientes, protege en el controlador)
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
-    // Chat
-    Route::get('/chat', [ChatController::class, 'index'])->name('chats.index');
-
-    // Otros módulos
-    Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.index');
+    // Otros módulos compartidos o específicos...
     Route::get('/pedidos', [PedidosController::class, 'index'])->name('pedidos.index');
 
-    // Perfil (rutas Breeze)
+    // PERFIL (Breeze)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // 📦 Módulo de Costos
+    // Módulo de costos (puedes proteger dentro de los métodos)
     Route::prefix('costos')->group(function () {
         Route::get('/', [CostosController::class, 'index'])->name('costos.index');
-
-        // Estructura de costos
         Route::get('/estructura', [CostosController::class, 'getEstructura'])->name('costos.estructura');
         Route::post('/estructura', [CostosController::class, 'guardarEstructura'])->name('costos.guardar');
         Route::delete('/estructura/{id}', [CostosController::class, 'eliminarItem'])->name('costos.eliminar');
-
-        // Cálculos y análisis
         Route::post('/calcular', [CostosController::class, 'calcularCostoUnitario'])->name('costos.calcular');
-        Route::get('/pronostico', [CostosController::class, 'getPronostico'])->name('costos.pronostico');
+        Route::post('/pronostico', [CostosController::class, 'getPronostico'])->name('costos.pronostico');
         Route::get('/rentabilidad', [CostosController::class, 'analizarRentabilidad'])->name('costos.rentabilidad');
-
     });
 
-    Route::get('/ventas', [VentasController::class, 'index'])->name('ventas.index');
-    Route::get('/ventas/create', [VentasController::class, 'create'])->name('ventas.create');
-    Route::post('/ventas', [VentasController::class, 'store'])->name('ventas.store');
-
+    // AGREGA ESTA RUTA PARA QUE NO TENGAS EL ERROR DE RUTA NO DEFINIDA
     Route::get('/compras', [ComprasController::class, 'index'])->name('compras.index');
+    // Si después tienes más métodos REST de compras, puedes agregar el resource:
+    // Route::resource('compras', ComprasController::class);
+
+    // Más rutas aquí...
 });
 
-// Autenticación (Breeze)
+// Breeze auth
 require __DIR__.'/auth.php';
 
-// Rutas para autenticación externa
+// Rutas para autenticación externa (si usas social login)
 Route::get('/auth/redirect', [AuthController::class, 'redirect'])->name('auth.redirect');
 Route::get('/auth/callback', [AuthController::class, 'callback'])->name('auth.callback');

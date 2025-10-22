@@ -33,10 +33,23 @@ class AuthenticatedSessionController extends Controller
         // Regenera la sesión para evitar fijación de sesión
         $request->session()->regenerate();
 
-        // Redirige al dashboard personalizado después de login
-        return redirect()->intended(route('dashboard'));
-        // Si tu ruta es ->name('dashboard.index'), usa:
-        // return redirect()->intended(route('dashboard.index'));
+        // Validar el rol seleccionado en el formulario
+        $selectedRole = $request->input('role');
+        $user = Auth::user();
+
+        if ($user->role !== $selectedRole) {
+            Auth::logout();
+            return back()->withInput($request->only('email'))->withErrors([
+                'email' => 'No tienes permisos para acceder como ' . ($selectedRole === 'client' ? 'cliente' : 'emprendedor') . '.',
+            ]);
+        }
+
+        // Redirección personalizada según el rol
+        if ($user->role === 'entrepreneur') {
+            return redirect('/dashboard');
+        } else {
+            return redirect('/clients/products');
+        }
     }
 
     /**

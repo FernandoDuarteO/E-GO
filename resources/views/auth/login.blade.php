@@ -20,8 +20,8 @@
                     </div>
                 </div>
                 <div class="ego-btn-group mb-2">
-                    <button type="button" class="ego-btn-radio active">Cliente</button>
-                    <button type="button" class="ego-btn-radio">Emprendedor</button>
+                    <button type="button" class="ego-btn-radio active" data-role="client">Cliente</button>
+                    <button type="button" class="ego-btn-radio" data-role="entrepreneur">Emprendedor</button>
                 </div>
                 @if(session('status'))
                     <div class="alert alert-info">
@@ -40,6 +40,9 @@
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
 
+                    <!-- Input oculto para el rol -->
+                    <input type="hidden" name="role" id="role-input" value="client">
+
                     <input type="email" class="form-control ego-form-input" name="email" placeholder="Correo electrónico" value="{{ old('email') }}" required autofocus autocomplete="username">
                     <input type="password" class="form-control ego-form-input" name="password" placeholder="Contraseña" required autocomplete="current-password">
 
@@ -50,7 +53,7 @@
                     </div>
 
                     <button type="submit" class="btn ego-btn-main w-100">Ingresar</button>
-                    <a href="{{ route('auth.redirect') }}" class="btn ego-btn-facebook w-100 mb-2">
+                    <a href="{{ route('auth.redirect') }}" class="btn ego-btn-facebook w-100 mb-2" id="fb-login-btn">
                         <i class="bi bi-facebook me-2"></i> Iniciar sesión con Facebook
                     </a>
                 </form>
@@ -58,4 +61,22 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Cambia el valor del input oculto al seleccionar Cliente/Emprendedor
+    document.querySelectorAll('.ego-btn-radio').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.ego-btn-radio').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            document.getElementById('role-input').value = this.getAttribute('data-role');
+        });
+    });
+
+    // Cambia el href del botón de Facebook antes de redirigir
+    document.getElementById('fb-login-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        var role = document.getElementById('role-input').value;
+        window.location.href = "{{ route('auth.redirect') }}" + "?role=" + role;
+    });
+</script>
 @endsection
