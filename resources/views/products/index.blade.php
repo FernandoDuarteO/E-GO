@@ -1,14 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<<<<<<< HEAD
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<div class="container py-4">
-    <h2 class="mb-4">Mis productos</h2>
-=======
 <div class="container py-4 products-container">
     <h2 class="mb-4 products-header">Mis productos</h2>
->>>>>>> 2a85cbb8af80dadefb014f935c0d6ef87796995c
+
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
