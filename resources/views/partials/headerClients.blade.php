@@ -4,7 +4,6 @@
         <!-- LOGO E-GO (copiado de sidebar) -->
         <div style="display: flex; align-items: center; gap: 12px;">
             <img src="{{ asset('assets/images/E-GO_LOGO.png') }}" alt="E-GO Logo" style="height: 40px; width: auto; object-fit: contain;">
-            <h2 style="font-size: 32px; font-weight: bold; color: rgba(98, 88, 162); line-height: 1; margin: 0;">E-GO</h2>
         </div>
 
         <!-- Search -->
