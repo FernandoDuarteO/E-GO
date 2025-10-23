@@ -64,6 +64,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // RUTA AGREGADA: Eliminar cuenta sin contraseña (para Facebook y usuarios sin password)
+    Route::delete('/profile/delete', [ProfileController::class, 'destroyAccount'])->name('profile.delete');
+
     // Módulo de costos (puedes proteger dentro de los métodos)
     Route::prefix('costos')->group(function () {
         Route::get('/', [CostosController::class, 'index'])->name('costos.index');

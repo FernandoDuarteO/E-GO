@@ -38,7 +38,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Delete the user's account.
+     * Delete the user's account. (requiere contraseña)
      */
     public function destroy(Request $request): RedirectResponse
     {
@@ -56,5 +56,22 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    /**
+     * Delete the user's account. (sin contraseña, para Facebook)
+     */
+    public function destroyAccount(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/')->with('status', 'Tu cuenta ha sido eliminada exitosamente.');
     }
 }

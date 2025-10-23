@@ -32,6 +32,15 @@
                             <button class="dropdown-item" type="submit">Cerrar sesión</button>
                         </form>
                     </li>
+                                    <li>
+                    <form method="POST" action="{{ route('profile.delete') }}" onsubmit="return confirm('¿Seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer.');">
+                        @csrf
+                        @method('DELETE')
+                        <button class="dropdown-item text-danger" type="submit">
+                            <i class="bi bi-trash3"></i> Eliminar cuenta
+                        </button>
+                    </form>
+                </li>
                 </ul>
             </li>
         </ul>

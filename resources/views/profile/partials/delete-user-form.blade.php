@@ -1,4 +1,5 @@
 <section class="space-y-6">
+    <!-- Eliminar cuenta tradicional (pide contraseña) -->
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
             {{ __('Delete Account') }}
@@ -52,4 +53,25 @@
             </div>
         </form>
     </x-modal>
+</section>
+
+<!-- Eliminar cuenta sin contraseña (Facebook u otros) -->
+<section class="space-y-6 mt-10">
+    <header>
+        <h2 class="text-lg font-medium text-red-700 dark:text-red-400">
+            Eliminar cuenta sin contraseña
+        </h2>
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            ¿Registraste tu cuenta con Facebook y no tienes contraseña? Puedes eliminarla aquí.<br>
+            <strong>Advertencia:</strong> Esta acción no se puede deshacer.
+        </p>
+    </header>
+
+    <form method="POST" action="{{ route('profile.delete') }}" onsubmit="return confirm('¿Seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer.');">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger mt-3">
+            Eliminar cuenta (Facebook / sin contraseña)
+        </button>
+    </form>
 </section>
