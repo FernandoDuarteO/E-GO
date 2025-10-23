@@ -87,10 +87,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
-
 // Breeze auth
 require __DIR__.'/auth.php';
 
 // Rutas para autenticación externa (si usas social login)
 Route::get('/auth/redirect', [AuthController::class, 'redirect'])->name('auth.redirect');
 Route::get('/auth/callback', [AuthController::class, 'callback'])->name('auth.callback');
+
+// --------- RUTA PARA REGISTRO DE EMPRENDEDOR --------------
+Route::get('/register/entrepreneur', function () {
+    return view('auth.register_entrepreneur');
+})->name('register.entrepreneur');
+// ----------------------------------------------------------

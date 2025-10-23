@@ -32,18 +32,26 @@ main, .ego-card, .d-flex, .container {
 .ego-card {
     background: #fff;
     border-radius: 32px;
-    /* Sombra MUY visible y difuminada */
     box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.16);
     overflow: hidden;
     transition: box-shadow 0.3s;
+    width: 800px;
+    height: 530px;
+    min-width: 800px;
+    max-width: 800px;
+    display: flex;
+}
+.ego-card .col-7, .ego-side {
+    height: 530px !important;
+    min-height: 530px !important;
+    max-height: 530px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .ego-side {
     background: #c9bcff;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 470px;
 }
 .ego-side img {
     width: 120px;
@@ -137,10 +145,20 @@ main, .ego-card, .d-flex, .container {
     .ego-card {
         flex-direction: column !important;
         min-width: 320px;
+        max-width: 97vw;
+        width: 97vw;
+        height: auto !important;
     }
     .ego-side {
         border-radius: 22px 22px 0 0;
         min-height: 200px;
         padding: 32px 0 !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+    .ego-card .col-7 {
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
     }
 }

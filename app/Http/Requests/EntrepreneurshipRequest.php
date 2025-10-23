@@ -33,6 +33,12 @@ class EntrepreneurshipRequest extends FormRequest
 
             'entrepreneur_id' => 'required',
             'client_id' => 'required',
+
+            // NUEVOS CAMPOS AGREGADOS EN INGLÉS
+            'business_name' => 'required|string|min:3|max:255',
+            'department' => 'required|string|max:255',
+            'years_experience' => 'nullable|integer|min:0|max:100',
+            'business_type' => 'required|string|min:3|max:100',
         ];
     }
 
@@ -74,6 +80,25 @@ class EntrepreneurshipRequest extends FormRequest
             'entrepreneur_id.required' => 'El nombre del emprendedor es obligatorio.',
 
             'client_id.required' => 'El nombre del cliente es obligatorio.',
+
+            // MENSAJES PARA LOS NUEVOS CAMPOS
+            'business_name.required' => 'El nombre del negocio es obligatorio.',
+            'business_name.string' => 'El nombre del negocio debe ser una cadena de texto.',
+            'business_name.min' => 'El nombre del negocio debe tener al menos 3 caracteres.',
+            'business_name.max' => 'El nombre del negocio no debe exceder los 255 caracteres.',
+
+            'department.required' => 'El departamento es obligatorio.',
+            'department.string' => 'El departamento debe ser una cadena de texto.',
+            'department.max' => 'El departamento no debe exceder los 255 caracteres.',
+
+            'years_experience.integer' => 'Los años de experiencia deben ser un número.',
+            'years_experience.min' => 'Los años de experiencia no pueden ser negativos.',
+            'years_experience.max' => 'Los años de experiencia no pueden ser mayores a 100.',
+
+            'business_type.required' => 'El tipo de negocio es obligatorio.',
+            'business_type.string' => 'El tipo de negocio debe ser una cadena de texto.',
+            'business_type.min' => 'El tipo de negocio debe tener al menos 3 caracteres.',
+            'business_type.max' => 'El tipo de negocio no debe exceder los 100 caracteres.',
         ];
     }
 }

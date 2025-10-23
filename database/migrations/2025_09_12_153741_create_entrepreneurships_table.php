@@ -21,13 +21,21 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('media_file')->nullable();
 
+            // NUEVOS CAMPOS EN INGLÉS
+            $table->string('business_name');           // Nombre del emprendimiento
+            $table->string('department');              // Departamento
+            $table->integer('years_experience')->nullable(); // Años de trayectoria
+            $table->string('business_type');           // Tipo de emprendimiento
+
+            // Relaciones existentes
             $table->integer('entrepreneur_id')->unsigned();
             $table->foreign('entrepreneur_id')->references('id')->on('entrepreneurs')
-            ->onDelete('cascade')->onUpdate('cascade');
+                  ->onDelete('cascade')->onUpdate('cascade');
 
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients')
-            ->onDelete('cascade')->onUpdate('cascade');
+                  ->onDelete('cascade')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

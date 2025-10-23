@@ -35,4 +35,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\Review::class);
     }
+
+    // Relación: un usuario puede tener muchos emprendimientos (si usas user_id en entrepreneurships)
+    // O uno solo si solo puede tener uno. Si tu relación es diferente, ajusta el método.
+    public function entrepreneurships()
+    {
+        return $this->hasMany(\App\Models\Entrepreneurship::class, 'entrepreneur_id');
+    }
 }

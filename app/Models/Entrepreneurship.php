@@ -19,23 +19,26 @@ class Entrepreneurship extends Model
         'email',
         'media_file',
         'entrepreneur_id',
-        'client_id'
+        'client_id',
+        // Nuevos campos para el registro de emprendimiento
+        'business_name',
+        'department',
+        'years_experience',
+        'business_type'
     ];
 
-    
-    // emprendimiento, cliente y emprendedor
+    // Relación con emprendedor
     public function entrepreneur(){
         return $this->belongsTo(Entrepreneur::class);
     }
 
+    // Relación con cliente
     public function client(){
         return $this->belongsTo(Client::class);
     }
 
-    //productos, emprendimientos y categorias
+    // Relación con productos
     public function product(){
         return $this->hasMany(Product::class);
     }
-
-
 }

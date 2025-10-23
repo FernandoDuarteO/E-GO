@@ -3,10 +3,10 @@
 @section('content')
 <div class="container py-5">
     <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <div class="ego-card d-flex flex-row" style="max-width: 900px; width: 100%;">
+        <div class="ego-card d-flex flex-row" style="max-width:800px; width:100%;">
             <!-- Lado izquierdo: imagen/logo -->
             <div class="ego-side col-5 p-5">
-                <img src="{{ asset('assets/images/E-GO_LOGO.png') }}" alt="Logo" style="width:150px;">
+                <img src="{{ asset('assets/images/E-GO_LOGO.png') }}" alt="Logo" style="width:120px;">
                 <div class="ego-subtitle">¡Emprende ahora!</div>
             </div>
             <!-- Lado derecho: formulario -->
@@ -19,13 +19,12 @@
                     </div>
                 </div>
                 <div class="ego-btn-group mb-2">
-                    <button type="button" class="ego-btn-radio active" data-role="client">Cliente</button>
-                    <button type="button" class="ego-btn-radio" data-role="entrepreneur">Emprendedor</button>
+                    <button type="button" class="ego-btn-radio active" data-role="client" id="btn-client">Cliente</button>
+                    <button type="button" class="ego-btn-radio" data-role="entrepreneur" id="btn-entrepreneur">Emprendedor</button>
                 </div>
-                <form method="POST" action="{{ route('register') }}">
+                <form method="POST" action="{{ route('register') }}" id="register-form">
                     @csrf
 
-                    <!-- Input oculto para el rol -->
                     <input type="hidden" name="role" id="roleInput" value="client">
 
                     @if($errors->any())
@@ -43,7 +42,10 @@
                     <input type="password" class="form-control ego-form-input" name="password" placeholder="Contraseña" required>
                     <input type="password" class="form-control ego-form-input" name="password_confirmation" placeholder="Confirmar contraseña" required>
 
-                    <button type="submit" class="btn ego-btn-main w-100">Registrarme</button>
+                    <!-- Botón Siguiente solo para Emprendedor -->
+                    <a href="{{ route('register.entrepreneur') }}" class="btn ego-btn-main w-100 mb-2" id="btn-next-entrepreneur" style="display:none;">Siguiente</a>
+                    <!-- Botón Registrar solo para Cliente -->
+                    <button type="submit" class="btn ego-btn-main w-100" id="btn-register-client">Registrarme</button>
                     <a href="{{ route('auth.redirect') }}" class="btn ego-btn-facebook w-100 mb-2" id="fb-register-btn">
                         <i class="bi bi-facebook me-2"></i> Registrarme con Facebook
                     </a>
@@ -52,7 +54,6 @@
         </div>
     </div>
 </div>
-<!-- Script para manejar el cambio de rol y el registro con Facebook -->
 <script>
     // Cambiar el rol al hacer click en los botones
     document.querySelectorAll('.ego-btn-radio').forEach(btn => {
@@ -60,6 +61,15 @@
             document.querySelectorAll('.ego-btn-radio').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             document.getElementById('roleInput').value = this.getAttribute('data-role');
+
+            // Mostrar u ocultar botones según el rol
+            if(this.getAttribute('data-role') === 'entrepreneur') {
+                document.getElementById('btn-next-entrepreneur').style.display = 'block';
+                document.getElementById('btn-register-client').style.display = 'none';
+            } else {
+                document.getElementById('btn-next-entrepreneur').style.display = 'none';
+                document.getElementById('btn-register-client').style.display = 'block';
+            }
         });
     });
 
