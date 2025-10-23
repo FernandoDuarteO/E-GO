@@ -11,25 +11,36 @@
             </div>
             <!-- Lado derecho: formulario -->
             <div class="col-7 px-5 py-4 d-flex flex-column justify-content-center">
-                <h4 class="fw-bold mb-3">Datos del emprendimiento</h4>
+                <h4 class="fw-bold mb-4">Datos del emprendimiento</h4>
                 <form method="POST" action="{{ route('register.entrepreneur') }}">
                     @csrf
-                    <input type="text" class="form-control ego-form-input mb-2" name="business_name" placeholder="Nombre del emprendimiento" value="{{ old('business_name') }}" required>
-                    <div class="row">
-                        <div class="col">
-                            <select class="form-control ego-form-input mb-2" name="department" required>
+                    <div class="mb-3">
+                        <label for="business_name" class="form-label mb-1">Nombre del emprendimiento</label>
+                        <input id="business_name" type="text" class="form-control ego-form-input" name="business_name" value="{{ old('business_name') }}" required>
+                    </div>
+                    <div class="row mb-3 gx-2 gy-2">
+                        <div class="col-12 col-md-7">
+                            <label for="department" class="form-label mb-1">Departamento</label>
+                            <select id="department" class="form-control ego-form-input" name="department" required>
                                 <option value="">Departamento</option>
-                                <option value="Amazonas">Esteli</option>
-                                <option value="Áncash">Managua</option>
+                                <option value="Esteli" @if(old('department')=='Esteli') selected @endif>Esteli</option>
+                                <option value="Managua" @if(old('department')=='Managua') selected @endif>Managua</option>
                                 <!-- Agrega más departamentos aquí -->
                             </select>
                         </div>
-                        <div class="col">
-                            <input type="number" class="form-control ego-form-input mb-2" name="years_experience" placeholder="Años de trayectoria" value="{{ old('years_experience') }}">
+                        <div class="col-12 col-md-5">
+                            <label for="years_experience" class="form-label mb-1">Años de trayectoria</label>
+                            <input id="years_experience" type="number" class="form-control ego-form-input" name="years_experience" value="{{ old('years_experience') }}">
                         </div>
                     </div>
-                    <textarea class="form-control ego-form-input mb-2" name="description" placeholder="Descripción" required>{{ old('description') }}</textarea>
-                    <input type="text" class="form-control ego-form-input mb-3" name="business_type" placeholder="Tipo de emprendimiento" value="{{ old('business_type') }}" required>
+                    <div class="mb-3">
+                        <label for="description" class="form-label mb-1">Descripción</label>
+                        <textarea id="description" class="form-control ego-form-input" name="description" required>{{ old('description') }}</textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="business_type" class="form-label mb-1">Tipo de emprendimiento</label>
+                        <input id="business_type" type="text" class="form-control ego-form-input" name="business_type" value="{{ old('business_type') }}" required>
+                    </div>
                     <button type="submit" class="btn ego-btn-main w-100">Crear cuenta</button>
                     <a href="{{ route('register') }}" class="btn btn-link w-100 mt-2">Atrás</a>
                 </form>

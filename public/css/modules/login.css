@@ -141,6 +141,25 @@ main, .ego-card, .d-flex, .container {
 .ego-form-link:hover {
     text-decoration: underline;
 }
+
+/* Fix for entrepreneur form: make row gap and proper padding for two-column fields */
+.gx-2 > .col,
+.gx-2 > [class^="col-"] {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.gy-2 > .col,
+.gy-2 > [class^="col-"] {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.ego-card form .form-label {
+    font-weight: 500;
+    color: #222;
+    font-size: 1rem;
+}
+
+/* Responsive: stack columns on small screens and allow height to grow */
 @media (max-width: 991.98px) {
     .ego-card {
         flex-direction: column !important;
