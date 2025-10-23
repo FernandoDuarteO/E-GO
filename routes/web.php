@@ -13,7 +13,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CostosController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Client\HomeClientController;
-use App\Http\Controllers\ComprasController; // AGREGA ESTE IMPORTANTE IMPORT
+use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\AuthController;
 
 // Ruta de bienvenida
@@ -82,6 +82,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Más rutas aquí...
 });
+
+
 
 // Breeze auth
 require __DIR__.'/auth.php';
