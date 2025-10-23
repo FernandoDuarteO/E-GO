@@ -19,8 +19,8 @@
                         <div class="col">
                             <select class="form-control ego-form-input mb-2" name="department" required>
                                 <option value="">Departamento</option>
-                                <option value="Amazonas">Amazonas</option>
-                                <option value="Áncash">Áncash</option>
+                                <option value="Amazonas">Esteli</option>
+                                <option value="Áncash">Managua</option>
                                 <!-- Agrega más departamentos aquí -->
                             </select>
                         </div>
