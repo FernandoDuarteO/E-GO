@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('entrepreneurships', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->text('description');
-            $table->string('address');
-            $table->string('type');
-            $table->string('telephone')->unique();
-            $table->string('email')->unique();
+            // CORREGIDO: Los siguientes campos deben ser nullable para permitir el registro sin llenarlos
+            $table->string('name')->nullable();         // <-- antes era obligatorio, ahora nullable
+            $table->text('description')->nullable();    // <-- antes era obligatorio, ahora nullable
+            $table->string('address')->nullable();      // <-- antes era obligatorio, ahora nullable
+            $table->string('type')->nullable();         // <-- antes era obligatorio, ahora nullable
+            $table->string('telephone')->unique()->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('media_file')->nullable();
 
             // NUEVOS CAMPOS EN INGLÉS
@@ -28,13 +29,16 @@ return new class extends Migration
             $table->string('business_type');           // Tipo de emprendimiento
 
             // Relaciones existentes
-            $table->integer('entrepreneur_id')->unsigned();
+            $table->integer('entrepreneur_id')->unsigned()->nullable();
             $table->foreign('entrepreneur_id')->references('id')->on('entrepreneurs')
                   ->onDelete('cascade')->onUpdate('cascade');
 
-            $table->integer('client_id')->unsigned();
+            $table->integer('client_id')->unsigned()->nullable();
             $table->foreign('client_id')->references('id')->on('clients')
                   ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->unsignedBigInteger('user_id'); // ID del usuario propietario
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

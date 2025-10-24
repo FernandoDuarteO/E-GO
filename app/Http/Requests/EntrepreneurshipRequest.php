@@ -23,7 +23,7 @@ class EntrepreneurshipRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3|max:255',
+            //'name' => 'required|string|min:3|max:255',
             'description' => 'required',
             'address' => 'required|string|min:3|max:255',
             'type' => 'required|string|min:3|max:100',
@@ -45,10 +45,10 @@ class EntrepreneurshipRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'El nombre del emprendimiento es obligatorio.',
-            'name.string' => 'El nombre del emprendimiento debe ser una cadena de texto.',
-            'name.min' => 'El nombre del emprendimiento debe tener al menos 3 caracteres.',
-            'name.max' => 'El nombre del emprendimiento no debe exceder los 255 caracteres.',
+            //'name.required' => 'El nombre del emprendimiento es obligatorio.',
+            //'name.string' => 'El nombre del emprendimiento debe ser una cadena de texto.',
+            //'name.min' => 'El nombre del emprendimiento debe tener al menos 3 caracteres.',
+           // 'name.max' => 'El nombre del emprendimiento no debe exceder los 255 caracteres.',
 
             'description.required' => 'La descripción del emprendimiento es obligatoria.',
 
