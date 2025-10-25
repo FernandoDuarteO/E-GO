@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-center align-items-center min-vh-100">
         <div class="ego-card d-flex flex-row" style="max-width:820px; width:100%;">
             <div class="ego-side col-5 p-5">
-                <img src="{{ asset('assets/images/E-GO_LOGO.png') }}" alt="Logo" style="width:120px;">
+                <img src="{{ asset('assets/images/E-GO_LOGO.png') }}" alt="E-GO logo" class="ego-logo">
                 <div class="ego-subtitle">¡Emprende ahora!</div>
             </div>
             <div class="col-7 px-5 pt-4 pb-4 d-flex flex-column justify-content-center align-items-center">
