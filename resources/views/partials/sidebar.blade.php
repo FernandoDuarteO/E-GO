@@ -62,13 +62,6 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('costos') ? 'active' : '' }}" href="{{ route('costos.index') }}">
-                    <i class="fa-solid fa-calculator"></i>
-                    Calculadora de Costos
-                </a>
-            </li>
-
-            <li class="nav-item">
                 <a class="nav-link {{ Request::is('compras') ? 'active' : '' }}" href="{{ route('compras.index') }}">
                     <i class="fa-solid fa-desktop"></i>
                     Cursos informativos

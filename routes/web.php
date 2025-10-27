@@ -10,7 +10,6 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\VentasController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CostosController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Client\HomeClientController;
 use App\Http\Controllers\ComprasController;
@@ -68,15 +67,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile/delete', [ProfileController::class, 'destroyAccount'])->name('profile.delete');
 
     // Módulo de costos (puedes proteger dentro de los métodos)
-    Route::prefix('costos')->group(function () {
-        Route::get('/', [CostosController::class, 'index'])->name('costos.index');
-        Route::get('/estructura', [CostosController::class, 'getEstructura'])->name('costos.estructura');
-        Route::post('/estructura', [CostosController::class, 'guardarEstructura'])->name('costos.guardar');
-        Route::delete('/estructura/{id}', [CostosController::class, 'eliminarItem'])->name('costos.eliminar');
-        Route::post('/calcular', [CostosController::class, 'calcularCostoUnitario'])->name('costos.calcular');
-        Route::post('/pronostico', [CostosController::class, 'getPronostico'])->name('costos.pronostico');
-        Route::get('/rentabilidad', [CostosController::class, 'analizarRentabilidad'])->name('costos.rentabilidad');
-    });
 
     // AGREGA ESTA RUTA PARA QUE NO TENGAS EL ERROR DE RUTA NO DEFINIDA
     Route::get('/compras', [ComprasController::class, 'index'])->name('compras.index');
