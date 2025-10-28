@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\EntrepreneurController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Client\HomeClientController;
 use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RegisterEntrepreneurController;
 
 // Ruta de bienvenida
 Route::get('/', function () {
@@ -25,22 +27,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // RUTA SOLO PARA EMPRENDEDORES
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // En el DashboardController, valida manualmente que solo el emprendedor acceda
 
     // CRUD de productos - SOLO EMPRENDEDORES
     Route::resource('/products', ProductController::class);
-    // En ProductController, valida cada método para que solo el emprendedor pueda crear/editar/eliminar productos
 
     // Módulo de ventas SOLO EMPRENDEDORES
     Route::resource('ventas', VentasController::class);
-    // ...otras rutas de ventas aquí, todas protegidas en el controlador
 
     // CRUD de emprendedores (si lo usas solo interno)
     Route::resource('/entrepreneurs', EntrepreneurController::class);
 
     // RUTA SOLO PARA CLIENTES
     Route::get('/clients/products', [HomeClientController::class, 'products'])->name('clients.products');
-    // En el HomeClientController valida que solo el cliente acceda
 
     // CRUD de clientes (si lo usas solo interno)
     Route::resource('/clients', ClientController::class);
@@ -50,7 +48,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // CHAT - RUTA COMPARTIDA
     Route::get('/chat', [ChatController::class, 'index'])->name('chats.index');
-    // Puedes dejar el acceso a ambos y manejar lógica interna para separar mensajes
 
     // Reseñas (si aplica solo para clientes, protege en el controlador)
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
@@ -76,7 +73,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Más rutas aquí...
 });
 
-
 // Breeze auth
 require __DIR__.'/auth.php';
 
@@ -85,7 +81,17 @@ Route::get('/auth/redirect', [AuthController::class, 'redirect'])->name('auth.re
 Route::get('/auth/callback', [AuthController::class, 'callback'])->name('auth.callback');
 
 // --------- RUTA PARA REGISTRO DE EMPRENDEDOR --------------
-Route::get('/register/entrepreneur', function () {
-    return view('auth.register_entrepreneur');
+// Esta ruta debe aceptar tanto GET como POST para recibir datos de la vista anterior y mostrarlos en la vista de emprendimiento
+// Muestra la vista de emprendimiento (POST y GET)
+Route::match(['get', 'post'], '/register/entrepreneur', function (Illuminate\Http\Request $request) {
+    // SOLO muestra la vista, NO valida nada aquí
+    return view('auth.register_entrepreneur', [
+        'name' => $request->input('name'),
+        'email' => $request->input('email'),
+        'password' => $request->input('password'),
+        'password_confirmation' => $request->input('password_confirmation'),
+    ]);
 })->name('register.entrepreneur');
-// ----------------------------------------------------------
+
+// Procesa el registro de emprendimiento
+Route::post('/register/entrepreneur/post', [RegisterEntrepreneurController::class, 'store'])->name('register.entrepreneur.post');

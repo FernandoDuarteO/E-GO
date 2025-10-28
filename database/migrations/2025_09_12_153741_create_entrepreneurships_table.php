@@ -13,28 +13,29 @@ return new class extends Migration
     {
         Schema::create('entrepreneurships', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->text('description');
-            $table->string('address');
-            $table->string('type');
-            $table->string('telephone')->unique();
-            $table->string('email')->unique();
+            $table->string('name')->default('');
+            $table->string('description', 1000)->default('');
+            $table->string('address')->default('');
+            $table->string('type')->default('');
+            $table->string('telephone')->unique()->nullable();
+            $table->string('email')->unique()->nullable();
             $table->string('media_file')->nullable();
-
-            // NUEVOS CAMPOS EN INGLÉS
-            $table->string('business_name');           // Nombre del emprendimiento
-            $table->string('department');              // Departamento
-            $table->integer('years_experience')->nullable(); // Años de trayectoria
-            $table->string('business_type');           // Tipo de emprendimiento
+            $table->string('business_name');
+            $table->string('department');
+            $table->integer('years_experience')->default(0);
+            $table->string('business_type')->default('');
 
             // Relaciones existentes
-            $table->integer('entrepreneur_id')->unsigned();
+            $table->unsignedInteger('entrepreneur_id')->nullable();
             $table->foreign('entrepreneur_id')->references('id')->on('entrepreneurs')
                   ->onDelete('cascade')->onUpdate('cascade');
 
-            $table->integer('client_id')->unsigned();
+            $table->unsignedInteger('client_id')->nullable();
             $table->foreign('client_id')->references('id')->on('clients')
                   ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->unsignedBigInteger('user_id'); // ID del usuario propietario
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

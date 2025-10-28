@@ -20,6 +20,7 @@ class Entrepreneurship extends Model
         'media_file',
         'entrepreneur_id',
         'client_id',
+        'user_id',              // <-- Campo para la relación con User
         // Nuevos campos para el registro de emprendimiento
         'business_name',
         'department',
@@ -35,6 +36,11 @@ class Entrepreneurship extends Model
     // Relación con cliente
     public function client(){
         return $this->belongsTo(Client::class);
+    }
+
+    // Relación con usuario
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
     // Relación con productos

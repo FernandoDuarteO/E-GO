@@ -2,24 +2,47 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Template extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
-    protected $perPage = 5;
+    use HasFactory, Notifiable;
 
+    // Si usas Laravel Breeze/Fortify, estos son los fillable por defecto
     protected $fillable = [
-        'title',
-        'type',
-        'format',
-        'template_code',
-        'entrepreneur_id'
+        'name',
+        'email',
+        'password',
+        'role', // Tu campo para roles
     ];
 
-    //plantilla y emprendedores
-    public function entrepreneur(){
-        return $this->belongsTo(Entrepreneur::class);
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    // Relación: Un usuario puede tener muchos emprendimientos
+    public function entrepreneurships()
+    {
+        return $this->hasMany(Entrepreneurship::class, 'user_id');
+    }
+
+    // Si tienes relación con Entrepreneur (otro modelo de perfil)
+    public function entrepreneur()
+    {
+        return $this->hasOne(Entrepreneur::class);
+    }
+
+    // Si tienes relación con Client (otro modelo de perfil)
+    public function client()
+    {
+        return $this->hasOne(Client::class);
     }
 }

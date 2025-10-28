@@ -3,14 +3,12 @@
 @section('content')
 <div class="container py-5">
     <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <div class="ego-card d-flex flex-row" style="max-width:800px; width:100%;">
-            <!-- Lado izquierdo: imagen/logo -->
+        <div class="ego-card d-flex flex-row" style="max-width:820px; width:100%;">
             <div class="ego-side col-5 p-5">
-                <img src="{{ asset('assets/images/E-GO_LOGO.png') }}" alt="Logo" style="width:120px;">
+                <img src="{{ asset('assets/images/E-GO_LOGO.png') }}" alt="E-GO logo" class="ego-logo">
                 <div class="ego-subtitle">¡Emprende ahora!</div>
             </div>
-            <!-- Lado derecho: formulario -->
-            <div class="col-7 px-5 py-4 d-flex flex-column justify-content-center">
+            <div class="col-7 px-5 py-4 d-flex flex-column justify-content-center align-items-center">
                 <div class="text-center mb-1">
                     <h3 class="fw-bold mb-0">Crear cuenta</h3>
                     <div class="mb-3" style="font-size: 0.95rem;">
@@ -22,9 +20,8 @@
                     <button type="button" class="ego-btn-radio active" data-role="client" id="btn-client">Cliente</button>
                     <button type="button" class="ego-btn-radio" data-role="entrepreneur" id="btn-entrepreneur">Emprendedor</button>
                 </div>
-                <form method="POST" action="{{ route('register') }}" id="register-form">
+                <form method="POST" action="{{ route('register') }}" id="register-form" class="w-100" style="max-width:340px;">
                     @csrf
-
                     <input type="hidden" name="role" id="roleInput" value="client">
 
                     @if($errors->any())
@@ -43,7 +40,7 @@
                     <input type="password" class="form-control ego-form-input" name="password_confirmation" placeholder="Confirmar contraseña" required>
 
                     <!-- Botón Siguiente solo para Emprendedor -->
-                    <a href="{{ route('register.entrepreneur') }}" class="btn ego-btn-main w-100 mb-2" id="btn-next-entrepreneur" style="display:none;">Siguiente</a>
+                    <button type="button" class="btn ego-btn-main w-100 mb-2" id="btn-next-entrepreneur" style="display:none;">Siguiente</button>
                     <!-- Botón Registrar solo para Cliente -->
                     <button type="submit" class="btn ego-btn-main w-100" id="btn-register-client">Registrarme</button>
                     <a href="{{ route('auth.redirect') }}" class="btn ego-btn-facebook w-100 mb-2" id="fb-register-btn">
@@ -61,8 +58,6 @@
             document.querySelectorAll('.ego-btn-radio').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             document.getElementById('roleInput').value = this.getAttribute('data-role');
-
-            // Mostrar u ocultar botones según el rol
             if(this.getAttribute('data-role') === 'entrepreneur') {
                 document.getElementById('btn-next-entrepreneur').style.display = 'block';
                 document.getElementById('btn-register-client').style.display = 'none';
@@ -72,6 +67,39 @@
             }
         });
     });
+
+    // PREVIENE EL SUBMIT DEL FORMULARIO SI ES EMPRENDEDOR
+    document.getElementById('register-form').addEventListener('submit', function(e) {
+        var role = document.getElementById('roleInput').value;
+        if(role === 'entrepreneur') {
+            e.preventDefault(); // Nunca envía como submit normal si es emprendedor
+        }
+        // Si es cliente, sí deja el submit normal
+    });
+
+    // Botón "Siguiente" para emprendedor: envía datos por POST a la vista de emprendimiento
+    document.getElementById('btn-next-entrepreneur').addEventListener('click', function(e) {
+    e.preventDefault();
+    var form = document.getElementById('register-form');
+    var data = new FormData(form);
+    var tempForm = document.createElement('form');
+    tempForm.method = 'POST';
+    tempForm.action = "{{ route('register.entrepreneur') }}"; // <-- AQUÍ VA ESTA LÍNEA
+    tempForm.style.display = 'none';
+
+    var csrf = document.querySelector('input[name=\"_token\"]');
+    tempForm.appendChild(csrf.cloneNode(true));
+
+    for(var [key, value] of data.entries()) {
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = value;
+        tempForm.appendChild(input);
+    }
+    document.body.appendChild(tempForm);
+    tempForm.submit();
+});
 
     // Modifica el href del botón de Facebook para agregar el rol como query
     document.getElementById('fb-register-btn').addEventListener('click', function(e) {

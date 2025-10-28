@@ -1,3 +1,18 @@
+:root{
+    /* Logo & subtitle sizes (easy to tune in one place) */
+    --ego-logo-width: 150px;        /* width of the logo on desktop */
+    --ego-logo-max-height: 140px;   /* optional max height */
+    --ego-subtitle-size: 1.5rem;    /* subtitle text size */
+    --ego-subtitle-color: #444;
+    --ego-side-padding: 3rem;
+
+    /* Card sizes */
+    --ego-card-width: 820px;
+    --ego-card-height: 650px;
+}
+
+/* Reset & base */
+* { box-sizing: border-box; }
 html, body {
     height: 100%;
     margin: 0;
@@ -29,51 +44,72 @@ main, .ego-card, .d-flex, .container {
     position: relative;
     z-index: 2;
 }
+
+/* Card */
 .ego-card {
     background: #fff;
     border-radius: 32px;
     box-shadow: 0 0 40px 10px rgba(0, 0, 0, 0.5), 0 2px 10px 0 rgba(0, 0, 0, 0.16);
     overflow: hidden;
     transition: box-shadow 0.3s;
-    width: 800px;
-    height: 530px;
-    min-width: 800px;
-    max-width: 800px;
+    width: var(--ego-card-width);
+    height: var(--ego-card-height);
+    min-width: var(--ego-card-width);
+    max-width: var(--ego-card-width);
     display: flex;
 }
-.ego-card .col-7, .ego-side {
-    height: 530px !important;
-    min-height: 530px !important;
-    max-height: 530px !important;
+
+/* Left side (shared panel) */
+.ego-card .col-7,
+.ego-side {
+    height: var(--ego-card-height) !important;
+    min-height: var(--ego-card-height) !important;
+    max-height: var(--ego-card-height) !important;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
+
+/* Right column tweaks */
+.ego-card .col-7 {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+}
+
+/* Left panel styles */
 .ego-side {
     background: #c9bcff;
     align-items: center;
+    padding: var(--ego-side-padding);
+    text-align: center;
 }
+
+.ego-logo,
 .ego-side img {
-    width: 120px;
+    width: var(--ego-logo-width);
+    max-height: var(--ego-logo-max-height);
+    height: auto;
+    display: block;
+    object-fit: contain;
     margin-bottom: 24px;
 }
-.ego-title {
-    color: #6358DC;
-    font-weight: 700;
-    font-size: 2rem;
-    letter-spacing: 1px;
-}
+
+/* Subtitle under logo */
 .ego-subtitle {
-    color: #444;
-    font-size: 1.5rem;
+    color: var(--ego-subtitle-color);
+    font-size: var(--ego-subtitle-size);
     margin-top: 8px;
     margin-bottom: 0;
     font-weight: 500;
+    line-height: 1.15;
 }
+
+/* Column buttons (Cliente / Emprendedor) */
 .ego-btn-group {
     display: flex;
-    gap: 8px;
-    margin-bottom: 24px;
+    gap: 12px;
+    margin-bottom: 28px;
     justify-content: center;
 }
 .ego-btn-radio {
@@ -82,18 +118,26 @@ main, .ego-card, .d-flex, .container {
     background: #ede7fe;
     color: #6358DC;
     border: none;
-    font-weight: 600;
+    font-weight: 700;
     box-shadow: none;
-    padding: 8px 0;
-    transition: background .2s, color .2s;
-    font-size: 1.08rem;
+    padding: 11px 32px;
+    font-size: 1.15rem;
+    letter-spacing: 0.3px;
     cursor: pointer;
+    transition: background .2s, color .2s;
+    line-height: 1.1;
 }
 .ego-btn-radio.active,
 .ego-btn-radio:focus {
     background: #6358DC;
     color: #fff;
 }
+.ego-btn-radio:not(.active):hover {
+    background: #d1c6f2;
+    color: #6358DC;
+}
+
+/* Form inputs & controls */
 .ego-form-input {
     border-radius: 10px;
     background: #f5f5f8;
@@ -141,19 +185,29 @@ main, .ego-card, .d-flex, .container {
 .ego-form-link:hover {
     text-decoration: underline;
 }
+.ego-btn-back {
+    color: #6358DC;
+    font-weight: 600;
+    border-radius: 999px;
+    background: none;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 0;
+    transition: color 0.2s;
+}
+.ego-btn-back:hover,
+.ego-btn-back:focus {
+    text-decoration: underline;
+    color: #4e3ea1;
+}
 
-/* Fix for entrepreneur form: make row gap and proper padding for two-column fields */
-.gx-2 > .col,
-.gx-2 > [class^="col-"] {
-    padding-left: 8px;
-    padding-right: 8px;
+/* Small helpers for form rows */
+.form-row-custom .col-6 {
+    padding-right: 10px;
+    padding-left: 10px;
 }
-.gy-2 > .col,
-.gy-2 > [class^="col-"] {
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
-.ego-card form .form-label {
+.form-row-custom .form-label {
     font-weight: 500;
     color: #222;
     font-size: 1rem;
@@ -161,11 +215,19 @@ main, .ego-card, .d-flex, .container {
 
 /* Responsive: stack columns on small screens and allow height to grow */
 @media (max-width: 991.98px) {
+    /* Adjust variables for smaller screens */
+    :root {
+        --ego-logo-width: 100px;
+        --ego-subtitle-size: 1.1rem;
+        --ego-side-padding: 2rem;
+        --ego-card-width: 97vw;
+    }
+
     .ego-card {
         flex-direction: column !important;
         min-width: 320px;
-        max-width: 97vw;
-        width: 97vw;
+        max-width: var(--ego-card-width);
+        width: var(--ego-card-width);
         height: auto !important;
     }
     .ego-side {
@@ -179,5 +241,31 @@ main, .ego-card, .d-flex, .container {
         height: auto !important;
         min-height: 0 !important;
         max-height: none !important;
+        padding-top: 16px !important;
+        padding-bottom: 16px !important;
+    }
+    .form-row-custom .col-6 {
+        padding-right: 0;
+        padding-left: 0;
+        margin-bottom: 8px;
     }
 }
+
+/* Very small screens */
+@media (max-width: 480px) {
+    :root {
+        --ego-logo-width: 84px;
+        --ego-subtitle-size: 0.95rem;
+        --ego-side-padding: 1.25rem;
+    }
+    .ego-subtitle { margin-top: 8px; }
+}
+
+.ego-logo, .ego-side img {
+    /* prefer width variable but also cap max-height to keep visual parity */
+    width: var(--ego-logo-width) !important;
+    max-height: var(--ego-logo-max-height) !important;
+}
+
+/* Accessibility: ensure contrast on subtitle */
+.ego-subtitle { color: var(--ego-subtitle-color); }

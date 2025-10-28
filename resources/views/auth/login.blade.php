@@ -6,7 +6,7 @@
         <div class="ego-card d-flex flex-row" style="max-width: 900px; width: 100%;">
             <!-- Lado izquierdo: imagen/logo -->
             <div class="ego-side col-5 p-5">
-                <img src="{{ asset('assets/images/E-GO_LOGO.png') }}" alt="Logo" style="width:150px;">
+                <img src="{{ asset('assets/images/E-GO_LOGO.png') }}" alt="E-GO logo" class="ego-logo">
                 <div class="ego-subtitle">¡Emprende ahora!</div>
             </div>
             <!-- Lado derecho: formulario -->
