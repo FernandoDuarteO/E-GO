@@ -225,85 +225,397 @@
 /* Product show (detalles) - namespaceado para mayor especificidad           */
 /* Uso: envuelve tu show con .product-show-container (tu HTML ya lo usa)     */
 /* -------------------------------------------------------------------------- */
+:root{
+  --primary: #6f42c1;
+  --primary-700: #55308f;
+  --accent-hover: #f2c94c;   /* color hover amarillo */
+  --muted: #f6f3fb;
+  --card-bg: #ffffff;
+  --text: #222;
+  --muted-text: #6b6b6b;
+  --shadow-soft: 0 8px 24px rgba(20,20,20,0.06);
+  --detail-radius: 12px;
+  --gap: 22px;
+  --max-width: 1200px;
+  --transition: 180ms ease;
+  --thumb-size: 56px;
+  --thumb-gap: 12px;
+  --main-image-width: 320px; /* ancho del main image (ajusta si quieres más grande/pequeño) */
+}
 
-.product-show-container .product-detail-card{
-  background: linear-gradient(180deg, #fff, #fff);
+/* Contenedor general */
+body .product-show-container{
+  padding: 1.6rem;
+  box-sizing: border-box;
+  color: var(--text);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Card principal */
+body .product-show-container .product-detail-card{
+  background: var(--card-bg) !important;
   border-radius: var(--detail-radius);
   padding: 22px;
   box-shadow: var(--shadow-soft);
   border: 1px solid rgba(111,66,193,0.04);
   transition: transform var(--transition), box-shadow var(--transition);
+  overflow: visible;
 }
 
-/* Imagen principal en show */
-.product-show-container .product-image{
+/* Grid: imagen | info */
+body .product-show-container .product-detail-card .row{
+  display: grid;
+  grid-template-columns: minmax(320px, 46%) 1fr;
+  gap: var(--gap);
+  align-items: center;
+}
+
+/* Columna de imagen */
+.product-image-wrap{
+  display:flex;
+  flex-direction:column;
+  gap: 14px;
+  align-items: center;       /* centra horizontalmente */
+  justify-content: center;
   width: 100%;
-  max-width: 320px;
+  box-sizing: border-box;
+}
+
+/* Contenedor del carrusel — coincide con tu HTML: #product-carousel .position-relative */
+#product-carousel .position-relative{
+  width: var(--main-image-width);
+  max-width: 100%;
+  margin: 0 auto;           /* centra dentro de la columna */
+  position: relative;       /* referencia para las flechas absolutas */
+  display: block;
+  box-sizing: border-box;
+  padding: 6px 0 0 0;
+}
+
+/* Imagen principal: controlada por la variable de ancho */
+#product-carousel #carousel-main-image,
+#product-carousel .product-image{
+  width: 100%;
+  max-width: var(--main-image-width);
+  height: auto;
   aspect-ratio: 1/1;
   object-fit: cover;
   border-radius: calc(var(--detail-radius) - 4px);
-  box-shadow: 0 6px 20px rgba(80,80,150,0.08);
+  box-shadow: 0 10px 30px rgba(80,80,150,0.06);
   transition: transform var(--transition), box-shadow var(--transition);
   background: linear-gradient(180deg, rgba(111,66,193,0.02), rgba(255,255,255,0.03));
-}
-.product-show-container .product-image:hover{
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 10px 36px rgba(80,80,150,0.10);
+  border: 1px solid rgba(0,0,0,0.03);
+  display:block;
 }
 
-/* Info */
-.product-show-container .product-info-list{
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: #2b2b30;
-  padding-left: 0;
+/* Evitar bordes externos o reglas que rompan la imagen */
+.product-show-container img.product-image,
+#product-carousel img{
+  border: none !important;
+  display:block;
 }
 
-/* Botón "Volver" con mayor especificidad para sobrescribir Bootstrap */
-.product-show-container .product-detail-card .btn.product-back-btn,
-.product-show-container .product-detail-card a.product-back-btn {
+/* MINIATURAS — UNA SOLA FILA alineadas con el ancho del main image */
+#product-carousel #carousel-indicators{
+  display: flex !important;
+  flex-wrap: nowrap !important;               /* evitar que hagan wrap */
+  justify-content: space-between !important;  /* distribuye desde borde a borde */
+  gap: var(--thumb-gap) !important;
+  margin-top: 12px !important;
+  padding: 6px 4px !important;
+  align-items: center !important;
+  width: var(--main-image-width) !important;  /* misma anchura que la imagen principal */
+  max-width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: auto;                            /* si sobran miniaturas, permitir scroll */
+}
+
+/* Si quieres miniaturas centradas en lugar de space-between usa:
+   #product-carousel #carousel-indicators{ justify-content: center !important; } */
+
+/* Miniatura (botón) */
+#product-carousel #carousel-indicators .indicator-btn{
+  flex: 0 0 auto; /* no crecer ni encoger */
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 0;
   display: inline-flex;
   align-items: center;
-  gap: .4rem;
-  background-color: var(--primary) !important;
-  color: #fff !important;
-  border: 0 !important;
-  padding: .5rem .9rem;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(111,66,193,0.12);
-  text-decoration: none;
-  transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition);
+  justify-content: center;
+  cursor: pointer;
+  background: #fff;
+  border: 2px solid rgba(0,0,0,0.06);
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  box-sizing: border-box;
 }
-.product-show-container .product-detail-card .btn.product-back-btn:hover,
-.product-show-container .product-detail-card a.product-back-btn:hover {
-  transform: translateY(-4px);
-  background-color: var(--primary-700) !important;
-  box-shadow: 0 12px 30px rgba(111,66,193,0.16);
-  color: #fff !important;
+#product-carousel #carousel-indicators .indicator-btn img{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  display:block;
+}
+#product-carousel #carousel-indicators .indicator-btn.active{
+  transform: translateY(-6px);
+  border-color: var(--primary);
+  box-shadow: 0 12px 30px rgba(111,66,193,0.14);
 }
 
-/* Reseñas */
-.product-show-container .reviews-card{
+/* FLECHAS: visibilidad y estilo (IDs prevBtn / nextBtn según tu blade) */
+#product-carousel #prevBtn,
+#product-carousel #nextBtn,
+#product-carousel .carousel-nav-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  all: unset;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 999px !important; /* círculo */
+  background: linear-gradient(180deg, var(--primary), var(--primary-700)) !important;
+  color: #fff !important;
+  border: 0 !important;
+  cursor: pointer !important;
+  z-index: 99999 !important;
+  box-shadow: 0 12px 30px rgba(111,66,193,0.18) !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+  padding: 0 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Posición de las flechas (fuera del contorno para que no tapen la imagen) */
+#product-carousel #prevBtn{ left: -20px !important; }
+#product-carousel #nextBtn{ right: -20px !important; }
+
+/* Símbolo si el botón viene vacío */
+#product-carousel #prevBtn::after,
+#product-carousel .carousel-nav-btn.left::after {
+  content: '‹';
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  display:inline-block;
+}
+#product-carousel #nextBtn::after,
+#product-carousel .carousel-nav-btn.right::after {
+  content: '›';
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  display:inline-block;
+}
+
+/* Hover: amarillo con sombra */
+#product-carousel #prevBtn:hover,
+#product-carousel #nextBtn:hover,
+#product-carousel .carousel-nav-btn:hover {
+  transform: translateY(-50%) scale(1.06) !important;
+  background: linear-gradient(180deg, var(--accent-hover), #f0c430) !important;
+  color: #111 !important;
+  box-shadow: 0 18px 44px rgba(242,201,76,0.20) !important;
+  opacity: 1 !important;
+}
+
+/* Forzar visibilidad si hay reglas que intentan ocultar */
+#product-carousel #prevBtn,
+#product-carousel #nextBtn {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Asegurar color de iconos internos si usas <i> o <svg> */
+#product-carousel #prevBtn i,
+#product-carousel #nextBtn i,
+#product-carousel #prevBtn svg,
+#product-carousel #nextBtn svg {
+  color: inherit !important;
+  font-size: 18px !important;
+}
+
+/* Info columna y títulos */
+.product-info-column{
+  display:flex;
+  flex-direction:column;
+  gap: 12px;
+  justify-content: center;
+}
+.product-info-main h3{
+  margin: 0 0 6px 0;
+  font-size: 28px;
+  line-height: 1.12;
+  color: var(--text);
+  font-weight: 700;
+}
+.product-info-list{
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* Badges */
+.price-badge{
+  display:inline-block;
+  background: linear-gradient(180deg,var(--primary),var(--primary-700));
+  color: #fff;
+  padding: .36rem .6rem;
+  border-radius: 8px;
+  font-weight:700;
+  box-shadow: 0 8px 22px rgba(111,66,193,0.12);
+  margin-right: .6rem;
+}
+.quantity-badge{
+  display:inline-block;
+  background: linear-gradient(180deg,var(--primary),var(--primary-700));
+  color: #fff;
+  padding: .28rem .5rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: .9rem;
+  box-shadow: 0 6px 18px rgba(111,66,193,0.10);
+  margin-left: .6rem;
+}
+
+/* Botón Volver: morado por defecto, hover amarillo; texto en negrita (override final también asegura) */
+body .product-show-container .product-back-btn,
+body .product-show-container a.product-back-btn{
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:.5rem !important;
+  text-decoration:none !important;
+  color:#fff !important;
+  background: linear-gradient(180deg,var(--primary),var(--primary-700)) !important;
+  padding: .5rem .9rem !important;
+  border-radius: 10px !important;
+  border: none !important;
+  box-shadow: 0 10px 28px rgba(111,66,193,0.14) !important;
+  transition: transform var(--transition), box-shadow var(--transition), background .12s ease;
+  position: relative;
+  font-weight: 700 !important; /* negrita */
+}
+body .product-show-container .product-back-btn:hover,
+body .product-show-container a.product-back-btn:hover{
+  background: linear-gradient(180deg, var(--accent-hover), #f0c430) !important;
+  color: #111 !important;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(242,201,76,0.18) !important;
+}
+body .product-show-container .product-back-btn i,
+body .product-show-container a.product-back-btn i{
+  color: inherit !important;
+  font-weight: 900 !important;
+}
+
+/* Reviews card */
+body .product-show-container .reviews-card{
   margin-top: 18px;
-  background: linear-gradient(180deg, #fff, #fff);
+  background: #fff !important;
   border-radius: var(--detail-radius);
   padding: 18px;
   border: 1px solid rgba(111,66,193,0.03);
-  box-shadow: 0 4px 18px rgba(33,37,41,0.02);
+  box-shadow: 0 6px 18px rgba(20,20,20,0.03);
 }
-.product-show-container .review-item{
-  background: #f9f9fd;
-  border: 1px solid rgba(111,66,193,0.03);
-  padding: 14px;
+body .product-show-container .review-item{
+  background: #fbfbff !important;
+  border: 1px solid rgba(0,0,0,0.03);
+  padding: 12px;
   border-radius: 10px;
   margin-bottom: 12px;
-  transition: background var(--transition), transform var(--transition);
-}
-.product-show-container .review-item:hover{
-  transform: translateY(-4px);
-  background: #fbfbff;
 }
 
+/* Evitar que reglas externas pongan fondos grandes en elementos .card del área de producto */
+body .product-show-container [class*="card"],
+body .product-show-container [class*="card"] *{
+  background-color: transparent !important;
+}
+
+/* Utilities */
+.hr-sep{ height:1px; background:#f3f3f3; margin:10px 0; border-radius:1px; }
+
+/* Responsive: apilar en móvil y ajustes */
+@media (max-width: 991px){
+  body .product-show-container .product-detail-card .row{
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  #product-carousel #carousel-indicators{
+    justify-content:flex-start;
+    width:100%;
+    margin-left:0;
+  }
+  #product-carousel #carousel-indicators .indicator-btn{ width:48px; height:48px; }
+  #product-carousel #carousel-main-image{ max-width:260px; }
+}
+@media (max-width: 576px){
+  .product-show-container{ padding:12px; }
+  #product-carousel #carousel-indicators .indicator-btn{ width:44px; height:44px; }
+  #product-carousel #carousel-main-image{ max-width:220px; }
+}
+
+/* ------------------------
+   Small overrides (final)
+   - Forzar single-chevron en los botones del carrusel
+   - Asegurar texto "Volver" en negrita
+   Colocar al final para sobrescribir cualquier regla anterior.
+   ------------------------ */
+
+/* 1) Forzar que el contenido interno del botón quede oculto y mostrar solo una pseudo-flecha */
+#product-carousel #prevBtn,
+#product-carousel #nextBtn,
+#product-carousel .carousel-nav-btn {
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  text-indent: -9999px !important;
+  white-space: nowrap !important;
+}
+
+/* single chevrons via ::after */
+#product-carousel #prevBtn::after,
+#product-carousel .carousel-nav-btn.left::after {
+  content: '‹'; /* single chevron left */
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  display: inline-block;
+  line-height: 1;
+  font-family: inherit;
+  text-indent: 0;
+}
+#product-carousel #nextBtn::after,
+#product-carousel .carousel-nav-btn.right::after {
+  content: '›'; /* single chevron right */
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  display: inline-block;
+  line-height: 1;
+  font-family: inherit;
+  text-indent: 0;
+}
+#product-carousel #prevBtn::after,
+#product-carousel #nextBtn::after,
+#product-carousel .carousel-nav-btn::after {
+  pointer-events: none;
+}
+
+/* 2) Negrita en Volver (asegurado ya arriba, pero reafirmamos) */
+body .product-show-container .product-back-btn,
+body .product-show-container a.product-back-btn{
+  font-weight: 700 !important;
+}
 /* -------------------------------------------------------------------------- */
 /* Form styles (moved from views)                                              */
 /* -------------------------------------------------------------------------- */
