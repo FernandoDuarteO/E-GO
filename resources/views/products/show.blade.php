@@ -63,7 +63,7 @@
                     <h3 class="mb-2" style="font-weight:700;">{{ $products->name }}</h3>
 
                     <div class="mb-3 d-flex align-items-center gap-3">
-                        <span class="price-badge">C${{ number_format($products->price, 2) }}</span>
+                        <span class="price-badge">C$ {{ number_format($products->price, 2) }}</span>
                         <span class="text-muted">|</span>
                         <span class="quantity-badge">Cantidad: {{ $products->quantity }}</span>
                     </div>
