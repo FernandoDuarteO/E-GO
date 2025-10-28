@@ -12,13 +12,26 @@
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 products-grid">
         @foreach ($products as $product)
+            @php
+                // Intentamos usar la relación ya cargada para evitar N+1.
+                $imgPath = null;
+                if ($product->relationLoaded('firstImage') && $product->firstImage) {
+                    $imgPath = $product->firstImage->file_path;
+                } elseif ($product->relationLoaded('images') && $product->images->isNotEmpty()) {
+                    $imgPath = $product->images->first()->file_path;
+                } elseif (!empty($product->media_file)) { // fallback legacy
+                    $imgPath = $product->media_file;
+                }
+            @endphp
+
             <div class="col">
                 <div class="card product-card h-100 shadow-sm border-0">
-                    @if($product->media_file)
-                        <img src="{{ asset('storage/' . $product->media_file) }}" class="card-img-top" alt="Foto">
+                    @if ($imgPath)
+                        <img src="{{ Storage::url($imgPath) }}" class="card-img-top" alt="{{ $product->name }}" loading="lazy" style="object-fit: cover; height:180px;">
                     @else
-                        <img src="https://via.placeholder.com/300x180?text=Sin+Imagen" class="card-img-top" alt="Sin foto">
+                        <img src="https://via.placeholder.com/300x180?text=Sin+Imagen" class="card-img-top" alt="Sin foto" loading="lazy">
                     @endif
+
                     <div class="card-body">
                         <h6 class="card-title mb-1">{{ $product->name }}</h6>
                         <p class="mb-1 fw-bold">C${{ number_format($product->price, 2) }}</p>

@@ -1,21 +1,26 @@
-/* products.css - estilo moderno manteniendo estética morada */
-/* Colocar en: public/css/components/products.css
-   Importar desde public/css/app.css:  @import "components/products.css";
-*/
-
 :root{
+  /* Core palette & tokens */
   --primary: #6f42c1;
   --primary-700: #5a34a8;
   --accent: rgba(111,66,193,0.06);
   --bg: #f5f7fa;
   --muted: #8b8f95;
   --text: #2b2b30;
-  --radius: 10px;
+
+  /* radii / shadows / transitions */
+  --radius: 10px;            /* default radius for cards/list */
+  --detail-radius: 16px;     /* used in product detail card (show) */
   --shadow-sm: 0 4px 10px rgba(33,37,41,0.04);
   --shadow-md: 0 10px 24px rgba(33,37,41,0.06);
+  --shadow-soft: 0 6px 24px rgba(80,80,150,0.08);
   --transition-card: 340ms cubic-bezier(.22,.9,.3,1);
   --transition-btn: 240ms cubic-bezier(.2,.9,.3,1);
+  --transition: 220ms cubic-bezier(.2,.9,.3,1);
 }
+
+/* -------------------------------------------------------------------------- */
+/* Layout / List (products index)                                              */
+/* -------------------------------------------------------------------------- */
 
 /* Contenedor y header */
 .products-container{
@@ -37,9 +42,12 @@
   gap: 26px;
   align-items: start;
   width: 100%;
+  position: relative;
+  z-index: 10;
+  margin-top: 8px;
 }
 
-/* Tarjeta */
+/* Card: lista de productos */
 .product-card{
   background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.98));
   border-radius: var(--radius);
@@ -52,6 +60,8 @@
   min-height: 360px;
   will-change: transform, box-shadow;
   transform-origin: center;
+  position: relative;
+  z-index: 1;
 }
 
 /* Hover: más suave */
@@ -59,9 +69,10 @@
   transform: translateY(-4px) translateZ(0);
   box-shadow: var(--shadow-md);
   border-color: rgba(111,66,193,0.10);
+  z-index: 20;
 }
 
-/* Imagen */
+/* Imagen dentro de la card */
 .product-card .card-img-top{
   width: 100%;
   height: 200px;
@@ -72,8 +83,6 @@
   transform-origin: center;
   display: block;
 }
-
-/* Zoom de imagen más sutil */
 .product-card:hover .card-img-top{
   transform: scale(1.025);
   filter: brightness(1.02);
@@ -100,8 +109,6 @@
   font-weight: 800;
   color: #222;
 }
-
-/* Descripción corta */
 .product-desc{
   font-size: 13px;
   color: var(--muted);
@@ -112,8 +119,6 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
-/* Categoria */
 .product-category{
   font-size: 13px;
   color: var(--primary);
@@ -131,7 +136,7 @@
   border-radius: 0 0 var(--radius) var(--radius);
 }
 
-/* Botones morados (mejor suavizado) */
+/* Botones */
 .custom-purple-btn{
   background: var(--primary);
   color: #fff;
@@ -152,8 +157,6 @@
   background: var(--primary-700);
   box-shadow: 0 8px 18px rgba(111,66,193,0.10);
 }
-
-/* Botón eliminar */
 .custom-purple-btn.danger{
   background: #e95f5f;
 }
@@ -185,7 +188,7 @@
   background: rgba(111,66,193,0.04);
 }
 
-/* Compatibilidad con grid bootstrap */
+/* Compatibilidad con bootstrap grid */
 .row.products-grid > .col {
   display: contents;
 }
@@ -193,7 +196,7 @@
   margin: 0;
 }
 
-/* Pequeños ajustes responsive */
+/* Responsive list tweaks */
 @media (max-width: 576px){
   .product-card .card-img-top{
     height: 160px;
@@ -205,139 +208,206 @@
   }
 }
 
-/* Evitar que las cards en hover tapen el título "Mis productos" */
-
-/* Aumenta separación y asegura que el header esté por encima */
+/* Header stacking fix */
 .products-header{
-  margin-bottom: 48px;        /* aumenta espacio (ajusta a tu gusto) */
-  position: relative;         /* necesario para que z-index funcione */
-  z-index: 50;                /* más alto que las cards */
-  background: transparent;    /* opcional: evita cambios visuales */
+  margin-bottom: 48px;
+  position: relative;
+  z-index: 50;
+  background: transparent;
   display: block;
 }
-
-/* Contenedor de grid con posicionamiento propio */
-.products-grid{
-  position: relative;
-  z-index: 10;
-  margin-top: 8px;            /* un pequeño espacio extra si lo necesitas */
-}
-
-/* Cada card en su propio contexto y por debajo del header */
-.product-card{
-  position: relative;         /* necesario para z-index y transform */
-  z-index: 1;                 /* cards por defecto debajo del header */
-  transition: transform 320ms cubic-bezier(.22,.9,.3,1),
-              box-shadow 320ms cubic-bezier(.22,.9,.3,1);
-  will-change: transform, box-shadow;
-}
-
-/* Hover: se eleva sobre otras cards pero seguirá debajo del header (z-index menor que .products-header) */
-.product-card:hover{
-  transform: translateY(-4px);
-  z-index: 20;                /* mayor que otras cards (1) pero menor que el header (50) */
-  box-shadow: 0 10px 24px rgba(33,37,41,0.06);
-}
-
-/* Si quieres más separación vertical entre el título y el primer row en pantallas pequeñas */
 @media (max-width: 768px){
   .products-header{ margin-bottom: 36px; }
   .products-grid{ margin-top: 6px; }
 }
 
+/* -------------------------------------------------------------------------- */
+/* Product show (detalles) - namespaceado para mayor especificidad           */
+/* Uso: envuelve tu show con .product-show-container (tu HTML ya lo usa)     */
+/* -------------------------------------------------------------------------- */
 
+.product-show-container .product-detail-card{
+  background: linear-gradient(180deg, #fff, #fff);
+  border-radius: var(--detail-radius);
+  padding: 22px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(111,66,193,0.04);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
 
-/* show products.css */
+/* Imagen principal en show */
+.product-show-container .product-image{
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: calc(var(--detail-radius) - 4px);
+  box-shadow: 0 6px 20px rgba(80,80,150,0.08);
+  transition: transform var(--transition), box-shadow var(--transition);
+  background: linear-gradient(180deg, rgba(111,66,193,0.02), rgba(255,255,255,0.03));
+}
+.product-show-container .product-image:hover{
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 10px 36px rgba(80,80,150,0.10);
+}
 
-  :root{
-    --primary: #6f42c1;
-    --primary-700: #5a34a8;
-    --muted: #8b8f95;
-    --bg: #f6f7fb;
-    --card-bg: #fff;
-    --radius: 16px;
-    --shadow-soft: 0 6px 24px rgba(80,80,150,0.08);
-    --transition: 220ms cubic-bezier(.2,.9,.3,1);
-  }
+/* Info */
+.product-show-container .product-info-list{
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #2b2b30;
+  padding-left: 0;
+}
 
-  /* Card principal */
-  .product-detail-card{
-    background: linear-gradient(180deg, var(--card-bg), var(--card-bg));
-    border-radius: var(--radius);
-    padding: 22px;
-    box-shadow: var(--shadow-soft);
-    border: 1px solid rgba(111,66,193,0.04);
-    transition: transform var(--transition), box-shadow var(--transition);
-  }
+/* Botón "Volver" con mayor especificidad para sobrescribir Bootstrap */
+.product-show-container .product-detail-card .btn.product-back-btn,
+.product-show-container .product-detail-card a.product-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background-color: var(--primary) !important;
+  color: #fff !important;
+  border: 0 !important;
+  padding: .5rem .9rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(111,66,193,0.12);
+  text-decoration: none;
+  transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition);
+}
+.product-show-container .product-detail-card .btn.product-back-btn:hover,
+.product-show-container .product-detail-card a.product-back-btn:hover {
+  transform: translateY(-4px);
+  background-color: var(--primary-700) !important;
+  box-shadow: 0 12px 30px rgba(111,66,193,0.16);
+  color: #fff !important;
+}
 
-  /* Imagen */
-  .product-image{
+/* Reseñas */
+.product-show-container .reviews-card{
+  margin-top: 18px;
+  background: linear-gradient(180deg, #fff, #fff);
+  border-radius: var(--detail-radius);
+  padding: 18px;
+  border: 1px solid rgba(111,66,193,0.03);
+  box-shadow: 0 4px 18px rgba(33,37,41,0.02);
+}
+.product-show-container .review-item{
+  background: #f9f9fd;
+  border: 1px solid rgba(111,66,193,0.03);
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  transition: background var(--transition), transform var(--transition);
+}
+.product-show-container .review-item:hover{
+  transform: translateY(-4px);
+  background: #fbfbff;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Form styles (moved from views)                                              */
+/* -------------------------------------------------------------------------- */
+
+/* Image slots (150x150) */
+.image-slots { display:flex; gap:18px; flex-wrap:wrap; margin-bottom:12px; justify-content:flex-start; }
+.image-slot {
+    width:150px;
+    height:150px;
+    border-radius:12px;
+    background:#F1EFFE;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    box-shadow: 0 6px 14px rgba(120,100,200,0.03);
+}
+.image-slot.empty { border: 2px dashed rgba(119,102,198,0.10); }
+.image-slot .plus { font-size:28px; color: rgba(119,102,198,0.85); }
+.image-slot img { width:100%; height:100%; object-fit:cover; display:block; }
+.image-slot .slot-actions { position:absolute; top:6px; right:6px; display:flex; gap:6px; }
+.slot-btn { background: rgba(255,255,255,0.95); border-radius:6px; padding:4px 6px; font-size:0.85rem; border: none; cursor:pointer; }
+.slot-replaced-badge { position:absolute; bottom:6px; left:6px; background: rgba(0,0,0,0.45); color:#fff; padding:3px 6px; border-radius:6px; font-size:0.72rem; }
+
+/* Form container and layout */
+.form-inner {
     width: 100%;
-    max-width: 320px;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border-radius: calc(var(--radius) - 4px);
-    box-shadow: 0 6px 20px rgba(80,80,150,0.08);
-    transition: transform var(--transition), box-shadow var(--transition);
-    background: linear-gradient(180deg, rgba(111,66,193,0.02), rgba(255,255,255,0.03));
-  }
-  .product-image:hover{
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 10px 36px rgba(80,80,150,0.10);
-  }
+    padding-left: 56px;
+    padding-right: 56px;
+    box-sizing: border-box;
+}
+.inputs-row {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+}
+.inputs-left {
+    flex: 2.6;
+    min-width: 320px;
+}
+.inputs-right {
+    flex: 1.6;
+    min-width: 420px;
+    box-sizing: border-box;
+}
+.right-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 14px;
+}
+.right-grid > div,
+.inputs-right > .right-grid > div {
+    min-width: 0;
+}
+.form-control.custom,
+.form-select.custom {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 6px 14px rgba(120,100,200,0.03) inset;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+}
+.form-description {
+    min-height: 160px;
+    resize: none;
+    overflow: auto;
+    box-sizing: border-box;
+}
+.form-actions {
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    margin-top:28px;
+}
+.btn-primary-custom {
+    background:#7766C6;
+    border-color:#7766C6;
+    color:#fff;
+    border-radius:12px;
+    padding:9px 34px;
+    font-weight:600;
+}
+.btn-secondary-custom {
+    background:#F1F1F1;
+    color:#6b6b6b;
+    border-radius:12px;
+    padding:9px 28px;
+    border:1px solid #ddd;
+}
+.row.g-4 { --bs-gutter-x: 12px; --bs-gutter-y: 12px; }
 
-  /* Info */
-  .product-info-list{
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: #2b2b30;
-    padding-left: 0;
-  }
-
-  /* Estilo del botón "Volver" - alta especificidad para sobrescribir Bootstrap */
-  .product-detail-card .btn.product-back-btn,
-  .product-detail-card a.product-back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: .4rem;
-    background-color: var(--primary) !important;
-    color: #fff !important;
-    border: 0 !important;
-    padding: .5rem .9rem;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(111,66,193,0.12);
-    text-decoration: none;
-    transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition);
-  }
-  .product-detail-card .btn.product-back-btn i {
-    color: #fff;
-  }
-  .product-detail-card .btn.product-back-btn:hover,
-  .product-detail-card a.product-back-btn:hover {
-    transform: translateY(-4px);
-    background-color: var(--primary-700) !important;
-    box-shadow: 0 12px 30px rgba(111,66,193,0.16);
-    color: #fff !important;
-  }
-
-  /* Reseñas */
-  .reviews-card{
-    margin-top: 18px;
-    background: linear-gradient(180deg, #fff, #fff);
-    border-radius: var(--radius);
-    padding: 18px;
-    border: 1px solid rgba(111,66,193,0.03);
-    box-shadow: 0 4px 18px rgba(33,37,41,0.02);
-  }
-  .review-item{
-    background: #f9f9fd;
-    border: 1px solid rgba(111,66,193,0.03);
-    padding: 14px;
-    border-radius: 10px;
-    margin-bottom: 12px;
-    transition: background var(--transition), transform var(--transition);
-  }
-  .review-item:hover{
-    transform: translateY(-4px);
-    background: #fbfbff;
-  }
+/* Responsive rules moved from form */
+@media (max-width: 991px) {
+    .inputs-row { flex-direction: column; gap: 18px; }
+    .inputs-left, .inputs-right { min-width: auto; }
+    .image-slot { width: 47%; height: 140px; }
+    .form-inner { padding-left: 18px; padding-right: 18px; }
+}
+@media (max-width: 575px) {
+    .image-slot { width:100%; height:120px; }
+}

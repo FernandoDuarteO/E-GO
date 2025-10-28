@@ -8,8 +8,13 @@
         <div class="col-lg-8">
             <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                
-                @include('products.form', ['btnText' => 'Guardar'])
+
+                {{-- Pase explícito de variables al partial: products es null en create --}}
+                @include('products.form', [
+                    'btnText' => 'Guardar',
+                    'products' => null,
+                    'categories' => $categories ?? []
+                ])
             </form>
         </div>
     </div>

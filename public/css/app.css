@@ -28,11 +28,10 @@
 @import './components/tabs.css';
 
 /* modules */
-
+@import './modules/products.css';
 @import './modules/chat.css';
 @import './modules/costos.css';
 @import './modules/ventas.css';
 @import './modules/chat.css';
-@import './modules/products.css';
 @import './modules/client_products.css';
 @import './modules/landing.css';

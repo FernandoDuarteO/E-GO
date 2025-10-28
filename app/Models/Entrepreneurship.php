@@ -11,9 +11,9 @@ class Entrepreneurship extends Model
     protected $perPage = 5;
 
     protected $fillable = [
-        //'name',
+        'name',
         'description',
-        //'address',
+        'address',
         'type',
         'telephone',
         'email',
