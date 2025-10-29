@@ -23,7 +23,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                 <li>
-                    <a class="dropdown-item" href="{{ route('entrepreneurs.index') }}">Perfil</a>
+                    <a class="dropdown-item" href="{{ route('profile_combined.show') }}">Perfil</a>
                 </li>
                 <li>
                     <a class="dropdown-item" href="{{ route('compras.index') }}">Tienda</a>
