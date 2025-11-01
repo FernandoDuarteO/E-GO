@@ -69,9 +69,9 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('compras') ? 'active' : '' }}" href="{{ route('compras.index') }}">
+                <a class="nav-link {{ Request::routeIs('deliveries') ? 'active' : '' }}" href="{{ route('deliveries') }}">
                     <i class="fa-solid fa-truck"></i>
-                    Deliverys
+                    <span style="margin-left:8px;">Deliverys</span>
                 </a>
             </li>
         </ul>

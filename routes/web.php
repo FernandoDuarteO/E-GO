@@ -24,6 +24,11 @@ Route::get('/', function () {
 
 // Rutas protegidas por autenticación
 Route::middleware(['auth', 'verified'])->group(function () {
+    // Añadir dentro del grupo de rutas protegidas o fuera según tu necesidad
+    Route::get('/deliveries', function () {
+    // la vista está en resources/views/deliveries/deliveries.blade.php
+    return view('deliveries.deliveries');
+    })->name('deliveries');
 
     // RUTA SOLO PARA EMPRENDEDORES
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
