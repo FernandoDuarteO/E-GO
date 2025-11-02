@@ -62,6 +62,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // PERFIL COMBINADO (vista nueva, no reemplaza la /profile existente)
     // Mostrar la vista combinada (GET)
+    Route::redirect('/perfil', '/profile/combined', 302);
     Route::get('/profile/combined', [ProfileController::class, 'showProfile'])
         ->name('profile.combined.show');
 

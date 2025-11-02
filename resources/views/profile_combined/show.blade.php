@@ -482,7 +482,11 @@
         <div>
           <div class="section-title">
             <span class="badge" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5z" stroke="currentColor" stroke-width="1.5"/></svg>
+              <!-- Updated icon: person/user outline for Datos personales -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4 20c0-3.31 2.69-6 6-6h4c3.31 0 6 2.69 6 6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </span>
             Datos personales
           </div>
@@ -561,7 +565,11 @@
         <div>
           <div class="section-title">
             <span class="badge" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="7" width="18" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/></svg>
+              <!-- Updated icon: storefront / briefcase outline for Datos del emprendimiento -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+                <rect x="3" y="7" width="18" height="11" rx="2" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 7l2-3h14l2 3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </span>
             Datos del emprendimiento
           </div>
