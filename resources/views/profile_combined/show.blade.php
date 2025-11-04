@@ -43,9 +43,11 @@
           <div class="file-label-row" style="position:relative;">
             <input id="media_file" type="file" name="media_file" class="file-control-hidden" accept="image/*" aria-label="Seleccionar imagen de perfil">
             <label for="media_file" class="file-icon" title="Seleccionar imagen de perfil" tabindex="0" role="button" aria-pressed="false">
-              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 21H3V7h4l2-3h8l2 3h4v14z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                <circle cx="12" cy="13" r="3.5" stroke="currentColor" stroke-width="1.2"/>
+              <!-- Cambiado: icono de "foto" (marco con montaña y sol) -->
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+                <rect x="3" y="4" width="18" height="16" rx="2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 13l3-4 4 5 3-3 2 4" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="7.5" cy="8.5" r="1.2" stroke-width="1.2"/>
               </svg>
             </label>
             <div id="media_file_name" class="file-name">Ninguno seleccionado</div>
@@ -77,9 +79,11 @@
           <div class="file-label-row" style="position:relative;">
             <input id="business_media_file" type="file" name="business_media_file" class="file-control-hidden" accept="image/*" aria-label="Seleccionar imagen del emprendimiento">
             <label for="business_media_file" class="file-icon" title="Seleccionar imagen del emprendimiento" tabindex="0" role="button" aria-pressed="false">
-              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 21H3V7h4l2-3h8l2 3h4v14z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
-                <circle cx="12" cy="13" r="3.5" stroke="currentColor" stroke-width="1.2"/>
+              <!-- Cambiado: icono de "foto" (marco con montaña y sol) -->
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
+                <rect x="3" y="4" width="18" height="16" rx="2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 13l3-4 4 5 3-3 2 4" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="7.5" cy="8.5" r="1.2" stroke-width="1.2"/>
               </svg>
             </label>
             <div id="business_media_file_name" class="file-name">Ninguno seleccionado</div>
