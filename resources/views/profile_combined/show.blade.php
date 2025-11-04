@@ -112,22 +112,30 @@
         <form action="{{ route('profile.combined.updateProfile') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="fields-grid" role="group" aria-label="Campos personales">
+            <!-- Reordered & sized fields: Correo, Teléfono (small), Cédula, Edad, Sexo, Nacionalidad, País, Departamento, Municipio -->
+            <div class="field">
+              <label>Correo</label>
+              <input class="control" type="email" name="email" value="{{ old('email', $entrepreneur->email ?? $user->email ?? '') }}">
+              @error('email') <div style="color:#c33">{{ $message }}</div> @enderror
+            </div>
+
+            <!-- Make Teléfono small (not full) so there are 3 inputs per row -->
+            <div class="field">
+              <label>Teléfono</label>
+              <input class="control" type="text" name="telephone" value="{{ old('telephone', $entrepreneur->telephone ?? '') }}">
+              @error('telephone') <div style="color:#c33">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="field">
+              <label>Cédula</label>
+              <input class="control" type="text" name="identification_card" value="{{ old('identification_card', $entrepreneur->identification_card ?? '') }}">
+              @error('identification_card') <div style="color:#c33">{{ $message }}</div> @enderror
+            </div>
+
             <div class="field">
               <label>Edad</label>
               <input class="control" type="text" name="age" value="{{ old('age', $entrepreneur->age ?? '') }}">
               @error('age') <div style="color:#c33">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="field">
-              <label>País</label>
-              <input class="control" type="text" name="country" value="{{ old('country', $entrepreneur->country ?? '') }}">
-              @error('country') <div style="color:#c33">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="field">
-              <label>Departamento</label>
-              <input class="control" type="text" name="department" value="{{ old('department', $entrepreneur->department ?? '') }}">
-              @error('department') <div style="color:#c33">{{ $message }}</div> @enderror
             </div>
 
             <div class="field">
@@ -143,28 +151,24 @@
             </div>
 
             <div class="field">
+              <label>País</label>
+              <input class="control" type="text" name="country" value="{{ old('country', $entrepreneur->country ?? '') }}">
+              @error('country') <div style="color:#c33">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="field">
+              <label>Departamento</label>
+              <input class="control" type="text" name="department" value="{{ old('department', $entrepreneur->department ?? '') }}">
+              @error('department') <div style="color:#c33">{{ $message }}</div> @enderror
+            </div>
+
+            <!-- Moved Municipio to align with País/Departamento so each row has up to 3 inputs -->
+            <div class="field">
               <label>Municipio</label>
               <input class="control" type="text" name="municipality" value="{{ old('municipality', $entrepreneur->municipality ?? '') }}">
               @error('municipality') <div style="color:#c33">{{ $message }}</div> @enderror
             </div>
 
-            <div class="field">
-              <label>Correo</label>
-              <input class="control" type="email" name="email" value="{{ old('email', $entrepreneur->email ?? $user->email ?? '') }}">
-              @error('email') <div style="color:#c33">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="field">
-              <label>Cédula</label>
-              <input class="control" type="text" name="identification_card" value="{{ old('identification_card', $entrepreneur->identification_card ?? '') }}">
-              @error('identification_card') <div style="color:#c33">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="field full">
-              <label>Teléfono</label>
-              <input class="control" type="text" name="telephone" value="{{ old('telephone', $entrepreneur->telephone ?? '') }}">
-              @error('telephone') <div style="color:#c33">{{ $message }}</div> @enderror
-            </div>
           </div>
 
           <div class="divider"></div>
@@ -195,10 +199,21 @@
         <form action="{{ route('profile.combined.updateBusiness') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="fields-grid">
-            <div class="field full">
-              <label>Descripción</label>
-              <textarea class="control" name="description">{{ old('description', $entrepreneurship->description ?? '') }}</textarea>
-              @error('description') <div style="color:#c33">{{ $message }}</div> @enderror
+            <!-- Reordered business fields with balanced rows (3 inputs per row where possible):
+                 Row 1: Nombre del Emprendimiento | Tipo | Teléfono
+                 Row 2: Descripción (full)
+                 Row 3: Email | Dirección | Departamento
+                 Row 4: Años experiencia (kept in its place) -->
+            <div class="field">
+              <label>Nombre del Emprendimiento</label>
+              <input class="control" type="text" name="business_name" value="{{ old('business_name', $entrepreneurship->business_name ?? '') }}">
+              @error('business_name') <div style="color:#c33">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="field">
+              <label>Tipo</label>
+              <input class="control" type="text" name="business_type" value="{{ old('business_type', $entrepreneurship->business_type ?? '') }}">
+              @error('business_type') <div style="color:#c33">{{ $message }}</div> @enderror
             </div>
 
             <div class="field">
@@ -207,10 +222,17 @@
               @error('telephone') <div style="color:#c33">{{ $message }}</div> @enderror
             </div>
 
+            <div class="field full">
+              <label>Descripción</label>
+              <textarea class="control" name="description">{{ old('description', $entrepreneurship->description ?? '') }}</textarea>
+              @error('description') <div style="color:#c33">{{ $message }}</div> @enderror
+            </div>
+
+            <!-- Email reduced to a normal-sized field so it shares row space -->
             <div class="field">
-              <label>Tipo</label>
-              <input class="control" type="text" name="business_type" value="{{ old('business_type', $entrepreneurship->business_type ?? '') }}">
-              @error('business_type') <div style="color:#c33">{{ $message }}</div> @enderror
+              <label>Email</label>
+              <input class="control" type="email" name="email" value="{{ old('email', $entrepreneurship->email ?? '') }}">
+              @error('email') <div style="color:#c33">{{ $message }}</div> @enderror
             </div>
 
             <div class="field">
@@ -226,22 +248,11 @@
             </div>
 
             <div class="field">
-              <label>Nombre del Emprendimiento</label>
-              <input class="control" type="text" name="business_name" value="{{ old('business_name', $entrepreneurship->business_name ?? '') }}">
-              @error('business_name') <div style="color:#c33">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="field">
               <label>Años experiencia</label>
               <input class="control" type="number" name="years_experience" value="{{ old('years_experience', $entrepreneurship->years_experience ?? 0) }}">
               @error('years_experience') <div style="color:#c33">{{ $message }}</div> @enderror
             </div>
 
-            <div class="field full">
-              <label>Email</label>
-              <input class="control" type="email" name="email" value="{{ old('email', $entrepreneurship->email ?? '') }}">
-              @error('email') <div style="color:#c33">{{ $message }}</div> @enderror
-            </div>
           </div>
 
           <div style="height:12px;"></div>
