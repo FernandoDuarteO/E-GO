@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Storage;
 @endphp
 
 <style>
-/* ====== Igual diseño aprobado, con icono más grande y pointer posicionado por JS ====== */
+/* ====== Igual diseño aprobado, icono ligeramente más pequeño ====== */
 
 /* SEARCH */
 .search-container .form-control {
@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Storage;
   box-shadow: 0 6px 20px rgba(99,102,241,0.06);
 }
 
-/* NAVBAR PROFILE ICON: aumentado */
+/* NAVBAR PROFILE ICON: botón igual, SVG un poquito más pequeño */
 .navbar .profile-icon-btn {
-  width: 64px;               /* antes 48 -> ahora 64 */
+  width: 64px;
   height: 64px;
   padding: 8px;
   display: inline-flex;
@@ -29,12 +29,13 @@ use Illuminate\Support\Facades\Storage;
   cursor: pointer;
   transition: transform .12s ease;
 }
-.navbar .profile-icon-btn svg { width: 36px; height: 36px; display:block; }
+/* reducido de 36 -> 30 para que sea "porquito" más pequeño */
+.navbar .profile-icon-btn svg { width: 30px; height: 30px; display:block; }
 
 /* trazos morado por defecto */
 .navbar .profile-icon-btn svg * {
   stroke: #6c5bd8;
-  stroke-width: 1.9;
+  stroke-width: 1.8;
   fill: none;
   transition: stroke .12s ease;
 }
@@ -233,12 +234,16 @@ use Illuminate\Support\Facades\Storage;
         );
       @endphp
 
-      <!-- NAVBAR ICON (más grande) -->
-      <a class="nav-link profile-icon-btn" href="#" id="profileBubbleBtn" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <!-- icono persona simple y limpio -->
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="img">
-          <circle cx="12" cy="8" r="2.8" />
-          <path d="M4 20c0-3.866 3.582-7 8-7s8 3.134 8 7" />
+      <!-- NAVBAR ICON (persona, ligeramente más pequeño) -->
+      <a class="nav-link profile-icon-btn" href="#" id="profileBubbleBtn" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Abrir menú de usuario">
+        <!-- SVG de persona simple, proporcional y ligeramente reducido -->
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="img" width="30" height="30">
+          <!-- aro exterior sutil -->
+          <circle cx="12" cy="12" r="10.25" stroke-linecap="round" stroke-linejoin="round" />
+          <!-- cabeza (ligeramente reducido para mantener proporción) -->
+          <circle cx="12" cy="8.2" r="2.4" />
+          <!-- hombros y torso: forma suave y centrada -->
+          <path d="M6.5 18c0-3.15 3.05-5.5 5.5-5.5s5.5 2.35 5.5 5.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </a>
 
@@ -354,7 +359,6 @@ use Illuminate\Support\Facades\Storage;
       // compute desired left relative to menu's left
       var left = btnCenterX - menuRect.left - pointerHalf;
 
-      // If menu uses transform by Popper, menuRect.left will account for it.
       // Clamp pointer inside menu with small padding
       var minLeft = 10;
       var maxLeft = Math.max( (menu.offsetWidth - pointer.offsetWidth - 10), minLeft );
@@ -365,19 +369,15 @@ use Illuminate\Support\Facades\Storage;
       // Apply left in px, clear right to avoid conflicts
       pointer.style.left = left + 'px';
       pointer.style.right = 'auto';
-      // Optional vertical tweak if needed:
-      // pointer.style.top = '-12px';
     }
 
     // reposition when dropdown is shown (Bootstrap event)
     document.addEventListener('shown.bs.dropdown', function(e) {
-      // only handle our profile bubble
       var parent = e.target && e.target.closest && e.target.closest('.profile-bubble') ? e.target.closest('.profile-bubble') : null;
       if (!parent) return;
-      // delay slightly to ensure popper finished layout
       setTimeout(function() {
         positionBubblePointer(e.target.id || 'profileBubbleBtn');
-      }, 60); // increased timeout to 60ms to be robust
+      }, 60);
     });
 
     // reposition on window resize if open
