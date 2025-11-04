@@ -1,6 +1,10 @@
-// public/js/app.js
-// Global app script + loader para módulos en public/js/modules/*
-// He preservado exactamente tu código original y añadí al final la lógica para cargar módulos.
+/*!
+ public/js/app.js
+ Global app script + loader para módulos en public/js/modules/*
+ Hecho: he tomado tu app.js original y añadí detección automática
+ para cargar el módulo de perfil cuando existe el markup (.profile-wrap).
+ Mantengo el loader dinámico con fallback a <script>.
+*/
 
 (function (window, document) {
   'use strict';
@@ -161,9 +165,7 @@
   // --- FIN del código original ----------------------------------------------------
 
   // Loader automático: si la vista declara window.pageModules, el loader las procesará.
-  // Además hacemos detección automática por DOM para cargar los dos módulos de products:
-  // - image-slots.js si hay elementos .image-slot (formulario)
-  // - product-carousel.js si hay #carousel-main-image o .indicator-btn (vista show)
+  // Además hacemos detección automática por DOM para cargar los módulos relevantes.
   document.addEventListener('DOMContentLoaded', function () {
     var modulesToLoad = window.pageModules && Array.isArray(window.pageModules) ? window.pageModules.slice() : [];
 
@@ -176,6 +178,12 @@
       if (document.getElementById('carousel-main-image') || document.querySelector('.indicator-btn')) {
         modulesToLoad.push('/js/modules/product-carousel.js');
       }
+
+      // AUTOLOAD: cargar el módulo de perfil si la vista tiene .profile-wrap o #profileTitle
+      // Ajusta el nombre/nombre de fichero aquí si en tu carpeta modules el archivo tiene otro nombre exacto.
+      if (document.querySelector('.profile-wrap') || document.getElementById('profileTitle')) {
+        modulesToLoad.push('/js/modules/perfilEntrepreneur.js');
+      }
     } catch (err) {
       // no hacer nada si document no está disponible (muy raro)
       console.warn('Auto-detection error', err);
@@ -184,7 +192,20 @@
     // Si no hay módulos, salir
     if (!modulesToLoad || modulesToLoad.length === 0) return;
 
-    // Añadir cache-busting si quisieras, pero lo dejamos que la vista lo haga si prefiere.
+    // Normaliza rutas: asegurar que cada ruta empiece por "/" para evitar problemas relativos
+    modulesToLoad = modulesToLoad.map(function (p) {
+      return typeof p === 'string' ? p.trim() : p;
+    }).filter(Boolean);
+
+    // Añadir cache-busting opcional desde la vista: si window.pageModulesCacheBuster existe, aplicarlo
+    var cb = window.pageModulesCacheBuster || '';
+    if (cb && typeof cb === 'string') {
+      modulesToLoad = modulesToLoad.map(function (p) {
+        // si ya tiene query, añadir &v=..., sino ?v=...
+        return p + (p.indexOf('?') === -1 ? ('?v=' + cb) : ('&v=' + cb));
+      });
+    }
+
     processModulesList(modulesToLoad).then(function () {
       // módulos cargados
       // console.log('Modules loaded:', modulesToLoad);

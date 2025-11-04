@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('entrepreneurs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('age', 3);
-            $table->string('sex', 10);
-            $table->string('identification_card', 20)->unique();
-            $table->string('telephone', 8)->unique();
-            $table->string('email')->unique();
-            $table->string('country');
-            $table->string('nationality');
-            $table->string('municipality');
-            $table->string('department');
+            $table->string('name')->default('');
+            $table->integer('age')->default(0);
+            $table->string('sex', 10)->default('');
+            $table->string('identification_card', 20)->unique()->nullable();
+            $table->string('telephone', 8)->unique()->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('country')->default('');
+            $table->string('nationality')->default('');
+            $table->string('municipality')->default('');
+            $table->string('department')->default('');
             $table->string('media_file')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

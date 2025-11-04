@@ -24,27 +24,32 @@ Route::get('/', function () {
 
 // Rutas protegidas por autenticación
 Route::middleware(['auth', 'verified'])->group(function () {
+    // Añadir dentro del grupo de rutas protegidas o fuera según tu necesidad
+    Route::get('/deliveries', function () {
+    // la vista está en resources/views/deliveries/deliveries.blade.php
+    return view('deliveries.deliveries');
+    })->name('deliveries');
 
     // RUTA SOLO PARA EMPRENDEDORES
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // CRUD de productos - SOLO EMPRENDEDORES
-    Route::resource('/products', ProductController::class);
+    Route::resource('products', ProductController::class);
 
     // Módulo de ventas SOLO EMPRENDEDORES
     Route::resource('ventas', VentasController::class);
 
     // CRUD de emprendedores (si lo usas solo interno)
-    Route::resource('/entrepreneurs', EntrepreneurController::class);
+    Route::resource('entrepreneurs', EntrepreneurController::class);
 
     // RUTA SOLO PARA CLIENTES
     Route::get('/clients/products', [HomeClientController::class, 'products'])->name('clients.products');
 
     // CRUD de clientes (si lo usas solo interno)
-    Route::resource('/clients', ClientController::class);
+    Route::resource('clients', ClientController::class);
 
     // CRUD de categorías (si aplica para ambos, valida dentro de cada método)
-    Route::resource('/categories', CategoryController::class);
+    Route::resource('categories', CategoryController::class);
 
     // CHAT - RUTA COMPARTIDA
     Route::get('/chat', [ChatController::class, 'index'])->name('chats.index');
@@ -55,7 +60,41 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Otros módulos compartidos o específicos...
     Route::get('/pedidos', [PedidosController::class, 'index'])->name('pedidos.index');
 
-    // PERFIL (Breeze)
+    // PERFIL COMBINADO (vista nueva, no reemplaza la /profile existente)
+    // Mostrar la vista combinada (GET)
+    Route::redirect('/perfil', '/profile/combined', 302);
+    Route::get('/profile/combined', [ProfileController::class, 'showProfile'])
+        ->name('profile.combined.show');
+
+    // Ruta de compatibilidad con nombre antiguo si alguna vista usaba underscore.
+    // Esta ruta apunta a un path distinto para evitar colisiones, y evita el error
+    // "Route [profile_combined.show] not defined" mientras actualizas vistas.
+    Route::get('/profile_combined', [ProfileController::class, 'showProfile'])
+        ->name('profile_combined.show');
+
+    // Guardar/actualizar sección "Perfil" (tabla entrepreneurs) (POST)
+    Route::post('/profile/combined/update-profile', [ProfileController::class, 'updateProfile'])
+        ->name('profile.combined.updateProfile');
+
+    // Guardar/actualizar sección "Emprendimiento" (tabla entrepreneurships) (POST)
+    Route::post('/profile/combined/update-business', [ProfileController::class, 'updateBusiness'])
+        ->name('profile.combined.updateBusiness');
+
+    //
+    // Rutas de compatibilidad (por si algunas vistas/partials usan los nombres antiguos)
+    // Estas rutas evitan errores "Route [profile.updateProfile] not defined" mientras migras nombres.
+    //
+    Route::post('/profile/update-profile', [ProfileController::class, 'updateProfile'])
+        ->name('profile.updateProfile');
+
+    Route::post('/profile/update-business', [ProfileController::class, 'updateBusiness'])
+        ->name('profile.updateBusiness');
+
+    // Alias para mostrar el perfil (compatibilidad)
+    Route::get('/profile/show', [ProfileController::class, 'showProfile'])
+        ->name('profile.show');
+
+    // PERFIL (Breeze) - mantengo las rutas originales de Breeze para editar el User
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -65,12 +104,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Módulo de costos (puedes proteger dentro de los métodos)
 
-    // AGREGA ESTA RUTA PARA QUE NO TENGAS EL ERROR DE RUTA NO DEFINIDA
+    // Añadida ruta para compras (evita error de ruta no definida)
     Route::get('/compras', [ComprasController::class, 'index'])->name('compras.index');
-    // Si después tienes más métodos REST de compras, puedes agregar el resource:
-    // Route::resource('compras', ComprasController::class);
 
-    // Más rutas aquí...
+    // Más rutas protegidas aquí...
 });
 
 // Breeze auth
@@ -83,7 +120,7 @@ Route::get('/auth/callback', [AuthController::class, 'callback'])->name('auth.ca
 // --------- RUTA PARA REGISTRO DE EMPRENDEDOR --------------
 // Esta ruta debe aceptar tanto GET como POST para recibir datos de la vista anterior y mostrarlos en la vista de emprendimiento
 // Muestra la vista de emprendimiento (POST y GET)
-Route::match(['get', 'post'], '/register/entrepreneur', function (Illuminate\Http\Request $request) {
+Route::match(['get', 'post'], '/register/entrepreneur', function (Request $request) {
     // SOLO muestra la vista, NO valida nada aquí
     return view('auth.register_entrepreneur', [
         'name' => $request->input('name'),
