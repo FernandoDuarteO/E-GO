@@ -1,95 +1,103 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid py-4">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <h1>Dashboard</h1>
+        </div>
 
-    <div class="row g-4">
-        <!-- Card 1 -->
-        <div class="col-md-4">
-            <div class="card card-purple text-white shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">$500.00</h5>
-                    <p class="card-text">Total Earning</p>
-                </div>
+        <!-- Metrics Grid -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-title">TODAY'S MONEY</div>
+                <div class="metric-value">$53,000</div>
+                <div class="metric-change positive">+55% since yesterday</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">TODAY'S USERS</div>
+                <div class="metric-value">2,300</div>
+                <div class="metric-change positive">+3% since last week</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">NEW CLIENTS</div>
+                <div class="metric-value">+3,462</div>
+                <div class="metric-change negative">-2% since last quarter</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">SALES</div>
+                <div class="metric-value">$103,430</div>
+                <div class="metric-change positive">+5% than last month</div>
             </div>
         </div>
 
-        <!-- Card 2 -->
-        <div class="col-md-4">
-            <div class="card card-blue text-white shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <h5 class="card-title">$961</h5>
-                        <div>
-                            <button class="btn btn-sm btn-light me-1">Month</button>
-                            <button class="btn btn-sm btn-outline-light">Year</button>
+        <!-- Charts Section -->
+        <div class="charts-section">
+            <div class="sales-chart">
+                <div class="chart-header">
+                    <div class="chart-title">Sales Overview</div>
+                    <div class="chart-subtitle">4% more in 2021</div>
+                </div>
+                <div class="chart-bars-container">
+                    <div class="chart-bars">
+                        <div class="bar-wrapper">
+                            <div class="bar" style="height: 60%"></div>
+                            <span>Apr</span>
+                        </div>
+                        <div class="bar-wrapper">
+                            <div class="bar" style="height: 80%"></div>
+                            <span>May</span>
+                        </div>
+                        <div class="bar-wrapper">
+                            <div class="bar" style="height: 70%"></div>
+                            <span>Jun</span>
+                        </div>
+                        <div class="bar-wrapper">
+                            <div class="bar" style="height: 90%"></div>
+                            <span>Jul</span>
+                        </div>
+                        <div class="bar-wrapper">
+                            <div class="bar" style="height: 50%"></div>
+                            <span>Aug</span>
+                        </div>
+                        <div class="bar-wrapper">
+                            <div class="bar" style="height: 75%"></div>
+                            <span>Sep</span>
+                        </div>
+                        <div class="bar-wrapper">
+                            <div class="bar" style="height: 85%"></div>
+                            <span>Oct</span>
+                        </div>
+                        <div class="bar-wrapper">
+                            <div class="bar" style="height: 65%"></div>
+                            <span>Nov</span>
+                        </div>
+                        <div class="bar-wrapper">
+                            <div class="bar" style="height: 95%"></div>
+                            <span>Dec</span>
                         </div>
                     </div>
-                    <p class="card-text">Total Order</p>
-                    <div class="chart-line mt-3"></div>
                 </div>
             </div>
-        </div>
 
-        <!-- Card 3 -->
-        <div class="col-md-4">
-            <div class="card card-cyan text-white shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">$203k</h5>
-                    <p class="card-text">Total Income</p>
+            <div class="quote-section">
+                <div class="quote-card">
+                    <div class="quote-text">Faster way to create web pages</div>
+                    <div class="quote-subtext">That's my skill. I'm not really specifically talented at anything except for the ability to learn.</div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Total Growth Chart -->
-    <div class="row mt-4">
-        <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <h6>Total Growth</h6>
-                        <select class="form-select form-select-sm w-auto">
-                            <option>This Month</option>
-                            <option>Last Month</option>
-                        </select>
-                    </div>
-                    <h4 class="fw-bold mt-2">$2,324.00</h4>
-                    <canvas id="growthChart" height="150"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- Popular Stocks -->
-        <div class="col-md-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h6>Popular Stocks</h6>
-                    <div class="bg-light-purple p-3 rounded mb-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span>Bajaj Finery</span>
-                            <h5>$1839.00</h5>
-                        </div>
-                        <small class="text-success">10% Profit</small>
-                    </div>
-
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Bajaj Finery
-                            <span class="text-success">+10%</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            TTML
-                            <span class="text-danger">-10%</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Reliance
-                            <span class="text-success">+8%</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+</body>
 @endsection
+
