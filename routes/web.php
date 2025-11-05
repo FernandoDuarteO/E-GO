@@ -26,8 +26,8 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     // Añadir dentro del grupo de rutas protegidas o fuera según tu necesidad
     Route::get('/deliveries', function () {
-    // la vista está en resources/views/deliveries/deliveries.blade.php
-    return view('deliveries.deliveries');
+        // la vista está en resources/views/deliveries/deliveries.blade.php
+        return view('deliveries.deliveries');
     })->name('deliveries');
 
     // RUTA SOLO PARA EMPRENDEDORES
@@ -42,8 +42,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // CRUD de emprendedores (si lo usas solo interno)
     Route::resource('entrepreneurs', EntrepreneurController::class);
 
-    // RUTA SOLO PARA CLIENTES
+    // RUTA SOLO PARA CLIENTES - listado de productos para clientes
     Route::get('/clients/products', [HomeClientController::class, 'products'])->name('clients.products');
+
+    // RUTA SHOW para cliente (detalle del producto en la vista pública de clientes)
+    // Añadida para evitar RouteNotFoundException cuando la vista usa route('client_products.show', $product)
+    // Asegúrate de tener el método show en HomeClientController que cargue el Product y relaciones necesarias.
+    Route::get('/clients/products/{product}', [HomeClientController::class, 'show'])->name('client_products.show');
 
     // CRUD de clientes (si lo usas solo interno)
     Route::resource('clients', ClientController::class);
