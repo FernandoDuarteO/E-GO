@@ -2,6 +2,33 @@
 
 @section('content')
 
+<!-- Fix: hacer visibles los títulos/labels encima de los inputs (color negro) -->
+<style>
+  /* Solo afecta a los labels visibles encima de cada input */
+  .fields-grid .field > label {
+    color: #0b0b0b !important; /* negro oscuro */
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 8px;
+    text-shadow: none !important;
+    background: transparent !important;
+  }
+
+  /* Asegura que la descripción de sección y captions también sean legibles */
+  .section-desc,
+  .caption,
+  .note {
+    color: #0b0b0b !important;
+  }
+
+  /* Si hay reglas globales que ponen color al label mediante selección:
+     forzamos color y evitamos efectos de selección que lo oculten. */
+  .fields-grid .field > label::selection {
+    background: transparent;
+    color: #0b0b0b;
+  }
+</style>
+
 <div class="profile-wrap" role="main" aria-labelledby="profileTitle">
   <div class="profile-header">
     <h1 id="profileTitle" class="profile-title">Mi Perfil</h1>
@@ -43,7 +70,6 @@
           <div class="file-label-row" style="position:relative;">
             <input id="media_file" type="file" name="media_file" class="file-control-hidden" accept="image/*" aria-label="Seleccionar imagen de perfil">
             <label for="media_file" class="file-icon" title="Seleccionar imagen de perfil" tabindex="0" role="button" aria-pressed="false">
-              <!-- Cambiado: icono de "foto" (marco con montaña y sol) -->
               <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
                 <rect x="3" y="4" width="18" height="16" rx="2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M8 13l3-4 4 5 3-3 2 4" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -59,10 +85,8 @@
         </form>
       </div>
 
-      <!-- BIG spacer to separate profile area from entrepreneurship area (same left column) -->
       <div class="left-spacer" aria-hidden="true"></div>
 
-      <!-- Entrepreneurship image & uploader (moved lower in left column) -->
       <div class="business-square" aria-hidden="true">
         @if(isset($entrepreneurship) && $entrepreneurship->media_file)
           <img id="logo-preview" src="{{ asset('storage/' . $entrepreneurship->media_file) }}" alt="Logo">
@@ -79,7 +103,6 @@
           <div class="file-label-row" style="position:relative;">
             <input id="business_media_file" type="file" name="business_media_file" class="file-control-hidden" accept="image/*" aria-label="Seleccionar imagen del emprendimiento">
             <label for="business_media_file" class="file-icon" title="Seleccionar imagen del emprendimiento" tabindex="0" role="button" aria-pressed="false">
-              <!-- Cambiado: icono de "foto" (marco con montaña y sol) -->
               <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none">
                 <rect x="3" y="4" width="18" height="16" rx="2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M8 13l3-4 4 5 3-3 2 4" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -102,7 +125,6 @@
         <div>
           <div class="section-title">
             <span class="badge" aria-hidden="true">
-              <!-- Updated icon: person/user outline for Datos personales -->
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M4 20c0-3.31 2.69-6 6-6h4c3.31 0 6 2.69 6 6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -116,14 +138,12 @@
         <form action="{{ route('profile.combined.updateProfile') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="fields-grid" role="group" aria-label="Campos personales">
-            <!-- Reordered & sized fields: Correo, Teléfono (small), Cédula, Edad, Sexo, Nacionalidad, País, Departamento, Municipio -->
             <div class="field">
               <label>Correo</label>
               <input class="control" type="email" name="email" value="{{ old('email', $entrepreneur->email ?? $user->email ?? '') }}">
               @error('email') <div style="color:#c33">{{ $message }}</div> @enderror
             </div>
 
-            <!-- Make Teléfono small (not full) so there are 3 inputs per row -->
             <div class="field">
               <label>Teléfono</label>
               <input class="control" type="text" name="telephone" value="{{ old('telephone', $entrepreneur->telephone ?? '') }}">
@@ -166,7 +186,6 @@
               @error('department') <div style="color:#c33">{{ $message }}</div> @enderror
             </div>
 
-            <!-- Moved Municipio to align with País/Departamento so each row has up to 3 inputs -->
             <div class="field">
               <label>Municipio</label>
               <input class="control" type="text" name="municipality" value="{{ old('municipality', $entrepreneur->municipality ?? '') }}">
@@ -178,7 +197,6 @@
           <div class="divider"></div>
 
           <div class="actions">
-            <!-- CORREGIDO: cancelar ahora apunta a profile.combined.show para comportarse igual que el otro -->
             <a href="{{ route('profile.combined.show') }}" class="btn-base btn-cancel" style="text-decoration:none;">Cancelar</a>
             <button type="submit" class="btn-base btn-save">Guardar</button>
           </div>
@@ -189,7 +207,6 @@
         <div>
           <div class="section-title">
             <span class="badge" aria-hidden="true">
-              <!-- Updated icon: storefront / briefcase outline for Datos del emprendimiento -->
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
                 <rect x="3" y="7" width="18" height="11" rx="2" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M3 7l2-3h14l2 3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -203,11 +220,6 @@
         <form action="{{ route('profile.combined.updateBusiness') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="fields-grid">
-            <!-- Reordered business fields with balanced rows (3 inputs per row where possible):
-                 Row 1: Nombre del Emprendimiento | Tipo | Teléfono
-                 Row 2: Descripción (full)
-                 Row 3: Email | Dirección | Departamento
-                 Row 4: Años experiencia (kept in its place) -->
             <div class="field">
               <label>Nombre del Emprendimiento</label>
               <input class="control" type="text" name="business_name" value="{{ old('business_name', $entrepreneurship->business_name ?? '') }}">
@@ -232,7 +244,6 @@
               @error('description') <div style="color:#c33">{{ $message }}</div> @enderror
             </div>
 
-            <!-- Email reduced to a normal-sized field so it shares row space -->
             <div class="field">
               <label>Email</label>
               <input class="control" type="email" name="email" value="{{ old('email', $entrepreneurship->email ?? '') }}">
