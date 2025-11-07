@@ -11,45 +11,82 @@ class HomeClientController extends Controller
 {
     /**
      * Mostrar listado de productos (home del cliente)
+     *
+     * Comportamiento:
+     * - La página de productos es pública (pueden verla usuarios no autenticados).
+     * - Si el usuario está autenticado y su rol NO es "client", lo redirigimos al dashboard.
+     * - Permite filtrar por category_id y por texto (q).
+     * - Usa eager loading de relaciones relevantes y paginado.
      */
     public function products(Request $request)
     {
-        // Solo permitir acceso a usuarios con rol "client"
-        if (auth()->user()->role !== 'client') {
-            // Redirige al dashboard si no es cliente
+        // Si hay usuario autenticado, validar su rol (si no es cliente lo redirigimos)
+        if (auth()->check() && auth()->user()->role !== 'client') {
             return redirect('/dashboard');
         }
 
-        // Obtén todas las categorías
+        // Todas las categorías (para filtro UI)
         $categories = Category::all();
 
-        // Verifica si hay categoría seleccionada
+        // Parámetros de filtro
         $selectedCategory = $request->get('category_id');
+        $q = $request->get('q');
 
-        // Filtra productos por categoría si corresponde, sino muestra todos
-        $products = Product::when($selectedCategory, function ($query) use ($selectedCategory) {
-            return $query->where('category_id', $selectedCategory);
-        })->latest()->get();
+        // Query base con eager loading para evitar N+1
+        // usamos nombres de relación que suelen existir en el modelo: productImages, images, category, user, reviews
+        $query = Product::query()
+            ->with(['productImages', 'images', 'category', 'user', 'reviews']);
 
-        // Envía productos, categorías y categoría seleccionada a la vista
+        // Filtro por categoría (si aplica)
+        if ($selectedCategory) {
+            $query->where('category_id', $selectedCategory);
+        }
+
+        // Búsqueda por texto (nombre o descripción)
+        if ($q) {
+            $query->where(function ($sub) use ($q) {
+                $sub->where('name', 'like', '%' . $q . '%')
+                    ->orWhere('description', 'like', '%' . $q . '%');
+            });
+        }
+
+        // Orden y paginado
+        $products = $query->orderBy('created_at', 'desc')->paginate(12)->withQueryString();
+
         return view('client_products.products', compact('products', 'categories', 'selectedCategory'));
     }
 
     /**
      * Mostrar detalle de un producto
+     *
+     * - Si el usuario autenticado existe y no es cliente, lo redirige al dashboard.
+     * - Si la petición es AJAX (o viene ?ajax=1) devuelve SOLO el fragmento modal (vista show).
+     * - Si la petición NO es AJAX (acceso directo a /clients/products/{id}) redirige a la lista
+     *   con ?open={id} para que la vista products abra el modal encima de la lista.
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        // Solo permitir acceso a usuarios con rol "client"
-        if (auth()->user()->role !== 'client') {
-            // Redirige al dashboard si no es cliente
+        // Si hay usuario autenticado, validar su rol
+        if (auth()->check() && auth()->user()->role !== 'client') {
             return redirect('/dashboard');
         }
 
-        // Cargar relaciones necesarias: category, reviews.user, user (vendor)
-        $product = Product::with(['category', 'reviews.user', 'user'])->findOrFail($id);
+        // Cargar el producto con relaciones necesarias
+        $product = Product::with([
+            'productImages',
+            'images',
+            'category',
+            'user',
+            'reviews.user'
+        ])->findOrFail($id);
 
-        // Retornar la vista de detalle con la variable $product
-        return view('client_products.show', compact('product'));
+        // Si la petición viene por AJAX (fetch desde products) devolvemos solo el fragmento
+        if ($request->ajax() || $request->query('ajax')) {
+            return view('client_products.show', compact('product'));
+        }
+
+        // Petición directa en navegador: redirigir a la lista y pedir que abra el modal
+        // La vista products debe detectar ?open={id} y llamar a la función que inyecta/abre el modal.
+        return redirect()->route('clients.products', ['open' => $id]);
     }
 }
