@@ -1,93 +1,151 @@
-/* General */
+/* Variables de Color (Opcional, pero útil) */
+:root {
+    --primary-color: #007bff; /* Azul de Bootstrap, se puede cambiar a un color más moderno */
+    --light-bg: #f8f9fa;
+    --white-bg: #ffffff;
+    --border-color: #e9ecef;
+    --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05); /* Sombra suave */
+}
+
+/* 1. Contenedor Principal */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
+    background-color: var(--light-bg);
+    margin: 0;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
 }
 
-/* Sidebar */
-.card {
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+.chat-container {
+    height: 90vh; /* Ajusta la altura del contenedor del chat */
+    max-width: 1400px;
+    margin: 5vh auto; /* Centra el contenedor en la pantalla */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow); /* Sombra principal */
 }
 
-.card-header, .card-footer {
-    border-bottom: 1px solid #ddd;
+/* 2. Barra Lateral de Chats (chat-sidebar) */
+.chat-sidebar {
+    width: 350px; /* Ancho fijo para la barra lateral */
+    min-width: 300px;
+    border-radius: 15px 0 0 15px;
 }
 
-.list-group-item {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    border: none;
-    border-bottom: 1px solid #ddd;
+.chat-list-scrollable {
+    overflow-y: auto;
+    max-height: calc(90vh - 150px); /* Ajusta la altura máxima */
 }
 
-.list-group-item:last-child {
-    border-bottom: none;
+.chat-list-item {
+    color: #495057;
+    text-decoration: none;
+    transition: background-color 0.2s;
 }
 
-/* Avatar */
+.chat-list-item:hover {
+    background-color: var(--border-color);
+}
+
+.chat-list-item.active {
+    background-color: var(--primary-color);
+    color: var(--white-bg) !important;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.chat-list-item.active h6, .chat-list-item.active p, .chat-list-item.active small {
+    color: var(--white-bg) !important;
+}
+
 .avatar {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+}
+
+/* 3. Vista de Conversación (chat-main) */
+.chat-main {
+    border-radius: 0 15px 15px 0;
+}
+
+/* 4. Burbujas de Mensajes */
+.message-area {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.message-bubble {
+    max-width: 70%;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    line-height: 1.4;
+}
+
+.message-bubble.sent {
+    background-color: var(--primary-color); /* Color para mensajes propios */
+    color: var(--white-bg);
+    border-radius: 15px 15px 0 15px;
+    align-self: flex-end; /* Alineación a la derecha */
+}
+
+.message-bubble.received {
+    background-color: var(--white-bg);
+    color: #212529;
+    border: 1px solid var(--border-color);
+    border-radius: 15px 15px 15px 0;
+    align-self: flex-start; /* Alineación a la izquierda */
+}
+
+.file-message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+/* 5. Área de Entrada */
+.chat-input-area .form-control {
+    border-radius: 50rem; /* Más redondeado */
+    border: none;
+    background-color: var(--light-bg);
+    padding: 10px 15px;
+}
+
+.chat-input-area .btn-light {
+    border: none;
+}
+
+.chat-input-area .btn-primary {
     width: 40px;
     height: 40px;
-    font-size: 14px;
-    font-weight: bold;
-    text-transform: uppercase;
-    object-fit: cover;
-}
-
-/* Ventana de chat */
-.card-body {
-    position: relative;
-    background-color: #f0f4ff;
-    padding: 20px;
-}
-
-.card-body .d-flex {
-    margin-bottom: 15px;
-}
-
-.card-body .rounded {
-    border-radius: 15px;
-}
-
-.card-body .bg-white {
-    background-color: #fff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.card-body .bg-primary {
-    background-color: #6c63ff; /* Ajusta el color según tu diseño */
-    color: #fff;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.card-footer {
-    background-color: #fff;
-    border-top: 1px solid #ddd;
-}
-
-.card-footer .input-group {
-    align-items: center;
-}
-
-.card-footer .btn-primary {
-    background-color: #6c63ff;
-    border-color: #6c63ff;
-}
-
-/* Botón redondo */
-.card-footer .btn-primary {
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-/* Botón de enviar */
-.btn-primary {
-    background-color: #6c63ff; /* Ajusta el color según tu diseño */
-    border-color: #6c63ff;
-}
 
-.btn-primary i {
-    color: white; /* Hace que el ícono sea blanco */
+/* Media Queries para Responsive (opcional pero recomendado) */
+@media (max-width: 768px) {
+    .chat-container {
+        height: 100vh;
+        margin: 0;
+        border-radius: 0;
+        max-width: none;
+    }
+
+    .chat-sidebar {
+        width: 100%;
+        min-width: 100%;
+        position: absolute;
+        height: 100%;
+        z-index: 1000;
+        /* Oculta la sidebar por defecto en móviles y muéstrala con JS */
+        /* display: none; */
+    }
+
+    .chat-main {
+        border-radius: 0;
+        /* Para mostrar solo la conversación en móvil, puedes ocultar la barra lateral por defecto */
+    }
 }

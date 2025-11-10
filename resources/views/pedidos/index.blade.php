@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/modules/pedidos.css') }}">
 <div class="page-header">
     <div class="container">
         <div class="row align-items-center">
@@ -251,7 +252,7 @@
                         <strong>Estado:</strong> <span class="status-badge status-pending">Pendiente</span></p>
                     </div>
                 </div>
-                
+
                 <h6 class="mt-4">Productos</h6>
                 <div class="order-details">
                     <div class="product-item">
@@ -287,7 +288,7 @@
         --danger-color: #e74c3c;
         --light-gray: #f8f9fa;
     }
-    
+
     .page-header {
         background: linear-gradient(135deg, #977AFF, #5A4999);
         color: white;
@@ -296,7 +297,7 @@
         border-radius: 0 0 10px 10px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    
+
     .card {
         border: none;
         border-radius: 10px;
@@ -304,42 +305,42 @@
         transition: transform 0.3s, box-shadow 0.3s;
         margin-bottom: 1.5rem;
     }
-    
+
     .card:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     }
-    
+
     .card-header {
         background-color: white;
         border-bottom: 1px solid rgba(0,0,0,0.05);
         padding: 1.25rem 1.5rem;
         border-radius: 10px 10px 0 0 !important;
     }
-    
+
     .order-filters .btn {
         border-radius: 20px;
         margin-right: 0.5rem;
         margin-bottom: 0.5rem;
         transition: all 0.3s;
     }
-    
+
     .order-filters .btn.active {
         background-color: var(--primary-color);
         border-color: var(--primary-color);
         box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
     }
-    
+
     .table-responsive {
         border-radius: 0 0 10px 10px;
         overflow: hidden;
     }
-    
+
     .data-table {
         width: 100%;
         margin-bottom: 0;
     }
-    
+
     .data-table thead th {
         background-color: var(--secondary-color);
         color: white;
@@ -347,79 +348,79 @@
         padding: 1rem;
         font-weight: 600;
     }
-    
+
     .data-table tbody tr {
         transition: background-color 0.2s;
     }
-    
+
     .data-table tbody tr:hover {
         background-color: rgba(52, 152, 219, 0.05);
     }
-    
+
     .data-table tbody td {
         padding: 1rem;
         vertical-align: middle;
         border-color: rgba(0,0,0,0.05);
     }
-    
+
     .status-badge {
         padding: 0.35rem 0.75rem;
         border-radius: 20px;
         font-weight: 500;
         font-size: 0.85rem;
     }
-    
+
     .status-pending {
         background-color: rgba(243, 156, 18, 0.15);
         color: var(--warning-color);
     }
-    
+
     .status-processing {
         background-color: rgba(52, 152, 219, 0.15);
         color: var(--primary-color);
     }
-    
+
     .status-completed {
         background-color: rgba(46, 204, 113, 0.15);
         color: var(--success-color);
     }
-    
+
     .status-cancelled {
         background-color: rgba(231, 76, 60, 0.15);
         color: var(--danger-color);
     }
-    
+
     .action-buttons .btn {
         border-radius: 6px;
         margin-right: 0.25rem;
         transition: all 0.2s;
     }
-    
+
     .stats-card {
         text-align: center;
         padding: 1.5rem;
     }
-    
+
     .stats-card .stats-value {
         font-size: 2rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
     }
-    
+
     .stats-card .stats-label {
         color: #6c757d;
         font-size: 0.9rem;
     }
-    
+
     .search-box {
         position: relative;
     }
-    
+
     .search-box .form-control {
         padding-left: 2.5rem;
         border-radius: 20px;
     }
-    
+
     .search-box .bi-search {
         position: absolute;
         left: 1rem;
@@ -427,54 +428,54 @@
         transform: translateY(-50%);
         color: #6c757d;
     }
-    
+
     .order-details {
         background-color: var(--light-gray);
         border-radius: 8px;
         padding: 1.5rem;
         margin-top: 1rem;
     }
-    
+
     .product-item {
         display: flex;
         justify-content: space-between;
         padding: 0.75rem 0;
         border-bottom: 1px solid rgba(0,0,0,0.05);
     }
-    
+
     .product-item:last-child {
         border-bottom: none;
     }
-    
+
     @media (max-width: 768px) {
         .page-header h1 {
             font-size: 1.75rem;
         }
-        
+
         .data-table thead {
             display: none;
         }
-        
+
         .data-table tbody tr {
             display: block;
             margin-bottom: 1rem;
             border: 1px solid #dee2e6;
             border-radius: 8px;
         }
-        
+
         .data-table tbody td {
             display: block;
             text-align: right;
             padding: 0.75rem;
             border: none;
         }
-        
+
         .data-table tbody td::before {
             content: attr(data-label);
             float: left;
             font-weight: bold;
         }
-        
+
         .action-buttons {
             text-align: center !important;
         }
@@ -488,20 +489,20 @@
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
-        
+
         // Filtrado de pedidos
         const filterButtons = document.querySelectorAll('.order-filters .btn');
         const orderRows = document.querySelectorAll('.data-table tbody tr');
-        
+
         filterButtons.forEach(button => {
             button.addEventListener('click', function() {
                 // Remover clase active de todos los botones
                 filterButtons.forEach(btn => btn.classList.remove('active'));
                 // Agregar clase active al botón clickeado
                 this.classList.add('active');
-                
+
                 const filter = this.getAttribute('data-filter');
-                
+
                 orderRows.forEach(row => {
                     if (filter === 'all') {
                         row.style.display = '';
@@ -515,17 +516,17 @@
                 });
             });
         });
-        
+
         // Modal para detalles del pedido
         const viewDetailsButtons = document.querySelectorAll('.view-details');
         const orderDetailsModal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
-        
+
         viewDetailsButtons.forEach(button => {
             button.addEventListener('click', function() {
                 orderDetailsModal.show();
             });
         });
-        
+
         // Simulación de acciones
         document.querySelectorAll('.process-order').forEach(button => {
             button.addEventListener('click', function() {
@@ -534,7 +535,7 @@
                 }
             });
         });
-        
+
         document.querySelectorAll('.complete-order').forEach(button => {
             button.addEventListener('click', function() {
                 if (confirm('¿Marcar este pedido como completado?')) {
@@ -542,7 +543,7 @@
                 }
             });
         });
-        
+
         document.querySelectorAll('.cancel-order').forEach(button => {
             button.addEventListener('click', function() {
                 if (confirm('¿Estás seguro de que quieres cancelar este pedido?')) {
@@ -550,7 +551,7 @@
                 }
             });
         });
-        
+
         document.querySelectorAll('.view-products').forEach(button => {
             button.addEventListener('click', function() {
                 alert('Aquí se mostrarían los detalles de los productos del pedido');
