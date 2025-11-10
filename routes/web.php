@@ -16,6 +16,7 @@ use App\Http\Controllers\Client\HomeClientController;
 use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterEntrepreneurController;
+use App\Http\Controllers\Client\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,14 @@ Route::get('/clients/products', [HomeClientController::class, 'products'])
 // Nombre correcto: clients.products.show (coincide con route('clients.products.show', $product))
 Route::get('/clients/products/{product}', [HomeClientController::class, 'show'])
     ->name('clients.products.show');
+
+// Carrito (público — soporta invitados vía session y usuarios autenticados vía BD)
+// index (ver carrito), store (agregar), update (cantidad), destroy (eliminar), clear (vaciar)
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+Route::put('/cart/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
 /*
 |--------------------------------------------------------------------------

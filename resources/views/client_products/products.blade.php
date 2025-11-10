@@ -22,7 +22,22 @@
 .eye-btn { position:absolute; right:16px; bottom:16px; z-index:6; width:44px; height:44px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; background: linear-gradient(180deg,#7f58e6,#5f39d6); color:#fff; border:none; box-shadow:0 8px 18px rgba(31,33,64,0.08); cursor:pointer; }
 .eye-btn:focus { outline:2px solid rgba(127,88,230,0.25); }
 .product-card-link { display:block; color:inherit; text-decoration:none; }
+.add-cart-btn { position:absolute; left:16px; bottom:16px; z-index:6; width:44px; height:44px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; background: linear-gradient(180deg,#ffd36b,#ffb84d); color:#222; border:none; box-shadow:0 8px 18px rgba(31,33,64,0.06); cursor:pointer; }
+.add-cart-btn:focus { outline:2px solid rgba(0,0,0,0.08); }
 .modal-spinner { width:24px;height:24px;display:inline-block; }
+.cart-feedback {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    background: rgba(34,34,52,0.95);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(15,15,40,0.3);
+    z-index: 99999;
+    font-size: 0.95rem;
+    display: none;
+}
 @media (max-width: 575.98px) { .card-img-top { height: 170px; } }
 </style>
 
@@ -82,6 +97,15 @@
                     </div>
                 </a>
 
+                <!-- Add to cart button -->
+                <button type="button"
+                        class="add-cart-btn"
+                        data-id="{{ $product->id }}"
+                        aria-label="Agregar {{ $product->name }} al carrito"
+                        title="Agregar al carrito">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                </button>
+
                 <button type="button"
                         class="eye-btn open-product-modal"
                         data-id="{{ $product->id }}"
@@ -103,6 +127,9 @@
         @endif
     </div>
 </div>
+
+<!-- Small feedback element -->
+<div id="cartFeedback" class="cart-feedback" role="status" aria-live="polite"></div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -196,6 +223,77 @@ document.addEventListener('DOMContentLoaded', function () {
             window.history.replaceState({}, '', newUrl);
         }, 150);
     })();
+
+    // --- Carrito: add-to-cart desde las cards ---
+    const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+    const csrfToken = csrfMeta ? csrfMeta.getAttribute('content') : null;
+
+    function showCartFeedback(message) {
+        const el = document.getElementById('cartFeedback');
+        if (!el) return;
+        el.textContent = message;
+        el.style.display = 'block';
+        el.style.opacity = '1';
+        clearTimeout(window._cartFeedbackTimer);
+        window._cartFeedbackTimer = setTimeout(() => {
+            el.style.transition = 'opacity 300ms';
+            el.style.opacity = '0';
+            setTimeout(()=> el.style.display = 'none', 300);
+        }, 1200);
+    }
+
+    async function addToCart(productId, qty = 1, btn) {
+        if (!csrfToken) {
+            alert('Token CSRF no encontrado. Asegúrate de que tu layout incluya <meta name="csrf-token">');
+            return;
+        }
+        if (btn) { btn.disabled = true; const orig = btn.innerHTML; btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>'; }
+        try {
+            const res = await fetch('/cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({ product_id: productId, quantity: qty })
+            });
+            const json = await res.json();
+            if (json && json.success) {
+                // actualizar contador de carrito si existe (por ejemplo #cartBadge)
+                const badge = document.getElementById('cartBadge');
+                if (badge) {
+                    if (typeof json.cart_count !== 'undefined') {
+                        badge.textContent = json.cart_count;
+                    } else {
+                        // si no viene cart_count, incrementar visualmente
+                        const n = parseInt(badge.textContent||'0',10) || 0;
+                        badge.textContent = n + 1;
+                    }
+                }
+                showCartFeedback('Agregado al carrito');
+            } else {
+                console.error('addToCart response', json);
+                alert(json && json.message ? json.message : 'No se pudo agregar al carrito.');
+            }
+        } catch (err) {
+            console.error('addToCart error', err);
+            alert('Error al agregar al carrito.');
+        } finally {
+            if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-shopping-cart"></i>'; }
+        }
+    }
+
+    // Delegación para add-cart-btn
+    document.body.addEventListener('click', function (e) {
+        const b = e.target.closest('.add-cart-btn');
+        if (!b) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const pid = b.getAttribute('data-id');
+        if (!pid) return;
+        addToCart(pid, 1, b);
+    }, true);
 });
 </script>
 @endsection
