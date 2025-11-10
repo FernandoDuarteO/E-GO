@@ -28,12 +28,8 @@
                     <div class="row mb-3 gx-g form-row-custom">
                         <div class="col-6">
                             <label for="department" class="form-label mb-1">Departamento</label>
-                            <select id="department" class="form-control ego-form-input" name="department" required>
-                                <option value="">Departamento</option>
-                                <option value="Esteli" @if(old('department')=='Esteli') selected @endif>Esteli</option>
-                                <option value="Managua" @if(old('department')=='Managua') selected @endif>Managua</option>
-                                <!-- Agrega más departamentos aquí -->
-                            </select>
+                            <!-- Ahora es un input de texto sin texto dentro del input -->
+                            <input id="department" type="text" class="form-control ego-form-input" name="department" value="{{ old('department') }}" required>
                         </div>
                         <div class="col-6">
                             <label for="years_experience" class="form-label mb-1">Años de trayectoria</label>

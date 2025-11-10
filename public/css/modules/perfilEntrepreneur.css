@@ -36,7 +36,7 @@ body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
 .profile-title{
   font-size:34px;
   font-weight:800;
-  color:var(--accent);
+  color: #000000;
   margin:0;
 }
 

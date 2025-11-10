@@ -16,112 +16,132 @@ use App\Http\Controllers\Client\HomeClientController;
 use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterEntrepreneurController;
+use App\Http\Controllers\Client\CartController;
 
-// Ruta de bienvenida
+/*
+|--------------------------------------------------------------------------
+| Public routes (accessible without authentication)
+|--------------------------------------------------------------------------
+|
+| Routes that must be reachable by guests (e.g. product listing and product
+| detail used by the "eye" quick-view and by users not logged in).
+|
+*/
+
+// Landing page
 Route::get('/', function () {
     return view('landing');
-});
+})->name('landing');
 
-// Rutas protegidas por autenticación
+// Public: listado de productos para clientes (vista pública)
+Route::get('/clients/products', [HomeClientController::class, 'products'])
+    ->name('clients.products');
+
+// Public: detalle de producto para clientes (también usado por AJAX ?ajax=1)
+// Nombre correcto: clients.products.show (coincide con route('clients.products.show', $product))
+Route::get('/clients/products/{product}', [HomeClientController::class, 'show'])
+    ->name('clients.products.show');
+
+// Carrito (público — soporta invitados vía session y usuarios autenticados vía BD)
+// index (ver carrito), store (agregar), update (cantidad), destroy (eliminar), clear (vaciar)
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+Route::put('/cart/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+
+/*
+|--------------------------------------------------------------------------
+| Authenticated routes
+|--------------------------------------------------------------------------
+|
+| Rutas que requieren autenticación (y verificación si corresponde).
+|
+*/
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Añadir dentro del grupo de rutas protegidas o fuera según tu necesidad
+    // Deliveries view (protected)
     Route::get('/deliveries', function () {
-    // la vista está en resources/views/deliveries/deliveries.blade.php
-    return view('deliveries.deliveries');
+        return view('deliveries.deliveries');
     })->name('deliveries');
 
-    // RUTA SOLO PARA EMPRENDEDORES
+    // Dashboard for entrepreneurs
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // CRUD de productos - SOLO EMPRENDEDORES
     Route::resource('products', ProductController::class);
 
-    // Módulo de ventas SOLO EMPRENDEDORES
+    // Módulo de ventas - SOLO EMPRENDEDORES
     Route::resource('ventas', VentasController::class);
 
-    // CRUD de emprendedores (si lo usas solo interno)
+    // CRUD de emprendedores (interno)
     Route::resource('entrepreneurs', EntrepreneurController::class);
 
-    // RUTA SOLO PARA CLIENTES
-    Route::get('/clients/products', [HomeClientController::class, 'products'])->name('clients.products');
-
-    // CRUD de clientes (si lo usas solo interno)
+    // CRUD de clientes (interno)
     Route::resource('clients', ClientController::class);
 
-    // CRUD de categorías (si aplica para ambos, valida dentro de cada método)
+    // CRUD de categorías
     Route::resource('categories', CategoryController::class);
 
-    // CHAT - RUTA COMPARTIDA
+    // Chat (compartido)
     Route::get('/chat', [ChatController::class, 'index'])->name('chats.index');
 
-    // Reseñas (si aplica solo para clientes, protege en el controlador)
+    // Reseñas: almacenar (protegido — el controlador debe validar que sea cliente)
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
-    // Otros módulos compartidos o específicos...
+    // Pedidos
     Route::get('/pedidos', [PedidosController::class, 'index'])->name('pedidos.index');
 
-    // PERFIL COMBINADO (vista nueva, no reemplaza la /profile existente)
-    // Mostrar la vista combinada (GET)
+    // Perfil combinado (GET/POST handlers)
     Route::redirect('/perfil', '/profile/combined', 302);
-    Route::get('/profile/combined', [ProfileController::class, 'showProfile'])
-        ->name('profile.combined.show');
+    Route::get('/profile/combined', [ProfileController::class, 'showProfile'])->name('profile.combined.show');
 
-    // Ruta de compatibilidad con nombre antiguo si alguna vista usaba underscore.
-    // Esta ruta apunta a un path distinto para evitar colisiones, y evita el error
-    // "Route [profile_combined.show] not defined" mientras actualizas vistas.
-    Route::get('/profile_combined', [ProfileController::class, 'showProfile'])
-        ->name('profile_combined.show');
+    // Backwards-compatible alias
+    Route::get('/profile_combined', [ProfileController::class, 'showProfile'])->name('profile_combined.show');
 
-    // Guardar/actualizar sección "Perfil" (tabla entrepreneurs) (POST)
+    // Update profile / business (POST)
     Route::post('/profile/combined/update-profile', [ProfileController::class, 'updateProfile'])
         ->name('profile.combined.updateProfile');
 
-    // Guardar/actualizar sección "Emprendimiento" (tabla entrepreneurships) (POST)
     Route::post('/profile/combined/update-business', [ProfileController::class, 'updateBusiness'])
         ->name('profile.combined.updateBusiness');
 
-    //
-    // Rutas de compatibilidad (por si algunas vistas/partials usan los nombres antiguos)
-    // Estas rutas evitan errores "Route [profile.updateProfile] not defined" mientras migras nombres.
-    //
+    // Compatibility aliases (legacy names)
     Route::post('/profile/update-profile', [ProfileController::class, 'updateProfile'])
         ->name('profile.updateProfile');
 
     Route::post('/profile/update-business', [ProfileController::class, 'updateBusiness'])
         ->name('profile.updateBusiness');
 
-    // Alias para mostrar el perfil (compatibilidad)
-    Route::get('/profile/show', [ProfileController::class, 'showProfile'])
-        ->name('profile.show');
+    // Alias to show profile
+    Route::get('/profile/show', [ProfileController::class, 'showProfile'])->name('profile.show');
 
-    // PERFIL (Breeze) - mantengo las rutas originales de Breeze para editar el User
+    // Breeze profile routes (edit/update/destroy)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // RUTA AGREGADA: Eliminar cuenta sin contraseña (para Facebook y usuarios sin password)
+    // Delete account (compatibility)
     Route::delete('/profile/delete', [ProfileController::class, 'destroyAccount'])->name('profile.delete');
 
-    // Módulo de costos (puedes proteger dentro de los métodos)
-
-    // Añadida ruta para compras (evita error de ruta no definida)
+    // Compras
     Route::get('/compras', [ComprasController::class, 'index'])->name('compras.index');
 
-    // Más rutas protegidas aquí...
+    // Más rutas protegidas...
 });
 
-// Breeze auth
+/*
+|--------------------------------------------------------------------------
+| Auth & misc public routes
+|--------------------------------------------------------------------------
+*/
 require __DIR__.'/auth.php';
 
-// Rutas para autenticación externa (si usas social login)
+// Social auth (si usado)
 Route::get('/auth/redirect', [AuthController::class, 'redirect'])->name('auth.redirect');
 Route::get('/auth/callback', [AuthController::class, 'callback'])->name('auth.callback');
 
-// --------- RUTA PARA REGISTRO DE EMPRENDEDOR --------------
-// Esta ruta debe aceptar tanto GET como POST para recibir datos de la vista anterior y mostrarlos en la vista de emprendimiento
-// Muestra la vista de emprendimiento (POST y GET)
+// Registro emprendedor (GET/POST)
 Route::match(['get', 'post'], '/register/entrepreneur', function (Request $request) {
-    // SOLO muestra la vista, NO valida nada aquí
     return view('auth.register_entrepreneur', [
         'name' => $request->input('name'),
         'email' => $request->input('email'),
@@ -130,5 +150,5 @@ Route::match(['get', 'post'], '/register/entrepreneur', function (Request $reque
     ]);
 })->name('register.entrepreneur');
 
-// Procesa el registro de emprendimiento
-Route::post('/register/entrepreneur/post', [RegisterEntrepreneurController::class, 'store'])->name('register.entrepreneur.post');
+Route::post('/register/entrepreneur/post', [RegisterEntrepreneurController::class, 'store'])
+    ->name('register.entrepreneur.post');
