@@ -19,12 +19,48 @@
 .price { font-weight: 700; color: #2a2a48; margin-bottom: .25rem; }
 .category-badge { font-size: 0.78rem; padding: .28rem .55rem; border-radius: 999px; background: linear-gradient(180deg,#8b6be7,#6b4be2); color: #fff; box-shadow: 0 6px 12px rgba(107,75,226,0.12); }
 .meta { font-size: .82rem; color: #6b6b85; }
-.eye-btn { position:absolute; right:16px; bottom:16px; z-index:6; width:44px; height:44px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; background: linear-gradient(180deg,#7f58e6,#5f39d6); color:#fff; border:none; box-shadow:0 8px 18px rgba(31,33,64,0.08); cursor:pointer; }
+
+/* Botones: por defecto morados, hover amarillo (transición suave) */
+.eye-btn,
+.add-cart-btn {
+    position:absolute;
+    bottom:16px;
+    z-index:6;
+    width:44px;
+    height:44px;
+    border-radius:10px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background: linear-gradient(180deg,#7f58e6,#5f39d6); /* morado por defecto */
+    color:#fff;
+    border:none;
+    box-shadow:0 8px 18px rgba(31,33,64,0.08);
+    cursor:pointer;
+    transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 120ms ease;
+}
+
+.eye-btn { right:16px; }
 .eye-btn:focus { outline:2px solid rgba(127,88,230,0.25); }
+
+/* Mantener add-cart-btn a la izquierda del ojo (no cambiar estructura) */
 .product-card-link { display:block; color:inherit; text-decoration:none; }
-.add-cart-btn { position:absolute; left:16px; bottom:16px; z-index:6; width:44px; height:44px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; background: linear-gradient(180deg,#ffd36b,#ffb84d); color:#222; border:none; box-shadow:0 8px 18px rgba(31,33,64,0.06); cursor:pointer; }
+/* Cambié solo la apariencia: ahora add-cart también morado y se posiciona junto al ojo */
+.add-cart-btn { right:72px; left:auto; box-shadow:0 8px 18px rgba(31,33,64,0.06); }
 .add-cart-btn:focus { outline:2px solid rgba(0,0,0,0.08); }
+
+/* Hover: amarillo como en las referencias, icono oscuro sobre el amarillo */
+.eye-btn:hover,
+.add-cart-btn:hover {
+    background: linear-gradient(180deg,#ffd36b,#ffb84d); /* amarillo hover */
+    color: #222222;
+    box-shadow: 0 10px 22px rgba(31,33,64,0.10);
+    transform: translateY(-2px);
+}
+
+/* Cuando se usa spinner dentro del botón */
 .modal-spinner { width:24px;height:24px;display:inline-block; }
+
 .cart-feedback {
     position: fixed;
     right: 24px;
