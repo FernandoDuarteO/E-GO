@@ -49,6 +49,25 @@ $user = Auth::user();
 .navbar .cart-btn:hover svg,
 .navbar .cart-btn:hover svg * { stroke: #F6B200 !important; }
 
+/* Ensure profile/home icon shares same visual as cart (purple stroke, yellow hover) */
+.navbar .profile-icon-btn {
+  width: 64px;
+  height: 64px;
+  padding: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: transform .12s ease;
+}
+.navbar .profile-icon-btn svg { width: 30px; height: 30px; display:block; }
+.navbar .profile-icon-btn svg * { stroke: #6c5bd8; stroke-width: 1.8; fill: none; transition: stroke .12s ease; }
+.navbar .profile-icon-btn:hover svg * { stroke: #F6B200; }
+
+/* cart badge */
 .cart-badge {
   position:absolute;
   top:6px;
@@ -66,24 +85,6 @@ $user = Auth::user();
   justify-content:center;
   box-shadow:0 6px 18px rgba(31,33,64,0.12);
 }
-
-/* profile icon */
-.navbar .profile-icon-btn {
-  width: 64px;
-  height: 64px;
-  padding: 8px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  transition: transform .12s ease;
-}
-.navbar .profile-icon-btn svg { width: 30px; height: 30px; display:block; }
-.navbar .profile-icon-btn svg * { stroke: #6c5bd8; stroke-width: 1.8; fill: none; transition: stroke .12s ease; }
-.navbar .profile-icon-btn:hover svg * { stroke: #F6B200; }
 
 /* compact profile bubble (match entrepreneur proportions) */
 .profile-bubble { position: relative; }
@@ -138,7 +139,24 @@ $user = Auth::user();
 
 /* inner menu */
 .profile-bubble .bubble-inner { background:#fff; margin:8px; border-radius:8px; overflow:hidden; border: 1px solid rgba(0,0,0,0.03); }
-.profile-bubble .menu-list .list-item { display:flex; align-items:center; gap:12px; padding:10px 12px; font-size:14px; color:#0b0b0b; text-decoration:none; }
+
+/* IMPORTANT: force list-items (links and buttons) to use flex so icon stays left of text.
+   This fixes cases where Bootstrap's .list-group-item or button defaults cause the icon to stack above the text. */
+.profile-bubble .menu-list .list-item,
+.profile-bubble .menu-list a.list-item,
+.profile-bubble .menu-list button.list-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #0b0b0b;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+}
+
+/* ensure divider spacing remains */
 .profile-bubble .menu-list .list-item + .list-item { border-top: 1px solid rgba(0,0,0,0.04); }
 
 /* nicer icons using Font Awesome */
@@ -171,8 +189,24 @@ $user = Auth::user();
       </div>
     </form>
 
-    <!-- Right: cart + profile -->
+    <!-- Right: home + cart + profile -->
     <ul class="navbar-nav ms-auto align-items-center">
+
+      <!-- NEW: Inicio (placed before Cart) - same visual style & hover as profile/cart -->
+      <li class="nav-item me-2">
+        <a href="{{ route('clients.products') }}" class="nav-link profile-icon-btn" aria-label="Inicio" title="Inicio">
+          <!-- Replaced SVG with a more refined, rounded house icon (only this SVG changed previously) -->
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="img" width="30" height="30">
+            <!-- Roof -->
+            <path d="M3.8 10.2L12 4.2l8.2 6" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- House body with slightly rounded corners -->
+            <path d="M6.2 11.5h11.6a1.8 1.8 0 0 1 1.8 1.8v6.4a1.2 1.2 0 0 1-1.2 1.2H5.6a1.2 1.2 0 0 1-1.2-1.2v-6.4c0-.99.8-1.8 1.8-1.8z" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Door, centered -->
+            <path d="M11.2 16.5v2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14.8 16.5v2.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.0"/>
+          </svg>
+        </a>
+      </li>
 
       <!-- Cart -->
       <li class="nav-item me-2">
@@ -262,11 +296,7 @@ $user = Auth::user();
                   Tu perfil
                 </a>
 
-                <!-- Inicio (reemplaza pedidos/chats/carrito) -->
-                <a href="{{ route('clients.products') }}" class="list-item list-group-item" role="menuitem">
-                  <span class="icon" aria-hidden="true"><i class="fas fa-home"></i></span>
-                  Inicio
-                </a>
+                <!-- NOTE: "Inicio" REMOVED from here per your request (moved into navbar before cart) -->
 
                 <div class="divider"></div>
 
