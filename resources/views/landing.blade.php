@@ -6,6 +6,8 @@
     <title>E-GO Landing Page</title>
 
     <!-- Fonts & icons -->
+    <link rel="shortcut icon" href="{{ asset('assets/images/E-GO_LOGO.png') }}" type="image/x-icon" >
+
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/6e0c7d7e3b.js" crossorigin="anonymous"></script>
 
