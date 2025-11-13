@@ -7,13 +7,13 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\EntrepreneurController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ChatController;
+
 use App\Http\Controllers\VentasController;
 use App\Http\Controllers\PedidosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Client\HomeClientController;
-use App\Http\Controllers\ComprasController;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterEntrepreneurController;
 use App\Http\Controllers\Client\CartController;
@@ -83,7 +83,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('categories', CategoryController::class);
 
     // Chat (compartido)
-    Route::get('/chat', [ChatController::class, 'index'])->name('chats.index');
 
     // Reseñas: almacenar (protegido — el controlador debe validar que sea cliente)
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
@@ -124,7 +123,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile/delete', [ProfileController::class, 'destroyAccount'])->name('profile.delete');
 
     // Compras
-    Route::get('/compras', [ComprasController::class, 'index'])->name('compras.index');
 
     // Más rutas protegidas...
 });

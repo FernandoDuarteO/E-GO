@@ -71,13 +71,7 @@
                 <span class="nav-section-title px-3 text-uppercase small text-muted">Herramientas</span>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 {{ Request::routeIs('compras.*') ? 'active' : '' }}"
-                   href="{{ route('compras.index') }}" role="menuitem" aria-current="{{ Request::routeIs('compras.*') ? 'page' : 'false' }}">
-                    <i class="fa-solid fa-desktop" aria-hidden="true"></i>
-                    <span>Cursos informativos</span>
-                </a>
-            </li>
+          
 
             <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2 {{ Request::routeIs('deliveries') ? 'active' : '' }}"
