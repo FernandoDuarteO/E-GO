@@ -29,7 +29,7 @@
 
                     <div class="hero-subtitle">
                         a hacer crecer<br>
-                        <span class="hero-underline">tu negocio</span>
+                        <span class="hero-underline">tus negocios</span>
                     </div>
 
                     <a href="{{ route('register') }}" class="hero-btn">COMENZAR AHORA</a>
