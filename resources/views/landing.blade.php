@@ -32,7 +32,7 @@
                         <span class="hero-underline">tus negocios</span>
                     </div>
 
-                    <a href="{{ route('register') }}" class="hero-btn">COMENZAR AHORA</a>
+                    <a href="{{ route('register') }}" class="hero-btn">COMENZAR</a>
                 </div>
 
                 <div class="hero-right">
