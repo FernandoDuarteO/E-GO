@@ -40,13 +40,15 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 {{ Request::routeIs('chats.*') ? 'active' : '' }}"
-                   href="{{ route('chats.index') }}" role="menuitem" aria-current="{{ Request::routeIs('chats.*') ? 'page' : 'false' }}">
-                    <i class="fa-solid fa-message" aria-hidden="true"></i>
-                    <span>Chat</span>
-                </a>
-            </li>
+<li class="nav-item">
+  <a class="nav-link d-flex align-items-center gap-2 {{ Request::routeIs('chat.*') ? 'active' : '' }}"
+     href="{{ Route::has('chat.index') ? route('chat.index') : '#' }}"
+     role="menuitem"
+     aria-current="{{ Request::routeIs('chat.*') ? 'page' : 'false' }}">
+    <i class="fa-solid fa-message" aria-hidden="true"></i>
+    <span>Chat</span>
+  </a>
+</li>
 
             <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2 {{ Request::routeIs('ventas.*') ? 'active' : '' }}"

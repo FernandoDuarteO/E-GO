@@ -84,7 +84,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('categories', CategoryController::class);
 
     // Chat (compartido)
-    Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
     // Reseñas: almacenar (protegido — el controlador debe validar que sea cliente)
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
