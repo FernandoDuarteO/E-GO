@@ -305,7 +305,7 @@ use Illuminate\Support\Facades\Storage;
               </li>
 
               <li>
-                <a href="{{ route('chats.index') ?? '#' }}" class="menu-item" role="menuitem">
+                <a href="{{ route('chat.index') ?? '#' }}" class="menu-item" role="menuitem">
                   <span class="icon" aria-hidden="true">
                     <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img">
                       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
