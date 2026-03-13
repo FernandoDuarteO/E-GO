@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\EntrepreneurController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChatController;
 
 use App\Http\Controllers\VentasController;
 use App\Http\Controllers\PedidosController;
@@ -83,7 +84,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('categories', CategoryController::class);
 
     // Chat (compartido)
-
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
     // Reseñas: almacenar (protegido — el controlador debe validar que sea cliente)
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
